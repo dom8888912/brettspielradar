@@ -1,0 +1,64 @@
+slug: catan
+title: CATAN – Preisradar & Angebote
+players: 3–4
+playtime_minutes: 60–120
+weight: 2.3
+year: 1995
+price_rules:
+  good_threshold_eur: 18
+  ok_threshold_eur: 24
+intro: 'Catan ist der moderne Klassiker: Rohstoffe handeln, Straßen bauen, Siedlungen
+  und Städte errichten. Sehr zugänglich und perfekt für Familien. Viele Gebrauchtangebote
+  machen Preisvergleiche sinnvoll.'
+buying_advice: 'Unter 18 € ist das Grundspiel ein sehr guter Kauf. Bei gebraucht:
+  Vollständigkeit der Holzteile und Karten prüfen; ältere Illustrationen sind kompatibel.'
+how_to_play_60s: 'Würfeln → Rohstoffe erhalten → handeln/kaufen → bauen; Ziel: 10
+  Siegpunkte erreichen.'
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Holzteile zählen (Straßen/Siedlungen/Städte)
+- Räuberfigur vorhanden
+editions:
+  note: Viele Auflagen, spielerisch gleichwertig.
+  recommended: Aktuelle Grundspiel-Edition
+  avoid: Stark abgenutzte Kartensätze meiden.
+expansions:
+- name: Seefahrer
+  verdict: Bester Einstieg in Erweiterungen.
+- name: Städte & Ritter
+  verdict: Komplexer, für Vielspieler.
+faqs:
+- q: Welche Erweiterung zuerst?
+  a: Seefahrer – zugänglich und abwechslungsreich.
+- q: Guter Preis?
+  a: Neu unter 24 €, gebraucht 12–18 €.
+alternatives:
+- title: Carcassonne
+  slug: carcassonne
+  why: Legespiel statt Handel.
+- title: Azul
+  slug: azul
+  why: Kürzer, abstrakter.
+search_queries:
+- Catan Brettspiel deutsch
+- Catan Grundspiel deutsch
+include_keywords:
+- deutsch
+- grundspiel
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 8
+  max: 40
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

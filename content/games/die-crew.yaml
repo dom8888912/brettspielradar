@@ -1,0 +1,56 @@
+slug: die-crew
+title: Die Crew – Preisradar & Angebote
+players: 2–5
+playtime_minutes: 20–45
+weight: 2.0
+year: 2019
+price_rules:
+  good_threshold_eur: 10
+  ok_threshold_eur: 16
+intro: Die Crew ist ein kooperatives Stichspiel mit Missionen. Kurze Runden, hohe
+  Spannung, ideal als Absacker.
+buying_advice: Neu unter 16 €, gebraucht 8–12 €. Deutsche Karten empfohlen.
+how_to_play_60s: Stiche nach Vorgabe lösen, Kommunikation nur über Marker – koordiniert
+  die Missionen als Team.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Missionsheft vorhanden
+- Kommunikationsmarker vollständig
+editions:
+  note: Mehrere Boxen/Teile.
+  recommended: Teil 1 zum Einstieg
+  avoid: Fehlende Marker/Karten.
+expansions: []
+faqs:
+- q: Zu zweit?
+  a: Mit angepassten Regeln; am besten 3–4 Personen.
+- q: Guter Preis?
+  a: Neu <16 €, gebraucht 8–12 €.
+alternatives:
+- title: Pandemie
+  slug: pandemie
+  why: Kooperativ, aber Brettspiel.
+- title: Azul
+  slug: azul
+  why: Ruhiger, abstrakter.
+search_queries:
+- Die Crew deutsch Kartenspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 5
+  max: 25
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

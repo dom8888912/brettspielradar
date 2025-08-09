@@ -1,0 +1,7 @@
+﻿.venv/
+dist/
+__pycache__/
+*.pyc
+.env
+data/offers/*.json
+data/history/*.jsonl

@@ -1,0 +1,60 @@
+slug: ark-nova
+title: Ark Nova – Preisradar & Angebote
+players: 1–4
+playtime_minutes: 90–150
+weight: 3.7
+year: 2021
+price_rules:
+  good_threshold_eur: 45
+  ok_threshold_eur: 55
+intro: Ark Nova ist ein anspruchsvolles Kennerspiel, in dem du einen modernen Zoo
+  planst. Hoher Tiefgang, lange Partien, zu zweit besonders stark.
+buying_advice: Neu unter 55 €, gebraucht 40–50 €. Auf deutsche Ausgabe und Kartenkomplettheit
+  achten.
+how_to_play_60s: Fünf Aktionskarten mit wechselnder Stärke nutzen; Tiere/Projekte
+  ausspielen, Ruf/Naturschutzleisten vorantreiben.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Kartenanzahl prüfen
+- Marker/Plättchen vollständig
+editions:
+  note: Mehrsprachige Auflagen; deutsche bevorzugen.
+  recommended: Grundspiel deutsch
+  avoid: Fehlende Karten/Marker.
+expansions:
+- name: Aquarius
+  verdict: Mehr Karten & Module; optional.
+faqs:
+- q: Zu zweit?
+  a: Sehr gut; kürzere Wartezeiten.
+- q: Guter Preis?
+  a: Neu <55 €, gebraucht 40–50 €.
+alternatives:
+- title: Terraforming Mars
+  slug: terraforming-mars
+  why: Vergleichbarer Aufbau.
+- title: Flügelschlag
+  slug: fluegelschlag
+  why: Leichter.
+search_queries:
+- Ark Nova deutsch Brettspiel
+- Ark Nova Feuerland deutsch
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 30
+  max: 90
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

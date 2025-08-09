@@ -1,0 +1,60 @@
+slug: 7-wonders
+title: 7 Wonders – Preisradar & Angebote
+players: 3–7
+playtime_minutes: 30–45
+weight: 2.3
+year: 2010
+price_rules:
+  good_threshold_eur: 25
+  ok_threshold_eur: 32
+intro: 7 Wonders ist simultanes Drafting für größere Runden. Kurze Wartezeiten, klare
+  Regeln, viel Varianz – partytauglich und trotzdem anspruchsvoll.
+buying_advice: Neu unter 32 €, gebraucht 20–26 €. Auf aktuelle Edition achten (überarbeitete
+  Grafik).
+how_to_play_60s: Karte draften, bezahlen, ausspielen; über 3 Zeitalter Engine und
+  Punktequellen aufbauen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Alle Karten vollständig
+- Wunderboards vollständig
+editions:
+  note: Neuauflage mit frischer Grafik.
+  recommended: Aktuelle 2. Edition
+  avoid: Stark abgenutzte Kartensätze.
+expansions:
+- name: Leaders
+  verdict: Mehr Varianz; später interessant.
+faqs:
+- q: Mit 7 Spielern?
+  a: Ja – eine Stärke des Spiels.
+- q: Guter Preis?
+  a: Neu <32 €, gebraucht 20–26 €.
+alternatives:
+- title: 7 Wonders Duel
+  slug: 7-wonders-duel
+  why: Beste 2P-Variante.
+- title: Splendor
+  slug: splendor
+  why: Schneller, simpler.
+search_queries:
+- 7 Wonders deutsch Brettspiel Grundspiel
+include_keywords:
+- deutsch
+- grundspiel
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 12
+  max: 50
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

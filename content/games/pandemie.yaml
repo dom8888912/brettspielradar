@@ -1,0 +1,60 @@
+slug: pandemie
+title: Pandemie – Preisradar & Angebote
+players: 2–4
+playtime_minutes: 45–60
+weight: 2.2
+year: 2008
+price_rules:
+  good_threshold_eur: 20
+  ok_threshold_eur: 28
+intro: 'Pandemie ist ein kooperatives Spiel: Ihr arbeitet gegen die Ausbreitung von
+  Krankheiten. Klare Regeln und ein starkes Teamgefühl.'
+buying_advice: Neu unter 28 €, gebraucht 15–22 €. Auf vollständige Marker und deutsche
+  Regeln achten.
+how_to_play_60s: Aktionen pro Zug (heilen, reisen, forschen), Epidemien deckeln, Heilmittel
+  sammeln – zusammen gewinnen oder verlieren.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Würfel/Marker vollständig
+- Infektionskarten komplett
+editions:
+  note: Viele Varianten; Grundspiel zum Start.
+  recommended: Grundspiel deutsch
+  avoid: Sehr abgenutzte Karten.
+expansions:
+- name: Auf Messers Schneide
+  verdict: Mehr Rollen/Ereignisse; optional.
+faqs:
+- q: Zu zweit?
+  a: Sehr gut, ggf. mit 2 Rollen p.P.
+- q: Guter Preis?
+  a: Neu <28 €, gebraucht 15–22 €.
+alternatives:
+- title: Die Crew
+  slug: die-crew
+  why: Kooperativ, aber Stichspiel.
+- title: Carcassonne
+  slug: carcassonne
+  why: Kompetitiv, leichter.
+search_queries:
+- Pandemie deutsch Brettspiel
+- Pandemic deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 10
+  max: 45
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

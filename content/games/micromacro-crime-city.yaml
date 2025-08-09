@@ -1,0 +1,47 @@
+slug: micromacro-crime-city
+title: 'MicroMacro: Crime City – Preisradar & Angebote'
+players: 1–4
+playtime_minutes: 15–45
+weight: 1.3
+year: 2020
+price_rules:
+  good_threshold_eur: 18
+  ok_threshold_eur: 25
+intro: 'Wimmelbild-Detektivspiel: Fälle auf einer großen Karte lösen – kooperativ.'
+buying_advice: Neu <25 €, gebraucht 12–18 €. Karte unbeschädigt?
+how_to_play_60s: Kernzug erklären, Punktequellen nennen, Spielende-Bedingung – in
+  3–4 Sätzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+editions:
+  note: Je nach Auflage kleine Regel-/Optik-Änderungen.
+  recommended: Aktuelle Edition
+  avoid: Beschädigte/inkomplette Sets meiden.
+expansions: []
+faqs:
+- q: Guter Preis?
+  a: Neu unter 25 €, gebraucht typischerweise darunter.
+- q: Für wen geeignet?
+  a: Siehe Intro – kurze Lernzeit, solide Tiefe.
+alternatives: []
+search_queries:
+- MicroMacro Crime City deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 9
+  max: 40
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

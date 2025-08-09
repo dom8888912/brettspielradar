@@ -1,0 +1,59 @@
+slug: scythe
+title: Scythe – Preisradar & Angebote
+players: 1–5
+playtime_minutes: 90–120
+weight: 3.4
+year: 2016
+price_rules:
+  good_threshold_eur: 45
+  ok_threshold_eur: 60
+intro: Scythe ist ein Eurogame mit Area Control im alternativen 1920er-Setting. Asymmetrische
+  Fraktionen, Motoraufbau, wenig Zufall – strategisch und visuell stark.
+buying_advice: Neu unter 60 €, gebraucht 40–50 €. Miniaturen/Marker prüfen, deutsche
+  Karten bevorzugen.
+how_to_play_60s: Obere/untere Aktionen kombinieren, Engine aufbauen, Sterne setzen;
+  Konflikte gezielt einsetzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Miniaturen komplett und unbeschädigt
+- Fraktionsboards vollständig
+editions:
+  note: Viele Erweiterungen.
+  recommended: Grundspiel, später ‚Aufstand der Fenris‘
+  avoid: Fehlende Miniaturen.
+expansions:
+- name: Aufstand der Fenris
+  verdict: Kampagne & Module – top für Vielspieler.
+faqs:
+- q: Konfliktlastig?
+  a: Punktuell – Fokus liegt auf Aufbau.
+- q: Guter Preis?
+  a: Gebraucht 40–50 €, neu <60 €.
+alternatives:
+- title: Terraforming Mars
+  slug: terraforming-mars
+  why: Mehr Karten-Engine.
+- title: Ark Nova
+  slug: ark-nova
+  why: Noch mehr Engine, weniger Konflikt.
+search_queries:
+- Scythe deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 30
+  max: 100
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ meta_description }}">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<header>
+  <a href="/" style="font-weight:800;font-size:1.05rem">🎲 Brettspiel-Preisradar</a>
+  <nav><a href="/hubs.html">Themen</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></nav>
+</header>
+<main>
+{{ content | safe }}
+</main>
+<footer>
+  <div class="footer-note">Hinweis: Diese Seite verwendet Affiliate-Links. Preise ohne Gewähr. {{ disclosure }}</div>
+</footer>
+<script>
+// simple client-side filter (if #q and [data-list] exist on page)
+(function(){
+  var input = document.querySelector('#q');
+  var list = document.querySelectorAll('[data-list] li');
+  if(!input || !list.length) return;
+  input.addEventListener('input', function(e){
+    var q = e.target.value.toLowerCase();
+    list.forEach(function(li){
+      var t = li.textContent.toLowerCase();
+      li.style.display = t.indexOf(q) !== -1 ? '' : 'none';
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+slug: concordia
+title: Concordia – Preisradar & Angebote
+players: 2–5
+playtime_minutes: 90–120
+weight: 3.0
+year: 2013
+price_rules:
+  good_threshold_eur: 35
+  ok_threshold_eur: 50
+intro: Kartengetriebene Wirtschaft im Römischen Reich – null Glück, viel Planung.
+buying_advice: Neu <50 €, gebraucht 30–40 €. Map-Variante beachten.
+how_to_play_60s: Kernzug erklären, Punktequellen nennen, Spielende-Bedingung – in
+  3–4 Sätzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+editions:
+  note: Je nach Auflage kleine Regel-/Optik-Änderungen.
+  recommended: Aktuelle Edition
+  avoid: Beschädigte/inkomplette Sets meiden.
+expansions: []
+faqs:
+- q: Guter Preis?
+  a: Neu unter 50 €, gebraucht typischerweise darunter.
+- q: Für wen geeignet?
+  a: Siehe Intro – kurze Lernzeit, solide Tiefe.
+alternatives: []
+search_queries:
+- Concordia deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 17
+  max: 80
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

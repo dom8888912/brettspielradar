@@ -1,0 +1,10 @@
+hubs:
+  - title: Top Familienspiele
+    description: Einsteigerfreundliche Spiele mit kurzer Spieldauer.
+    slugs: [carcassonne, azul, catan, kingdomino, just-one]
+  - title: Für zwei Personen
+    description: Duell-Spiele mit kurzer bis mittlerer Spieldauer.
+    slugs: [7-wonders-duel, patchwork, splendor]
+  - title: Kennerspiele & Expertentitel
+    description: Anspruchsvoller, längere Partien – für Vielspieler.
+    slugs: [terraforming-mars, ark-nova, scythe, brass-birmingham, spirit-island]

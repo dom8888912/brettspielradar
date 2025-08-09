@@ -1,0 +1,61 @@
+slug: fluegelschlag
+title: Flügelschlag – Preisradar & Angebote
+players: 1–5
+playtime_minutes: 45–75
+weight: 2.4
+year: 2019
+price_rules:
+  good_threshold_eur: 35
+  ok_threshold_eur: 45
+intro: Flügelschlag ist ein entspannter Engine-Builder mit Vogelkarten und schöner
+  Produktion. Ideal für Gruppen, die mehr Tiefe als Familienspiele möchten.
+buying_advice: Neu unter 45 €, gebraucht 30–40 €. Vollständigkeit der Eier/Würfel/Marker
+  prüfen.
+how_to_play_60s: Aktion wählen (Vögel spielen, Eier legen, Karten ziehen, Nahrung
+  nehmen). Ketten bauen, um Punkte zu generieren.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Eier/Würfel vollständig
+- Vogelkarten vollständig
+editions:
+  note: Diverse Erweiterungen, eigenständig nutzbar.
+  recommended: Grundspiel
+  avoid: Fehlende Plastikeier/Würfel – nachkaufen schwierig.
+expansions:
+- name: Europa
+  verdict: Mehr Vogelkarten, gut.
+- name: Ozeanien
+  verdict: Neue Nahrungsart, verändert Balance etwas.
+faqs:
+- q: Erweiterungen nötig?
+  a: Nein, Grundspiel reicht; später erweitern.
+- q: Guter Preis?
+  a: Neu <45 €, gebraucht 30–40 €.
+alternatives:
+- title: Terraforming Mars
+  slug: terraforming-mars
+  why: Mehr Komplexität & Engine.
+- title: Azul
+  slug: azul
+  why: Leichter, kürzer.
+search_queries:
+- Flügelschlag deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 20
+  max: 70
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

@@ -1,0 +1,47 @@
+slug: dominion
+title: Dominion – Preisradar & Angebote
+players: 2–4
+playtime_minutes: 30–45
+weight: 2.2
+year: 2008
+price_rules:
+  good_threshold_eur: 22
+  ok_threshold_eur: 30
+intro: Dominion ist der Deckbuilding-Klassiker mit hoher Varianz und klaren Regeln.
+buying_advice: Neu <30 €, gebraucht 18–24 €. Edition/Sprachversion prüfen.
+how_to_play_60s: Kernzug erklären, Punktequellen nennen, Spielende-Bedingung – in
+  3–4 Sätzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+editions:
+  note: Je nach Auflage kleine Regel-/Optik-Änderungen.
+  recommended: Aktuelle Edition
+  avoid: Beschädigte/inkomplette Sets meiden.
+expansions: []
+faqs:
+- q: Guter Preis?
+  a: Neu unter 30 €, gebraucht typischerweise darunter.
+- q: Für wen geeignet?
+  a: Siehe Intro – kurze Lernzeit, solide Tiefe.
+alternatives: []
+search_queries:
+- Dominion deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 11
+  max: 48
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

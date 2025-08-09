@@ -1,0 +1,61 @@
+slug: terraforming-mars
+title: Terraforming Mars – Preisradar & Angebote
+players: 1–5
+playtime_minutes: 90–150
+weight: 3.3
+year: 2016
+price_rules:
+  good_threshold_eur: 35
+  ok_threshold_eur: 45
+intro: Terraforming Mars ist ein strategischer Engine-Builder rund um Projekte und
+  Konzerne. Lange Partien, starke Kartensynergien, hohe Varianz.
+buying_advice: Neu unter 45 €, gebraucht 30–40 €. Auf deutsche Version und vollständige
+  Komponenten achten.
+how_to_play_60s: 'Einkommen/Produktion erhöhen, Kartenprojekte ausspielen, Meilensteine/Auszeichnungen
+  sichern; Ziel: höchste Siegpunkte.'
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Alle Spielplanteile & Marker vorhanden
+- Kartentext deutsch
+editions:
+  note: Viele Erweiterungen, optional.
+  recommended: Grundspiel + Prelude (später)
+  avoid: Fälschungen/fehlerhafte Drucke meiden.
+expansions:
+- name: Prelude
+  verdict: Beschleunigt den Start – top.
+- name: Hellas & Elysium
+  verdict: Neue Karten/Boards für Abwechslung.
+faqs:
+- q: Welche Erweiterung zuerst?
+  a: Prelude.
+- q: Guter Preis?
+  a: Neu <45 €, gebraucht 30–40 €.
+alternatives:
+- title: Ark Nova
+  slug: ark-nova
+  why: Ähnliches Gefühl, moderner.
+- title: Flügelschlag
+  slug: fluegelschlag
+  why: Leichter, kürzer.
+search_queries:
+- Terraforming Mars deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 25
+  max: 80
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

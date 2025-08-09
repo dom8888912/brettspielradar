@@ -1,0 +1,8 @@
+<h1>Brettspiel-Preisradar</h1>
+<p>Aktuelle Angebote & Preisindikator für Brettspiele. Nutze die Suche:</p>
+<div class="search"><input id="q" type="search" placeholder="Spiel suchen …"></div>
+<ul data-list>
+{% for g in games %}
+  <li><a href="/spiel/{{ g.slug }}/">{{ g.title }}</a></li>
+{% endfor %}
+</ul>

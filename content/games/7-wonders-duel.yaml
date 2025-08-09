@@ -1,0 +1,60 @@
+slug: 7-wonders-duel
+title: 7 Wonders Duel – Preisradar & Angebote
+players: '2'
+playtime_minutes: 25–35
+weight: 2.2
+year: 2015
+price_rules:
+  good_threshold_eur: 18
+  ok_threshold_eur: 25
+intro: 7 Wonders Duel ist ein fokussiertes Zwei-Personen-Spiel mit Karten-Auslage
+  und drei Siegbedingungen. Kurze, dichte Partien mit hoher Varianz.
+buying_advice: Neu unter 25 €, gebraucht 15–20 €. Auf vollständige Marker und Wunder-Karten
+  achten.
+how_to_play_60s: Karte aus Auslage nehmen und bezahlen; Gebäude bauen, Ressourcen
+  sichern, auf Wissenschaft oder Militär achten.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Wunder-Karten vollständig
+- Konflikt-/Wissenschaftsmarker vorhanden
+editions:
+  note: Mehrere Sprachen; deutsch bevorzugen.
+  recommended: Grundspiel
+  avoid: Fehlende Marker.
+expansions:
+- name: Pantheon
+  verdict: Bringt Tiefe; optional später.
+faqs:
+- q: Wiederspielwert?
+  a: Sehr hoch durch veränderte Auslagen.
+- q: Guter Preis?
+  a: Neu <25 €, gebraucht 15–20 €.
+alternatives:
+- title: Splendor
+  slug: splendor
+  why: Weniger konfrontativ.
+- title: Carcassonne
+  slug: carcassonne
+  why: Entspannter, legespielig.
+search_queries:
+- 7 Wonders Duel deutsch
+- 7 Wonders Duel Brettspiel deutsch
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 10
+  max: 40
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

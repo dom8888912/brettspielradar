@@ -1,0 +1,64 @@
+slug: carcassonne
+title: Carcassonne – Preisradar & Angebote
+players: 2–5
+playtime_minutes: 35–60
+weight: 1.9
+year: 2000
+price_rules:
+  good_threshold_eur: 15
+  ok_threshold_eur: 22
+intro: 'Carcassonne ist ein zugängliches Plättchenlegespiel: Straßen, Städte, Wiesen
+  – mit jedem Plättchen wächst die Landschaft. Ideal für Familien, kurze Partien,
+  viel Interaktion.'
+buying_advice: Neu unter 20 € ist gut, gebraucht oft 10–15 €. Achte auf Edition (Grafik
+  seit 2014) und Mini-Erweiterungen.
+how_to_play_60s: Plättchen ziehen, passend anlegen, optional Meeple setzen. Wertung
+  bei fertigen Strukturen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Alle Meeples je Farbe vorhanden
+- Punkteleiste vollständig
+editions:
+  note: Grafik-Update 2014, Regeln sehr ähnlich.
+  recommended: Aktuelle Edition mit Mini-Erweiterung ‚Der Fluss‘
+  avoid: Stark abgenutzte Altauflagen nur bei gutem Preis.
+expansions:
+- name: Seefahrer
+  verdict: Solider erster Zusatz.
+- name: Wirtshäuser & Kathedralen
+  verdict: Swingigere Wertungen für Vielspieler.
+faqs:
+- q: Guter Preis?
+  a: Neu unter 20 €, gebraucht 10–15 €.
+- q: Zu zweit gut?
+  a: Ja, schneller und taktischer.
+alternatives:
+- title: Catan
+  slug: catan
+  why: Mehr Handel & Interaktion.
+- title: Azul
+  slug: azul
+  why: Abstrakter, kürzer.
+search_queries:
+- Carcassonne Brettspiel deutsch
+- Carcassonne Grundspiel deutsch
+include_keywords:
+- deutsch
+- grundspiel
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 8
+  max: 35
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

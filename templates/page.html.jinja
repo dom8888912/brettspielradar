@@ -1,0 +1,180 @@
+<h1>{{ game.title }}</h1>
+
+{% if game.image_url %}
+  <img src="{{ game.image_url }}" alt="Cover zu {{ game.title }}" class="cover" loading="lazy">
+{% endif %}
+
+{% if game.intro %}
+<p>{{ game.intro }}</p>
+{% endif %}
+
+<div class="card">
+  <div class="kv">
+    {% if game.players %}<div>👥 {{ game.players }} Spieler</div>{% endif %}
+    {% if game.playtime_minutes %}<div>⏱️ {{ game.playtime_minutes }} Min</div>{% endif %}
+    {% if game.weight %}<div>🧠 Komplexität {{ game.weight }}</div>{% endif %}
+    {% if game.year %}<div>📅 {{ game.year }}</div>{% endif %}
+  </div>
+  <div style="margin-top:.6rem">
+    <strong>Preisindikator:</strong> {{ rating_text }}
+    {% if avg_price_eur is not none %}<span class="badge">Ø aktuell {{ "%.2f"|format(avg_price_eur) }} €</span>{% endif %}
+  </div>
+  {% if game.price_rules %}
+    <small>Unter {{ game.price_rules.good_threshold_eur }} € = „unter“, bis {{ game.price_rules.ok_threshold_eur }} € = „ok“, darüber = „teuer“.</small>
+  {% endif %}
+</div>
+
+{% if avg30 or avg60 or avg90 %}
+<h2>Preisüberblick</h2>
+<ul>
+  {% if avg30 %}<li>Ø 30 Tage: {{ "%.2f"|format(avg30) }} €</li>{% endif %}
+  {% if avg60 %}<li>Ø 60 Tage: {{ "%.2f"|format(avg60) }} €</li>{% endif %}
+  {% if avg90 %}<li>Ø 90 Tage: {{ "%.2f"|format(avg90) }} €</li>{% endif %}
+</ul>
+{% endif %}
+
+{% if avg60 is not none and delta60 is not none and avg_price_eur is not none %}
+<p><em>Kommentar:</em> Aktuell liegt der Durchschnitt bei {{ "%.2f"|format(avg_price_eur) }} € und damit
+  {% if delta60 >= 0 %}~{{ delta60 }} % über{% else %}~{{ (delta60 * -1) }} % unter{% endif %}
+  dem 60-Tage-Schnitt von {{ "%.2f"|format(avg60) }} €.
+  {% if delta60 >= 5 %}Eher abwarten.{% elif delta60 <= -5 %}Guter Zeitpunkt zum Kaufen.{% else %}Preis im normalen Bereich.{% endif %}
+</p>
+{% endif %}
+
+{% set has_rules = game.price_rules is defined and game.price_rules %}
+{% if min_price and ((avg60 and min_price <= avg60 * 0.92) or (has_rules and min_price <= game.price_rules.good_threshold_eur)) %}
+<div class="card" style="border-color:#22c55e">
+  🔔 <strong>Top-Deal:</strong> ab {{ "%.2f"|format(min_price) }} €.
+  {% if avg60 %} Das sind ~{{ "%.0f"|format((1 - (min_price / avg60)) * 100) }} % unter dem 60-Tage-Ø.{% endif %}
+</div>
+{% endif %}
+
+{% if game.buying_advice %}
+<h2>Kaufberatung</h2>
+<p>{{ game.buying_advice }}</p>
+{% endif %}
+
+<h2>Angebote</h2>
+<ol class="offer-list">
+{% for o in offers %}
+  <li>
+    <a class="btn cta" href="{{ o.url }}" rel="nofollow sponsored noopener" target="_blank">Zum Angebot</a>
+    <span style="margin-left:.5rem">{{ o.title }}</span> — {{ "%.2f"|format(o.price_eur) }} € ({{ o.condition }})
+  </li>
+{% else %}
+  <li>Derzeit keine Angebote im Cache.</li>
+{% endfor %}
+</ol>
+
+{% if game.alternatives %}
+<h3>Alternativen</h3>
+<ul>
+  {% for alt in game.alternatives %}
+  <li><a href="/spiel/{{ alt.slug }}/">{{ alt.title }}</a> – {{ alt.why }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if game.how_to_play_60s %}
+<h2>In 60 Sekunden erklärt</h2>
+<p>{{ game.how_to_play_60s }}</p>
+{% endif %}
+
+{% if game.used_checklist %}
+<h2>Gebrauchtkauf – Checkliste</h2>
+<ul>
+  {% for item in game.used_checklist %}
+    {% if item is string %}
+      <li>{{ item }}</li>
+    {% elif item is mapping %}
+      {% for k,v in item.items() %}
+        <li><strong>{{ k }}:</strong> {{ v }}</li>
+      {% endfor %}
+    {% else %}
+      <li>{{ item }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if game.editions %}
+<h3>Editionen</h3>
+{% if game.editions.note %}<p>{{ game.editions.note }}</p>{% endif %}
+<ul>
+  {% if game.editions.recommended %}<li><strong>Empfehlung:</strong> {{ game.editions.recommended }}</li>{% endif %}
+  {% if game.editions.avoid %}<li><strong>Lieber meiden:</strong> {{ game.editions.avoid }}</li>{% endif %}
+</ul>
+{% endif %}
+
+{% if game.expansions %}
+<h3>Erweiterungen</h3>
+<ul>
+  {% for e in game.expansions %}
+    <li><strong>{{ e.name }}:</strong> {{ e.verdict }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if game.pros or game.cons %}
+<h2>Kurzfazit</h2>
+<div class="grid two">
+  {% if game.pros %}
+  <div class="card"><h3>Stärken</h3><ul>{% for p in game.pros %}<li>{{ p }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  {% if game.cons %}
+  <div class="card"><h3>Schwächen</h3><ul>{% for c in game.cons %}<li>{{ c }}</li>{% endfor %}</ul></div>
+  {% endif %}
+</div>
+{% endif %}
+
+{% if game.faqs %}
+<h2>Häufige Fragen</h2>
+<div>
+  {% for f in game.faqs %}
+  <details {% if loop.index <= 2 %}open{% endif %}>
+    <summary><strong>{{ f.q }}</strong></summary>
+    <p>{{ f.a }}</p>
+  </details>
+  {% endfor %}
+</div>
+{% endif %}
+
+{# --- SEO JSON-LD --- #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ game.title }}",
+  "category": "Board game",
+  "description": "Preisradar & Angebote für {{ game.title }}.",
+  "offers": [
+    {% for o in offers %}
+    {
+      "@type": "Offer",
+      "price": "{{ "%.2f"|format(o.price_eur) }}",
+      "priceCurrency": "EUR",
+      "url": "{{ o.url }}",
+      "availability": "https://schema.org/InStock"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+
+{% if game.faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for f in game.faqs %}
+    {
+      "@type": "Question",
+      "name": "{{ f.q }}",
+      "acceptedAnswer": { "@type":"Answer", "text":"{{ f.a }}" }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

@@ -1,0 +1,47 @@
+slug: cascadia
+title: Cascadia – Preisradar & Angebote
+players: 1–4
+playtime_minutes: 30–45
+weight: 2.0
+year: 2021
+price_rules:
+  good_threshold_eur: 25
+  ok_threshold_eur: 35
+intro: Cascadia ist ein ruhiges Plättchen-Legespiel mit Tieren und Landschaften.
+buying_advice: Neu <35 €, gebraucht 20–28 €. Plättchen vollständig?
+how_to_play_60s: Kernzug erklären, Punktequellen nennen, Spielende-Bedingung – in
+  3–4 Sätzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+editions:
+  note: Je nach Auflage kleine Regel-/Optik-Änderungen.
+  recommended: Aktuelle Edition
+  avoid: Beschädigte/inkomplette Sets meiden.
+expansions: []
+faqs:
+- q: Guter Preis?
+  a: Neu unter 35 €, gebraucht typischerweise darunter.
+- q: Für wen geeignet?
+  a: Siehe Intro – kurze Lernzeit, solide Tiefe.
+alternatives: []
+search_queries:
+- Cascadia deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 12
+  max: 56
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

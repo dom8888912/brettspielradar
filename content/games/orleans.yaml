@@ -1,0 +1,47 @@
+slug: orleans
+title: Orléans – Preisradar & Angebote
+players: 2–4
+playtime_minutes: 60–120
+weight: 3.0
+year: 2014
+price_rules:
+  good_threshold_eur: 35
+  ok_threshold_eur: 50
+intro: Bag-Builder-Euro mit Planung und wenig Zufall.
+buying_advice: Neu <50 €, gebraucht 30–40 €. Deutsche Komponenten.
+how_to_play_60s: Kernzug erklären, Punktequellen nennen, Spielende-Bedingung – in
+  3–4 Sätzen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+editions:
+  note: Je nach Auflage kleine Regel-/Optik-Änderungen.
+  recommended: Aktuelle Edition
+  avoid: Beschädigte/inkomplette Sets meiden.
+expansions: []
+faqs:
+- q: Guter Preis?
+  a: Neu unter 50 €, gebraucht typischerweise darunter.
+- q: Für wen geeignet?
+  a: Siehe Intro – kurze Lernzeit, solide Tiefe.
+alternatives: []
+search_queries:
+- Orléans deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 17
+  max: 80
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

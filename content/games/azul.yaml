@@ -1,0 +1,59 @@
+slug: azul
+title: Azul – Preisradar & Angebote
+players: 2–4
+playtime_minutes: 30–45
+weight: 1.8
+year: 2017
+price_rules:
+  good_threshold_eur: 18
+  ok_threshold_eur: 25
+intro: Azul ist ein elegantes Legespiel mit farbigen Steinen. Einfache Regeln, taktischer
+  Tiefgang und sehr kurze Downtime – ideal als Einstieg in moderne Brettspiele.
+buying_advice: Neu unter 25 € ist gut, gebraucht 15–20 €. Prüfe Vollständigkeit der
+  Steine und Beutel.
+how_to_play_60s: Steine aus Auslagen wählen, eigene Musterreihe füllen, am Rundenende
+  ins Mosaik übertragen und werten.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Alle Steine je Farbe vorhanden
+- Beutel ohne Risse
+editions:
+  note: Es gibt mehrere Standalone-Varianten.
+  recommended: Grundspiel für den Start
+  avoid: Fehlende Steine – Nachkauf schwierig.
+expansions: []
+faqs:
+- q: Welche Version?
+  a: Das Grundspiel ist am zugänglichsten.
+- q: Guter Preis?
+  a: Neu <25 €, gebraucht 15–20 €.
+alternatives:
+- title: Carcassonne
+  slug: carcassonne
+  why: Mehr Landkarte, weniger Puzzle.
+- title: Splendor
+  slug: splendor
+  why: Mit Chips, noch schneller.
+search_queries:
+- Azul Brettspiel deutsch
+- Azul Grundspiel deutsch
+include_keywords:
+- deutsch
+- grundspiel
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 10
+  max: 40
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

@@ -1,0 +1,59 @@
+slug: splendor
+title: Splendor – Preisradar & Angebote
+players: 2–4
+playtime_minutes: 30–45
+weight: 1.8
+year: 2014
+price_rules:
+  good_threshold_eur: 18
+  ok_threshold_eur: 24
+intro: Splendor ist ein schnelles Aufbauspiel mit Pokerchips als Ressourcen. Sehr
+  zugänglich, klare Entscheidungen, ideal für kurze Partien in allen Besetzungen.
+buying_advice: Neu unter 24 €, gebraucht 15–20 €. Achte auf Zustand der Chips und
+  Karten.
+how_to_play_60s: Chips nehmen oder Karte kaufen; Karten geben Rabatte und Punkte.
+  Wer zuerst 15 Punkte hat, triggert Spielende.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Chips vollständig und sauber
+- Karten nicht stark verkratzt
+editions:
+  note: Mehrere Editionen; spielerisch ähnlich.
+  recommended: Grundspiel
+  avoid: Beschädigte Chips mindern Spielgefühl.
+expansions:
+- name: Cities of Splendor
+  verdict: Variantenmodul-Sammlung; optional.
+faqs:
+- q: Zu zweit gut?
+  a: Ja, etwas taktischer.
+- q: Guter Preis?
+  a: Neu <24 €, gebraucht 15–20 €.
+alternatives:
+- title: Azul
+  slug: azul
+  why: Ähnlicher Anspruch, anderes Puzzle.
+- title: 7 Wonders Duel
+  slug: 7-wonders-duel
+  why: Taktisches 2P-Duell.
+search_queries:
+- Splendor Brettspiel deutsch
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 10
+  max: 40
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'

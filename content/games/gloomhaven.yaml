@@ -1,0 +1,57 @@
+slug: gloomhaven
+title: Gloomhaven – Preisradar & Angebote
+players: 1–4
+playtime_minutes: 120–180
+weight: 3.9
+year: 2017
+price_rules:
+  good_threshold_eur: 80
+  ok_threshold_eur: 110
+intro: Gloomhaven ist eine große Koop-Kampagne mit Legacy-Elementen. Sehr umfangreich,
+  für Gruppen, die regelmäßig spielen.
+buying_advice: Neu unter 110 €, gebraucht 80–100 €. Auf Sprache (deutsch) und Zustand
+  der Legacy-Elemente achten.
+how_to_play_60s: Szenario wählen, Kartenhand managen, Fähigkeiten kombinieren; Ressourcen
+  haushalten, um lebend rauszukommen.
+used_checklist:
+- 'Vollständigkeit: alle Teile/Karten/Marker vorhanden'
+- 'Sprache: deutsche Regeln/Komponenten'
+- 'Zustand: keine stark abgenutzten Kanten, Karten nicht stark verknickt'
+- Legacy-Elemente unbenutzt/ersetzbar?
+- Miniaturen vollständig
+editions:
+  note: Mehrere Boxen (Gloomhaven, Pranken des Löwen).
+  recommended: Pranken des Löwen als Einstieg
+  avoid: Unvollständige Legacy-Komponenten.
+expansions: []
+faqs:
+- q: Lohnt gebraucht?
+  a: Ja, wenn Legacy-Elemente gepflegt sind.
+- q: Guter Preis?
+  a: Gebraucht 80–100 €, neu <110 € stark.
+alternatives:
+- title: Pandemie
+  slug: pandemie
+  why: Schnelleres Koop.
+- title: Ark Nova
+  slug: ark-nova
+  why: Komplex, ohne Kampagne.
+search_queries:
+- Gloomhaven deutsch Brettspiel
+include_keywords:
+- deutsch
+exclude_keywords:
+- englisch
+- english
+- spanish
+- französisch
+- italienisch
+condition_whitelist:
+- New
+- Used
+- Like New
+price_filter:
+  min: 50
+  max: 180
+image_url: ''
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'
