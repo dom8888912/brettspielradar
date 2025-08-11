@@ -1,180 +1,192 @@
-<h1>{{ game.title }}</h1>
+{# ui-version:2025-08-11-v5 #}
+<article class="page">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Start</a> <span aria-hidden="true">›</span>
+    <a href="/hubs.html">Brettspiele</a> <span aria-hidden="true">›</span>
+    <span aria-current="page">{{ game.title }}</span>
+  </nav>
 
-{% if game.image_url %}
-  <img src="{{ game.image_url }}" alt="Cover zu {{ game.title }}" class="cover" loading="lazy">
-{% endif %}
+  <header class="hero">
+    <h1 class="title">{{ game.title }}</h1>
+    {% if game.subtitle %}<p class="subtitle">{{ game.subtitle }}</p>{% endif %}
+    <ul class="chips">
+      {% if game.players %}<li class="chip">👥 {{ game.players.min }}–{{ game.players.max }} Spieler</li>{% endif %}
+      {% if game.playtime %}<li class="chip">⏱️ {{ game.playtime.min }}–{{ game.playtime.max }} Min</li>{% endif %}
+      {% if game.complexity %}<li class="chip">🧠 Komplexität {{ '%.1f'|format(game.complexity) }}</li>{% endif %}
+      {% if game.year %}<li class="chip">📅 {{ game.year }}</li>{% endif %}
+    </ul>
+  </header>
 
-{% if game.intro %}
-<p>{{ game.intro }}</p>
-{% endif %}
+  {% set good = (game.price_rules.good_threshold_eur if game.price_rules else None) %}
+  {% set ok = (game.price_rules.ok_threshold_eur if game.price_rules else None) %}
 
-<div class="card">
-  <div class="kv">
-    {% if game.players %}<div>👥 {{ game.players }} Spieler</div>{% endif %}
-    {% if game.playtime_minutes %}<div>⏱️ {{ game.playtime_minutes }} Min</div>{% endif %}
-    {% if game.weight %}<div>🧠 Komplexität {{ game.weight }}</div>{% endif %}
-    {% if game.year %}<div>📅 {{ game.year }}</div>{% endif %}
-  </div>
-  <div style="margin-top:.6rem">
-    <strong>Preisindikator:</strong> {{ rating_text }}
-    {% if avg_price_eur is not none %}<span class="badge">Ø aktuell {{ "%.2f"|format(avg_price_eur) }} €</span>{% endif %}
-  </div>
-  {% if game.price_rules %}
-    <small>Unter {{ game.price_rules.good_threshold_eur }} € = „unter“, bis {{ game.price_rules.ok_threshold_eur }} € = „ok“, darüber = „teuer“.</small>
-  {% endif %}
-</div>
-
-{% if avg30 or avg60 or avg90 %}
-<h2>Preisüberblick</h2>
-<ul>
-  {% if avg30 %}<li>Ø 30 Tage: {{ "%.2f"|format(avg30) }} €</li>{% endif %}
-  {% if avg60 %}<li>Ø 60 Tage: {{ "%.2f"|format(avg60) }} €</li>{% endif %}
-  {% if avg90 %}<li>Ø 90 Tage: {{ "%.2f"|format(avg90) }} €</li>{% endif %}
-</ul>
-{% endif %}
-
-{% if avg60 is not none and delta60 is not none and avg_price_eur is not none %}
-<p><em>Kommentar:</em> Aktuell liegt der Durchschnitt bei {{ "%.2f"|format(avg_price_eur) }} € und damit
-  {% if delta60 >= 0 %}~{{ delta60 }} % über{% else %}~{{ (delta60 * -1) }} % unter{% endif %}
-  dem 60-Tage-Schnitt von {{ "%.2f"|format(avg60) }} €.
-  {% if delta60 >= 5 %}Eher abwarten.{% elif delta60 <= -5 %}Guter Zeitpunkt zum Kaufen.{% else %}Preis im normalen Bereich.{% endif %}
-</p>
-{% endif %}
-
-{% set has_rules = game.price_rules is defined and game.price_rules %}
-{% if min_price and ((avg60 and min_price <= avg60 * 0.92) or (has_rules and min_price <= game.price_rules.good_threshold_eur)) %}
-<div class="card" style="border-color:#22c55e">
-  🔔 <strong>Top-Deal:</strong> ab {{ "%.2f"|format(min_price) }} €.
-  {% if avg60 %} Das sind ~{{ "%.0f"|format((1 - (min_price / avg60)) * 100) }} % unter dem 60-Tage-Ø.{% endif %}
-</div>
-{% endif %}
-
-{% if game.buying_advice %}
-<h2>Kaufberatung</h2>
-<p>{{ game.buying_advice }}</p>
-{% endif %}
-
-<h2>Angebote</h2>
-<ol class="offer-list">
-{% for o in offers %}
-  <li>
-    <a class="btn cta" href="{{ o.url }}" rel="nofollow sponsored noopener" target="_blank">Zum Angebot</a>
-    <span style="margin-left:.5rem">{{ o.title }}</span> — {{ "%.2f"|format(o.price_eur) }} € ({{ o.condition }})
-  </li>
-{% else %}
-  <li>Derzeit keine Angebote im Cache.</li>
-{% endfor %}
-</ol>
-
-{% if game.alternatives %}
-<h3>Alternativen</h3>
-<ul>
-  {% for alt in game.alternatives %}
-  <li><a href="/spiel/{{ alt.slug }}/">{{ alt.title }}</a> – {{ alt.why }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
-
-{% if game.how_to_play_60s %}
-<h2>In 60 Sekunden erklärt</h2>
-<p>{{ game.how_to_play_60s }}</p>
-{% endif %}
-
-{% if game.used_checklist %}
-<h2>Gebrauchtkauf – Checkliste</h2>
-<ul>
-  {% for item in game.used_checklist %}
-    {% if item is string %}
-      <li>{{ item }}</li>
-    {% elif item is mapping %}
-      {% for k,v in item.items() %}
-        <li><strong>{{ k }}:</strong> {{ v }}</li>
-      {% endfor %}
+  <section class="price-indicator">
+    <div class="pi-head">
+      <h2 class="h2 pi-title">
+        Preisindikator
+        <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
+          ⓘ
+          <span class="tip" role="tooltip">
+            <strong>So liest du das:</strong> Wir setzen drei Bereiche. Liegt ein Angebot <em>unter {{ '%.0f'|format(good or 0) }} €</em>,
+            markieren wir es als <strong>Top-Deal</strong>. Bis <em>{{ '%.0f'|format(ok or 0) }} €</em> ist der Preis in Ordnung.
+            Darüber ist es eher teuer. Die Schwellen basieren auf typischen Marktpreisen &amp; Erfahrungswerten.
+            <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
+          </span>
+        </button>
+      </h2>
+    </div>
+    {% if good and ok %}
+      <div class="legend">
+        <span class="legend-item"><span class="swatch good"></span> <strong>gut</strong>: unter {{ '%.0f'|format(good) }} €</span>
+        <span class="legend-item"><span class="swatch ok"></span> <strong>ok</strong>: bis {{ '%.0f'|format(ok) }} €</span>
+        <span class="legend-item"><span class="swatch high"></span> <strong>teuer</strong>: darüber</span>
+      </div>
     {% else %}
-      <li>{{ item }}</li>
+      <p class="muted">Für dieses Spiel haben wir noch keine Preisschwellen hinterlegt.</p>
     {% endif %}
-  {% endfor %}
-</ul>
-{% endif %}
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#angebote">Jetzt Angebote ansehen</a>
+    </div>
+  </section>
 
-{% if game.editions %}
-<h3>Editionen</h3>
-{% if game.editions.note %}<p>{{ game.editions.note }}</p>{% endif %}
-<ul>
-  {% if game.editions.recommended %}<li><strong>Empfehlung:</strong> {{ game.editions.recommended }}</li>{% endif %}
-  {% if game.editions.avoid %}<li><strong>Lieber meiden:</strong> {{ game.editions.avoid }}</li>{% endif %}
-</ul>
-{% endif %}
-
-{% if game.expansions %}
-<h3>Erweiterungen</h3>
-<ul>
-  {% for e in game.expansions %}
-    <li><strong>{{ e.name }}:</strong> {{ e.verdict }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
-
-{% if game.pros or game.cons %}
-<h2>Kurzfazit</h2>
-<div class="grid two">
-  {% if game.pros %}
-  <div class="card"><h3>Stärken</h3><ul>{% for p in game.pros %}<li>{{ p }}</li>{% endfor %}</ul></div>
-  {% endif %}
-  {% if game.cons %}
-  <div class="card"><h3>Schwächen</h3><ul>{% for c in game.cons %}<li>{{ c }}</li>{% endfor %}</ul></div>
-  {% endif %}
-</div>
-{% endif %}
-
-{% if game.faqs %}
-<h2>Häufige Fragen</h2>
-<div>
-  {% for f in game.faqs %}
-  <details {% if loop.index <= 2 %}open{% endif %}>
-    <summary><strong>{{ f.q }}</strong></summary>
-    <p>{{ f.a }}</p>
+  <details class="help-details">
+    <summary>Wie funktioniert diese Seite?</summary>
+    <div class="help-body">
+      <ol class="steps">
+        <li><strong>Kaufberatung:</strong> Für wen passt das Spiel? Was beachten?</li>
+        <li><strong>Preisindikator:</strong> Einordnung gut/ok/teuer &amp; Top-Deals.</li>
+        <li><strong>Angebote:</strong> Aktualisierte eBay-Listings in EUR. „Zum Angebot“ öffnet eBay.</li>
+        <li><strong>Checkliste &amp; FAQs:</strong> Hilfe für Gebrauchtkauf &amp; häufige Fragen.</li>
+      </ol>
+    </div>
   </details>
-  {% endfor %}
-</div>
-{% endif %}
 
-{# --- SEO JSON-LD --- #}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org/",
-  "@type": "Product",
-  "name": "{{ game.title }}",
-  "category": "Board game",
-  "description": "Preisradar & Angebote für {{ game.title }}.",
-  "offers": [
-    {% for o in offers %}
-    {
-      "@type": "Offer",
-      "price": "{{ "%.2f"|format(o.price_eur) }}",
+  <section class="content-section">
+    <h2 class="h2">Kaufberatung</h2>
+    {% set primary_text = game.summary or game.description or game.about or game.intro or game.overview or game.text %}
+    {% set paragraphs = game.kaufberatung or game.paragraphs or game.extra_paragraphs %}
+    {% if primary_text %}<p>{{ primary_text }}</p>{% endif %}
+    {% if paragraphs %}{% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}{% endif %}
+    {% if not primary_text and not paragraphs %}
+      <p class="muted">Keine Details hinterlegt – wir ergänzen diese Seite bald.</p>
+    {% endif %}
+  </section>
+
+  {% set cl = game.get('checklist') or game.get('checklist_buy') %}
+  {% if cl %}
+  <section class="content-section">
+    <h2 class="h2">Gebrauchtkauf – Checkliste</h2>
+    <ul class="checklist">
+      {% if cl is mapping %}
+        {% for k,v in cl.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
+      {% else %}
+        {% for item in cl %}
+          {% if item is mapping %}
+            {% for k,v in item.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
+          {% else %}
+            <li>{{ item }}</li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="offers" id="angebote">
+    <div class="offers-head">
+      <h2 class="h2">Angebote</h2>
+      <small class="muted">Sortierung nach Preis (aufsteigend), nur Angebote in EUR.</small>
+    </div>
+
+    {% if offers and offers|length > 0 %}
+      <div class="offer-grid">
+        {% for o in offers %}
+          {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
+          <article class="offer-card{% if is_top %} top{% endif %}">
+            {% if is_top %}<div class="badge">Top-Deal</div>{% endif %}
+            <h3 class="offer-title">{{ o.title }}</h3>
+            <div class="offer-meta">
+              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }} €{% else %}–{% endif %}</span>
+              {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
+            </div>
+            <a class="btn btn-secondary" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
+    {% endif %}
+  </section>
+
+  {% if game.alternatives %}
+  <section class="content-section">
+    <h2 class="h2">Alternativen</h2>
+    <ul class="alt-list">
+      {% for alt in game.alternatives %}
+        {% set atitle = (alt.title if alt is mapping else alt) %}
+        {% set aurl = (alt.url if alt is mapping else None) %}
+        {% set aslug = (alt.slug if (alt is mapping and alt.slug) else None) %}
+        <li>
+          {% if aurl %}
+            <a href="{{ aurl }}">{{ atitle }}</a>
+          {% elif aslug %}
+            <a href="/spiel/{{ aslug }}/">{{ atitle }}</a>
+          {% else %}
+            {{ atitle }}
+          {% endif %}
+          {% if alt is mapping and alt.note %}<span class="muted"> – {{ alt.note }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% set faq_items = game.faq or game.faqs or game.faq_list %}
+  {% if faq_items %}
+  <section class="content-section">
+    <h2 class="h2">Häufige Fragen</h2>
+    <div class="faq">
+      {% for q in faq_items %}
+        {% if q is mapping %}
+          {% set question = q.question or q.q or (q.keys()|list)[0] %}
+          {% set answer = q.answer or q.a or (q[question] if q[question] is defined else '') %}
+        {% else %}
+          {% set question = q %}
+          {% set answer = "" %}
+        {% endif %}
+        <details>
+          <summary>{{ question }}</summary>
+          {% if answer %}<div class="answer"><p>{{ answer }}</p></div>{% endif %}
+        </details>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="content-section">
+    <a class="btn btn-link" href="/">← Zur Übersicht</a>
+  </section>
+
+  {% set prices = (offers | map(attribute='price_eur') | reject('equalto', None) | list) if offers else [] %}
+  {% set low = (prices|min) if prices else 0 %}
+  {% set high = (prices|max) if prices else 0 %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ game.title|e }}",
+    "category": "Board game",
+    {% if game.year %}"releaseDate": "{{ game.year }}",{% endif %}
+    {% if offers and offers|length > 0 %}
+    "offers": {
+      "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "url": "{{ o.url }}",
-      "availability": "https://schema.org/InStock"
-    }{% if not loop.last %},{% endif %}
-    {% endfor %}
-  ]
-}
-</script>
-
-{% if game.faqs %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {% for f in game.faqs %}
-    {
-      "@type": "Question",
-      "name": "{{ f.q }}",
-      "acceptedAnswer": { "@type":"Answer", "text":"{{ f.a }}" }
-    }{% if not loop.last %},{% endif %}
-    {% endfor %}
-  ]
-}
-</script>
-{% endif %}
+      "lowPrice": "{{ '%.2f'|format(low) }}",
+      "highPrice": "{{ '%.2f'|format(high) }}",
+      "offerCount": "{{ offers|length }}"
+    },
+    {% endif %}
+    "url": "{{ (canonical or site_url ~ '/spiel/' ~ game.slug ~ '/')|e }}"
+  }
+  </script>
+</article>

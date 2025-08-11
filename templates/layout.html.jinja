@@ -1,37 +1,51 @@
 <!doctype html>
+<!-- ui-version:2025-08-11-v5 -->
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ meta_description }}">
-  <link rel="stylesheet" href="/styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} – {% endif %}Brettspiel Preisradar</title>
+  {% if meta_description %}<meta name="description" content="{{ meta_description|e }}">{% endif %}
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preload" href="/styles.css?v=2025-08-11-v5" as="style">
+  <link rel="stylesheet" href="/styles.css?v=2025-08-11-v5">
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% if title %}{{ title }} – {% endif %}Brettspiel Preisradar">
+  {% if meta_description %}<meta property="og:description" content="{{ meta_description|e }}">{% endif %}
+  <meta property="og:url" content="{{ canonical or site_url }}">
 </head>
 <body>
-<header>
-  <a href="/" style="font-weight:800;font-size:1.05rem">🎲 Brettspiel-Preisradar</a>
-  <nav><a href="/hubs.html">Themen</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></nav>
-</header>
-<main>
-{{ content | safe }}
-</main>
-<footer>
-  <div class="footer-note">Hinweis: Diese Seite verwendet Affiliate-Links. Preise ohne Gewähr. {{ disclosure }}</div>
-</footer>
-<script>
-// simple client-side filter (if #q and [data-list] exist on page)
-(function(){
-  var input = document.querySelector('#q');
-  var list = document.querySelectorAll('[data-list] li');
-  if(!input || !list.length) return;
-  input.addEventListener('input', function(e){
-    var q = e.target.value.toLowerCase();
-    list.forEach(function(li){
-      var t = li.textContent.toLowerCase();
-      li.style.display = t.indexOf(q) !== -1 ? '' : 'none';
-    });
-  });
-})();
-</script>
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="/" class="brand">
+        <img src="/logo.svg" alt="" width="28" height="28">
+        <span class="brand-text">Brettspiel&nbsp;Preisradar</span>
+      </a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen" aria-controls="main-nav" aria-expanded="false" aria-haspopup="true">
+        ☰
+      </button>
+      <nav id="main-nav" class="main-nav" role="navigation" aria-label="Hauptmenü">
+        <a href="/">Start</a>
+        <a href="/hubs.html">Themen</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    {{ content|safe }}
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>© {{ now().year if now is defined else "" }} Brettspiel Preisradar · Unabhängige Deals-&amp;Preis-Seite.</p>
+      <p class="muted">Transparenz: Diese Seite nutzt Affiliate-Links. Wenn du darüber kaufst, erhalten wir ggf. eine Provision. Für dich bleibt der Preis gleich.</p>
+    </div>
+  </footer>
+
+  <script src="/main.js?v=2025-08-11-v5" defer></script>
 </body>
 </html>
