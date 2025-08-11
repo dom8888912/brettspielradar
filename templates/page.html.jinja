@@ -1,4 +1,4 @@
-{# ui-version:2025-08-11-v5 #}
+{# ui-version:2025-08-11-v6 #}
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="/">Start</a> <span aria-hidden="true">›</span>
@@ -104,6 +104,8 @@
           {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
           <article class="offer-card{% if is_top %} top{% endif %}">
             {% if is_top %}<div class="badge">Top-Deal</div>{% endif %}
+            {% if o.is_accessory %}<div class="badge badge-grey" title="Zubehör/Erweiterung">Zubehör</div>{% endif %}
+            {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
             <h3 class="offer-title">{{ o.title }}</h3>
             <div class="offer-meta">
               <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }} €{% else %}–{% endif %}</span>
