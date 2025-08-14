@@ -7,7 +7,7 @@ on:
     - cron: "17 5 * * *"
   workflow_dispatch:
 
-# verhindert überlappende Builds/Deploys
+# Verhindert überlappende Deploys
 concurrency:
   group: "prod-gh-pages"
   cancel-in-progress: true
@@ -43,17 +43,28 @@ jobs:
             python scripts/fetch_offers_stub.py
           fi
 
-      # Production-Base-URL: deine Domain (funktioniert auch mit github.io, wenn du magst)
+      # WICHTIG: Basis-URL für Production (Custom Domain oder github.io)
       - name: Build site (Production)
         env:
           SITE_URL: https://brettspielpreisradar.de/
         run: python scripts/build.py
 
-      # (Optional aber hilfreich bei SPA-Routing)
+      # Diagnose: Zeig uns, was im Build wirklich liegt
+      - name: Inspect dist
+        run: |
+          echo "---- dist tree ----"
+          ls -la dist | sed -n '1,200p'
+          [ -f dist/index.html ] && echo "index.html found" || (echo "index.html MISSING" && exit 1)
+
+      # Jekyll ausschalten (sonst werden z.B. Ordner mit _ ignoriert)
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
+
+      # SPA-Fallback (schadet nicht)
       - name: Add SPA fallback (404.html)
         run: cp dist/index.html dist/404.html || true
 
-      # Deploy ins Root von gh-pages + CNAME schreiben
+      # Deploy in den Root von gh-pages und CNAME schreiben
       - name: Deploy to gh-pages (root)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
