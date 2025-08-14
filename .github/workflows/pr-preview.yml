@@ -3,6 +3,10 @@ name: PR Preview
 on:
   pull_request:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   preview:
     runs-on: ubuntu-latest
@@ -29,3 +33,4 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: dist
+          token: ${{ secrets.GITHUB_TOKEN }}
