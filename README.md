@@ -2,6 +2,7 @@
 
 **Was neu ist**
 
+
 - Längere Inhalte je Spiel: optionale Sektionen (How-to in 60s, Gebraucht-Checkliste, Editionen, Erweiterungen, Pros/Cons).
 - FAQ: erste 2 Punkte standardmäßig geöffnet.
 - Automatischer Preiskommentar (Delta vs. Ø60 Tage).
