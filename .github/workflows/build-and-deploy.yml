@@ -56,6 +56,18 @@ jobs:
           ls -la dist | sed -n '1,200p'
           [ -f dist/index.html ] && echo "index.html found" || (echo "index.html MISSING" && exit 1)
 
+      # Absolutpfade in HTML auf relative Links umschreiben
+      - name: Rewrite absolute asset paths
+        run: |
+          find dist -name "*.html" -print0 \
+            | xargs -0 sed -i 's|href="/|href="./|g; s|src="/|src="./|g'
+
+      # <base>-Tag ergänzen, damit relative Links korrekt aufgelöst werden
+      - name: Inject <base> href
+        run: |
+          find dist -name "*.html" -print0 \
+            | xargs -0 sed -i 's|<head>|<head><base href="https://brettspielpreisradar.de/">|'
+
       # Jekyll ausschalten (sonst werden z.B. Ordner mit _ ignoriert)
       - name: Add .nojekyll
         run: touch dist/.nojekyll
