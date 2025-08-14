@@ -4,8 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
 
+# Top-Level-Rechte: PR-Kommentar erlauben
 permissions:
   contents: read
+  pull-requests: write
 
 concurrency:
   group: pr-preview-${{ github.event.pull_request.number }}
@@ -40,19 +42,26 @@ jobs:
             python scripts/fetch_offers_stub.py
           fi
 
-      # Base-URL exakt auf den Preview-Unterordner setzen
+      # Basis-URL exakt auf den Preview-Unterordner
       - name: Build site (Preview)
         env:
           SITE_URL: https://dom8888912.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/
         run: python scripts/build.py
 
-      # <base>-Tag injizieren, damit relative CSS/JS/Links im Unterordner funktionieren
+      # absolute /pfade -> SITE_URL umschreiben
+      - name: Rewrite absolute asset links to SITE_URL
+        shell: bash
+        run: |
+          BASE="https://dom8888912.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/"
+          find dist -name "*.html" -print0 | xargs -0 sed -i -E 's|(href|src)="/|\1="'"$BASE"'|g'
+
+      # <base> setzen, damit relative Pfade stimmen
       - name: Inject <base> href for preview
         run: |
           BASE="https://dom8888912.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/"
           find dist -name "*.html" -print0 | xargs -0 sed -i 's|<head>|<head><base href="'"$BASE"'">|'
 
-      # SPA-Fallback (schadet nicht)
+      # SPA-Fallback
       - name: Add SPA fallback (404.html)
         run: cp dist/index.html dist/404.html || true
 
@@ -67,7 +76,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # muss auf gh-pages pushen dürfen
+      contents: write   # nötig, um nach gh-pages zu pushen
     steps:
       - uses: actions/checkout@v4
         with:
@@ -86,6 +95,10 @@ jobs:
           umbrella-dir: pr-preview
           action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show preview link in Checks
+        run: |
+          echo "Preview: https://$GITHUB_ACTOR.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/" >> $GITHUB_STEP_SUMMARY
 
   cleanup:
     if: ${{ github.event.action == 'closed' }}
