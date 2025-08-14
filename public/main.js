@@ -1,4 +1,4 @@
-// ui-version:2025-08-11-v5 – Menü-Overlay & Tooltip Toggle (inline neben Titel)
+// ui-version:2025-08-11-v8 – Menü-Overlay, Tooltip Toggle, Cookie-Banner & GA
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -31,4 +31,35 @@
       if (openBadge){ openBadge.setAttribute('aria-expanded','false'); }
     }
   });
+
+  // Cookie-Banner & Google Analytics
+  var gaId = window.GA_TRACKING_ID;
+  function loadAnalytics(){
+    if(!gaId) return;
+    var s1 = document.createElement('script');
+    s1.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    s1.async = true;
+    document.head.appendChild(s1);
+    var s2 = document.createElement('script');
+    s2.innerHTML = "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '" + gaId + "');";
+    document.head.appendChild(s2);
+  }
+  var consent = localStorage.getItem('ga_consent');
+  var banner = document.getElementById('cookie-banner');
+  var accept = document.getElementById('cookie-accept');
+  var reject = document.getElementById('cookie-reject');
+  if(consent === 'granted'){
+    loadAnalytics();
+  }else if(banner){
+    banner.classList.remove('hidden');
+    if(accept) accept.addEventListener('click', function(){
+      localStorage.setItem('ga_consent','granted');
+      banner.classList.add('hidden');
+      loadAnalytics();
+    });
+    if(reject) reject.addEventListener('click', function(){
+      localStorage.setItem('ga_consent','denied');
+      banner.classList.add('hidden');
+    });
+  }
 })();
