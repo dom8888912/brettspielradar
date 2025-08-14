@@ -43,39 +43,11 @@ jobs:
             python scripts/fetch_offers_stub.py
           fi
 
-      # WICHTIG: Preview-URL, damit absolute Links/Assets im Unterpfad funktionieren
-      - name: Build site
+      # WICHTIG: Preview-Basis-URL auf den Unterordner setzen
+      - name: Build site (Preview)
         env:
-          SITE_URL: https://dom8888912.github.io/${{ github.event.repository.name }}/pr/${{ github.event.pull_request.number }}/
+          SITE_URL: https://dom8888912.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/
         run: python scripts/build.py
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr-dist
-          path: dist
-
-  preview:
-    if: ${{ github.event.action != 'closed' }}
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write          # nötig, um auf gh-pages zu pushen
-    steps:
-      - uses: actions/checkout@v4   # ohne Checkout: "not in a git directory"
-        with:
-          fetch-depth: 0
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: pr-dist
-          path: dist
-
-      - name: Deploy PR preview to GitHub Pages
-        uses: rossjrw/pr-preview-action@v1
-        with:
-          source-dir: dist
-          preview-branch: gh-pages
-          umbrella-dir: pr
-          action: auto
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # <base>-Tag injizieren, damit relative Pfade/CSS/JS im Unterordner funktionieren
+      - name: Inject <base> hr
