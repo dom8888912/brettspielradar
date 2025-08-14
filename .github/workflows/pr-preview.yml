@@ -1,81 +1,36 @@
-name: PR Preview (GitHub Pages)
+name: PR Preview
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, closed]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pr-preview-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  contents: write
+  pull-requests: write
 
 jobs:
-  build:
-    if: ${{ github.event.action != 'closed' }}
+  preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Falls Secrets in PRs fehlen (z. B. bei Forks), läuft der Stub weiter.
-      - name: Fetch offers (eBay wenn Keys vorhanden)
-        env:
-          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
-          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
-          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
-          EPN_REFERENCE_ID: ${{ secrets.EPN_REFERENCE_ID }}
-        run: |
-          if [ -n "${EBAY_CLIENT_ID}" ] && [ -n "${EBAY_CLIENT_SECRET}" ]; then
-            python scripts/fetch_offers_ebay_enhanced.py || true
-          else
-            python scripts/fetch_offers_stub.py
-          fi
-
-      # WICHTIG: Preview-URL, damit absolute Links/Assets im Unterpfad funktionieren
       - name: Build site
         env:
-          SITE_URL: https://dom8888912.github.io/${{ github.event.repository.name }}/pr/${{ github.event.pull_request.number }}/
+          SITE_URL: ${{ secrets.SITE_URL }}
         run: python scripts/build.py
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr-dist
-          path: dist
-
-  preview:
-    if: ${{ github.event.action != 'closed' }}
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write          # nötig, um auf gh-pages zu pushen
-    steps:
-      - uses: actions/checkout@v4   # ohne Checkout: "not in a git directory"
-        with:
-          fetch-depth: 0
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: pr-dist
-          path: dist
-
-      - name: Deploy PR preview to GitHub Pages
+      - name: Deploy Preview
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: dist
-          preview-branch: gh-pages
-          umbrella-dir: pr
-          action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
