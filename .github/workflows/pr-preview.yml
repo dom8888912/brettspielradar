@@ -1,0 +1,50 @@
+name: PR Preview (GitHub Pages)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    if: ${{ github.event.action != 'closed' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20          # ggf. anpassen
+          cache: npm                # oder: yarn / pnpm
+
+      - run: npm ci                 # oder: yarn install --frozen-lockfile / pnpm i --frozen-lockfile
+      - run: npm run build          # erzeugt z.B. ./dist
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-dist
+          path: dist                # ← falls dein Build-Ordner anders heißt (z.B. build), hier anpassen
+
+  preview:
+    if: ${{ github.event.action != 'closed' }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr-dist
+          path: dist
+
+      - name: Deploy PR preview to GitHub Pages
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages  # hier legt die Action die Previews ab
+          umbrella-dir: pr          # ergibt Pfad /pr/<PR-NUMMER>/
+          action: auto
+          token: ${{ secrets.GITHUB_TOKEN }}
