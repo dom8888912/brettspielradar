@@ -1,4 +1,29 @@
 # .github/workflows/pr-preview.yml
+  preview:
+    if: ${{ github.event.action != 'closed' }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # <- braucht Push-Recht für gh-pages
+    steps:
+      - uses: actions/checkout@v4   # <- Git-Repo bereitstellen
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr-dist
+          path: dist
+
+      - name: Deploy PR preview to GitHub Pages
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr
+          action: auto
+          token: ${{ secrets.GITHUB_TOKEN }}
+
 name: PR Preview (GitHub Pages)
 
 on:
