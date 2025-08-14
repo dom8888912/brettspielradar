@@ -1,3 +1,4 @@
+# .github/workflows/pr-preview.yml
 name: PR Preview (GitHub Pages)
 
 on:
@@ -9,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: ${{ github.event.action != 'closed' }}
@@ -16,19 +21,40 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: 20          # ggf. anpassen
-          cache: npm                # oder: yarn / pnpm
+          python-version: "3.11"
 
-      - run: npm ci                 # oder: yarn install --frozen-lockfile / pnpm i --frozen-lockfile
-      - run: npm run build          # erzeugt z.B. ./dist
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Falls Secrets in PRs fehlen (z. B. bei Forks), läuft der Stub weiter.
+      - name: Fetch offers (eBay wenn Keys vorhanden)
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_REFERENCE_ID: ${{ secrets.EPN_REFERENCE_ID }}
+        run: |
+          if [ -n "${EBAY_CLIENT_ID}" ] && [ -n "${EBAY_CLIENT_SECRET}" ]; then
+            python scripts/fetch_offers_ebay_enhanced.py || true
+          else
+            python scripts/fetch_offers_stub.py
+          fi
+
+      # 👉 WICHTIG: SITE_URL auf die Preview-URL setzen, damit absolute Links stimmen
+      - name: Build site
+        env:
+          SITE_URL: https://$GITHUB_ACTOR.github.io/${{ github.event.repository.name }}/pr/${{ github.event.pull_request.number }}/
+        run: python scripts/build.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: pr-dist
-          path: dist                # ← falls dein Build-Ordner anders heißt (z.B. build), hier anpassen
+          path: dist
 
   preview:
     if: ${{ github.event.action != 'closed' }}
@@ -40,11 +66,12 @@ jobs:
           name: pr-dist
           path: dist
 
+      # Veröffentlicht unter gh-pages/pr/<PR-NUMMER>/ und kommentiert die URL im PR.
       - name: Deploy PR preview to GitHub Pages
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: dist
-          preview-branch: gh-pages  # hier legt die Action die Previews ab
-          umbrella-dir: pr          # ergibt Pfad /pr/<PR-NUMMER>/
+          preview-branch: gh-pages
+          umbrella-dir: pr
           action: auto
           token: ${{ secrets.GITHUB_TOKEN }}
