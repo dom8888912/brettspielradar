@@ -50,8 +50,11 @@
   var reject = document.getElementById('cookie-reject');
   if(consent === 'granted'){
     loadAnalytics();
-  }else if(banner){
-    banner.classList.remove('hidden');
+  }
+  if(consent === 'granted' || consent === 'denied'){
+    if(banner) banner.classList.add('hidden');
+  }
+  if(banner){
     if(accept) accept.addEventListener('click', function(){
       localStorage.setItem('ga_consent','granted');
       banner.classList.add('hidden');
