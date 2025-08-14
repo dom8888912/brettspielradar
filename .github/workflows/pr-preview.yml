@@ -1,29 +1,3 @@
-# .github/workflows/pr-preview.yml
-  preview:
-    if: ${{ github.event.action != 'closed' }}
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write        # <- braucht Push-Recht für gh-pages
-    steps:
-      - uses: actions/checkout@v4   # <- Git-Repo bereitstellen
-        with:
-          fetch-depth: 0
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: pr-dist
-          path: dist
-
-      - name: Deploy PR preview to GitHub Pages
-        uses: rossjrw/pr-preview-action@v1
-        with:
-          source-dir: dist
-          preview-branch: gh-pages
-          umbrella-dir: pr
-          action: auto
-          token: ${{ secrets.GITHUB_TOKEN }}
-
 name: PR Preview (GitHub Pages)
 
 on:
@@ -69,10 +43,10 @@ jobs:
             python scripts/fetch_offers_stub.py
           fi
 
-      # 👉 WICHTIG: SITE_URL auf die Preview-URL setzen, damit absolute Links stimmen
+      # WICHTIG: Preview-URL, damit absolute Links/Assets im Unterpfad funktionieren
       - name: Build site
         env:
-          SITE_URL: https://$GITHUB_ACTOR.github.io/${{ github.event.repository.name }}/pr/${{ github.event.pull_request.number }}/
+          SITE_URL: https://dom8888912.github.io/${{ github.event.repository.name }}/pr/${{ github.event.pull_request.number }}/
         run: python scripts/build.py
 
       - name: Upload artifact
@@ -85,13 +59,18 @@ jobs:
     if: ${{ github.event.action != 'closed' }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write          # nötig, um auf gh-pages zu pushen
     steps:
+      - uses: actions/checkout@v4   # ohne Checkout: "not in a git directory"
+        with:
+          fetch-depth: 0
+
       - uses: actions/download-artifact@v4
         with:
           name: pr-dist
           path: dist
 
-      # Veröffentlicht unter gh-pages/pr/<PR-NUMMER>/ und kommentiert die URL im PR.
       - name: Deploy PR preview to GitHub Pages
         uses: rossjrw/pr-preview-action@v1
         with:
