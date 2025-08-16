@@ -66,8 +66,32 @@
       li.style.display = (textMatch && pMatch && aMatch && tMatch) ? '' : 'none';
     });
   }
-  [q, pFilter, aFilter, tFilter].forEach(function(el){ if (el) el.addEventListener('input', applyFilters); });
+  [q, pFilter, aFilter, tFilter].forEach(function(el){
+    if (el){
+      el.addEventListener('input', applyFilters);
+      el.addEventListener('change', applyFilters);
+    }
+  });
   applyFilters();
+
+  // Angebots-Filter (Zubehör/Neu)
+  var hideAcc = document.getElementById('filter-hide-accessory');
+  var onlyNew = document.getElementById('filter-only-new');
+
+  function applyOfferFilters(){
+    var offers = document.querySelectorAll('[data-offer]');
+    offers.forEach(function(el){
+      var isAcc = el.dataset.accessory === '1';
+      var cond = (el.dataset.condition || '').toLowerCase();
+      var show = true;
+      if (hideAcc && hideAcc.checked && isAcc) show = false;
+      if (onlyNew && onlyNew.checked && cond.indexOf('neu') === -1) show = false;
+      el.style.display = show ? '' : 'none';
+    });
+  }
+
+  [hideAcc, onlyNew].forEach(function(el){ if (el){ el.addEventListener('change', applyOfferFilters); } });
+  applyOfferFilters();
 
   // Cookie Banner
   var banner = document.getElementById('cookie-banner');
