@@ -79,8 +79,7 @@ a:hover{text-decoration:underline}
 .btn-secondary{background:#0ea5e9;color:white;width:100%}
 .btn-secondary:hover{opacity:.95}
 .btn-link{color:#0369a1}
-.offer-link{display:inline-flex;align-items:center;gap:6px}
-.offer-logo{width:20px;height:auto}
+.offer-link{display:inline-flex;align-items:center}
 .search{margin:20px 0}
 .search input{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.05rem}
 .game-list{list-style:none;padding:0;margin:0}
@@ -117,6 +116,9 @@ a:hover{text-decoration:underline}
 .faq .answer{padding:0 14px 12px}
 
 .site-footer{border-top:1px solid var(--border);margin-top:18px;background:var(--panel)}
+.footer-nav{margin-bottom:8px}
+.footer-nav a{margin-right:12px}
+.footer-nav a:last-child{margin-right:0}
 .footer-inner{padding:20px 16px}
 .muted{color:var(--muted)}
 
