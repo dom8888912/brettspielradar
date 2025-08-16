@@ -66,7 +66,6 @@
     if (banner) banner.style.display='none';
     if (typeof loadAnalytics === 'function'){ loadAnalytics(); }
   }
-
   function consentDecline(){
     localStorage.setItem('cookie-consent','declined');
     document.documentElement.classList.add('cookies-declined');
