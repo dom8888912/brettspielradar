@@ -1,7 +1,7 @@
 {# ui-version:2025-08-11-v6 #}
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/">Start</a> <span aria-hidden="true">›</span>
+    <a href="/">Alle Spiele</a> <span aria-hidden="true">›</span>
     <a href="/hubs.html">Brettspiele</a> <span aria-hidden="true">›</span>
     <span aria-current="page">{{ game.title }}</span>
   </nav>
@@ -45,7 +45,7 @@
       <p class="muted">Für dieses Spiel haben wir noch keine Preisschwellen hinterlegt.</p>
     {% endif %}
     <div class="cta-row">
-      <a class="btn btn-primary" href="#angebote">Jetzt Angebote ansehen</a>
+      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
     </div>
   </section>
 
@@ -111,7 +111,9 @@
               <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }} €{% else %}–{% endif %}</span>
               {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
             </div>
-            <a class="btn btn-secondary" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">
+              {% if 'ebay' in o.url %}<img src="/ebay.svg" alt="" class="offer-logo"> Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
+            </a>
           </article>
         {% endfor %}
       </div>
@@ -166,7 +168,7 @@
   {% endif %}
 
   <section class="content-section">
-    <a class="btn btn-link" href="/">← Zur Übersicht</a>
+    <a class="btn btn-link" href="/">← Alle Spiele</a>
   </section>
 
   {% set prices = (offers | map(attribute='price_eur') | reject('equalto', None) | list) if offers else [] %}

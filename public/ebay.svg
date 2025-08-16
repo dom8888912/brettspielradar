@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 20" role="img" aria-label="eBay">
+  <text y="15" font-family="Arial, sans-serif" font-size="14" font-weight="700">
+    <tspan fill="#e53238">e</tspan>
+    <tspan fill="#0064d2" x="18">b</tspan>
+    <tspan fill="#f5af02" x="36">a</tspan>
+    <tspan fill="#86b817" x="54">y</tspan>
+  </text>
+</svg>
