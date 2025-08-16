@@ -1,5 +1,5 @@
 \
-import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET
+import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -120,10 +120,48 @@ def copy_public():
             target.write_text(p.read_text(encoding="utf-8"), encoding="utf-8")
 
 def build_index(site_url):
-    games = [load_yaml(p) for p in CONTENT.glob("*.yaml")]
-    games = sorted(games, key=lambda g: g["title"].lower())
+    raw_games = [load_yaml(p) for p in CONTENT.glob("*.yaml")]
+    games = []
+    theme_set = set()
+
+    def parse_players(p):
+        if not p:
+            return (None, None)
+        p = str(p).replace("–", "-")
+        m = re.match(r"(\d+)\s*-\s*(\d+)", p)
+        if m:
+            return int(m.group(1)), int(m.group(2))
+        if p.isdigit():
+            n = int(p)
+            return n, n
+        return (None, None)
+
+    def parse_age(a):
+        if not a:
+            return None
+        m = re.search(r"\d+", str(a))
+        return int(m.group(0)) if m else None
+
+    for g in raw_games:
+        title_short = g["title"].split(" –")[0]
+        min_p, max_p = parse_players(g.get("players"))
+        age = parse_age(g.get("age"))
+        themes = g.get("themes") or []
+        if isinstance(themes, str):
+            themes = [t.strip() for t in themes.split(",") if t.strip()]
+        theme_set.update(themes)
+        g.update({
+            "title_short": title_short,
+            "min_players": min_p,
+            "max_players": max_p,
+            "age": age,
+            "themes": themes,
+        })
+        games.append(g)
+
+    games = sorted(games, key=lambda g: g["title_short"].lower())
     tpl = env.get_template("index.html.jinja")
-    inner = tpl.render(games=games)
+    inner = tpl.render(games=games, themes=sorted(theme_set))
     layout_tpl = env.get_template("layout.html.jinja")
     out_html = layout_tpl.render(
         title="Brettspiel-Preisradar",
