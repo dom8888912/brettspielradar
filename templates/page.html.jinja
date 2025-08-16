@@ -49,18 +49,6 @@
     </div>
   </section>
 
-  <details class="help-details">
-    <summary>Wie funktioniert diese Seite?</summary>
-    <div class="help-body">
-      <ol class="steps">
-        <li><strong>Kaufberatung:</strong> Für wen passt das Spiel? Was beachten?</li>
-        <li><strong>Preisindikator:</strong> Einordnung gut/ok/teuer &amp; Top-Deals.</li>
-        <li><strong>Angebote:</strong> Aktualisierte eBay-Listings in EUR. „Zum Angebot“ öffnet eBay.</li>
-        <li><strong>Checkliste &amp; FAQs:</strong> Hilfe für Gebrauchtkauf &amp; häufige Fragen.</li>
-      </ol>
-    </div>
-  </details>
-
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
     {% set primary_text = game.summary or game.description or game.about or game.intro or game.overview or game.text %}
@@ -112,7 +100,7 @@
               {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
             </div>
             <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">
-              {% if 'ebay' in o.url %}<img src="/ebay.svg" alt="" class="offer-logo"> Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
+              {% if 'ebay' in o.url %}Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
             </a>
           </article>
         {% endfor %}

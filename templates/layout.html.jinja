@@ -60,8 +60,6 @@
         <a href="/">Alle Spiele</a>
         <a href="/neuigkeiten.html">Neuigkeiten</a>
         <a href="/hubs.html">Themen</a>
-        <a href="/impressum.html">Impressum</a>
-        <a href="/datenschutz">Datenschutz</a>
       </nav>
     </div>
   </header>
@@ -72,6 +70,7 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
+      <nav class="footer-nav"><a href="/impressum.html">Impressum</a> <a href="/datenschutz">Datenschutz</a></nav>
       <p>© {{ now().year if now is defined else "" }} Brettspiel Preisradar · Unabhängige Deals-&amp;Preis-Seite.</p>
       <p class="muted">Transparenz: Diese Seite nutzt Affiliate-Links. Wenn du darüber kaufst, erhalten wir ggf. eine Provision. Für dich bleibt der Preis gleich.</p>
     </div>
