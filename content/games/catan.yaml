@@ -1,6 +1,11 @@
 slug: catan
 title: CATAN – Preisradar & Angebote
 players: 3–4
+age: 10
+themes:
+- Handel
+- Siedeln
+- Strategie
 playtime_minutes: 60–120
 weight: 2.3
 year: 1995

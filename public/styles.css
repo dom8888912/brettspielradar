@@ -79,8 +79,7 @@ a:hover{text-decoration:underline}
 .btn-secondary{background:#0ea5e9;color:white;width:100%}
 .btn-secondary:hover{opacity:.95}
 .btn-link{color:#0369a1}
-.offer-link{display:inline-flex;align-items:center;gap:6px}
-.offer-logo{width:20px;height:auto}
+.offer-link{display:inline-flex;align-items:center}
 .search{margin:20px 0}
 .search input{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.05rem}
 .game-list{list-style:none;padding:0;margin:0}
@@ -117,6 +116,9 @@ a:hover{text-decoration:underline}
 .faq .answer{padding:0 14px 12px}
 
 .site-footer{border-top:1px solid var(--border);margin-top:18px;background:var(--panel)}
+.footer-nav{margin-bottom:8px}
+.footer-nav a{margin-right:12px}
+.footer-nav a:last-child{margin-right:0}
 .footer-inner{padding:20px 16px}
 .muted{color:var(--muted)}
 
@@ -127,6 +129,8 @@ a:hover{text-decoration:underline}
 #cookie-decline,#settings-decline,#cookie-settings{background:#e2e8f0;color:var(--text)}
 .cookie-banner .cookie-more,.cookie-banner .cookie-settings-link{color:#0369a1;font-size:.85rem}
 .cookies-accepted .cookie-banner,.cookies-declined .cookie-banner{display:none}
+.cookie-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:999}
+.cookies-accepted .cookie-overlay,.cookies-declined .cookie-overlay{display:none}
 
 .consent-status{margin-top:10px;font-size:.9rem;color:var(--brand);display:none;text-align:center}
 

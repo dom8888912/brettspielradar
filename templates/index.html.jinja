@@ -1,8 +1,33 @@
 <h1>Alle Spiele</h1>
-<p>Aktuelle Angebote &amp; Preisindikator für Brettspiele. Nutze die Suche:</p>
+<p>Aktuelle Angebote &amp; Preisindikator für Brettspiele. Nutze Suche oder Filter:</p>
+<details class="help-details">
+  <summary>Wie funktioniert diese Seite?</summary>
+  <div class="help-body">
+    <ol class="steps">
+      <li><strong>Kaufberatung:</strong> Für wen passt das Spiel? Was beachten?</li>
+      <li><strong>Preisindikator:</strong> Einordnung gut/ok/teuer &amp; Top-Deals.</li>
+      <li><strong>Angebote:</strong> Aktualisierte eBay-Listings in EUR. „Zum Angebot“ öffnet eBay.</li>
+      <li><strong>Checkliste &amp; FAQs:</strong> Hilfe für Gebrauchtkauf &amp; häufige Fragen.</li>
+    </ol>
+  </div>
+</details>
 <div class="search"><input id="q" type="search" placeholder="Spiel suchen …" aria-label="Spiele durchsuchen"></div>
+<div class="filters">
+  <label>Spieler <input id="filter-players" type="number" min="1" placeholder="z. B. 4"></label>
+  <label>Alter <input id="filter-age" type="number" min="0" placeholder="z. B. 10"></label>
+  {% if themes %}
+  <label>Thema
+    <select id="filter-theme">
+      <option value="">Alle</option>
+      {% for t in themes %}
+      <option value="{{ t }}">{{ t }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  {% endif %}
+</div>
 <ul class="game-list" data-list>
 {% for g in games %}
-  <li><a href="/spiel/{{ g.slug }}/">{{ g.title }}</a></li>
+  <li data-min-players="{{ g.min_players }}" data-max-players="{{ g.max_players }}" data-age="{{ g.age if g.age is not none else '' }}" data-themes="{{ g.themes|join(',') }}"><a href="/spiel/{{ g.slug }}/">{{ g.title_short }}</a></li>
 {% endfor %}
 </ul>
