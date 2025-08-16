@@ -79,6 +79,14 @@ a:hover{text-decoration:underline}
 .btn-secondary{background:#0ea5e9;color:white;width:100%}
 .btn-secondary:hover{opacity:.95}
 .btn-link{color:#0369a1}
+.offer-link{display:inline-flex;align-items:center;gap:6px}
+.offer-logo{width:20px;height:auto}
+.search{margin:20px 0}
+.search input{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.05rem}
+.game-list{list-style:none;padding:0;margin:0}
+.game-list li{margin:6px 0}
+.game-list a{display:block;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);text-decoration:none}
+.game-list a:hover{background:#f8fafc}
 @media (min-width:720px){ .btn-primary,.btn-secondary{width:auto} }
 
 .checklist{list-style:disc;padding-left:20px;margin:0}
