@@ -109,6 +109,10 @@ a:hover{text-decoration:underline}
 .footer-inner{padding:20px 16px}
 .muted{color:var(--muted)}
 
+.cookie-banner{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--badge);color:var(--badge-text);padding:12px 16px;display:flex;justify-content:center;align-items:center;gap:12px;font-size:.9rem}
+.cookie-banner button{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.cookies-accepted .cookie-banner{display:none}
+
 @media (prefers-reduced-motion: reduce){
   *{scroll-behavior:auto !important;animation:none !important;transition:none !important}
 }
