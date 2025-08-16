@@ -32,17 +32,42 @@
     }
   });
 
-  // Suche
+  // Suche & Filter
   var q = document.getElementById('q');
   var list = document.querySelector('[data-list]');
-  if (q && list){
-    q.addEventListener('input', function(){
-      var term = q.value.toLowerCase();
-      list.querySelectorAll('li').forEach(function(li){
-        li.style.display = li.textContent.toLowerCase().indexOf(term) === -1 ? 'none' : '';
-      });
+  var pFilter = document.getElementById('filter-players');
+  var aFilter = document.getElementById('filter-age');
+  var tFilter = document.getElementById('filter-theme');
+
+  function applyFilters(){
+    if (!list) return;
+    var term = q ? q.value.toLowerCase() : '';
+    var players = pFilter && pFilter.value ? parseInt(pFilter.value,10) : null;
+    var age = aFilter && aFilter.value ? parseInt(aFilter.value,10) : null;
+    var theme = tFilter && tFilter.value ? tFilter.value : null;
+    list.querySelectorAll('li').forEach(function(li){
+      var textMatch = !term || li.textContent.toLowerCase().indexOf(term) !== -1;
+      var pMatch = true;
+      var aMatch = true;
+      var tMatch = true;
+      if (players){
+        var min = parseInt(li.dataset.minPlayers,10);
+        var max = parseInt(li.dataset.maxPlayers,10);
+        if (min && max){ pMatch = players >= min && players <= max; }
+      }
+      if (age){
+        var gAge = parseInt(li.dataset.age,10);
+        if (gAge){ aMatch = gAge <= age; }
+      }
+      if (theme){
+        var themes = li.dataset.themes ? li.dataset.themes.split(',') : [];
+        tMatch = themes.indexOf(theme) !== -1;
+      }
+      li.style.display = (textMatch && pMatch && aMatch && tMatch) ? '' : 'none';
     });
   }
+  [q, pFilter, aFilter, tFilter].forEach(function(el){ if (el) el.addEventListener('input', applyFilters); });
+  applyFilters();
 
   // Cookie Banner
   var banner = document.getElementById('cookie-banner');

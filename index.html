@@ -38,6 +38,7 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
+  <div id="cookie-overlay" class="cookie-overlay"></div>
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
     <p>Wir nutzen die eBay API zur Darstellung von Angeboten (technisch notwendig). Für Statistik (Google API) und Affiliate-Links (eBay Partner Network) setzen wir Cookies nur nach deiner Einwilligung. Weitere Infos in der <a href="https://brettspielpreisradar.de/datenschutz">Datenschutzerklärung</a>. Deine Einwilligung kannst du jederzeit in den <a href="https://brettspielpreisradar.de/datenschutz#cookie-einstellungen" class="cookie-settings-link">Cookie-Einstellungen</a> anpassen.</p>
     <div class="cookie-actions">
@@ -67,83 +68,105 @@
 
   <main id="main" class="container">
     <h1>Alle Spiele</h1>
-<p>Aktuelle Angebote &amp; Preisindikator für Brettspiele. Nutze die Suche:</p>
+<p>Aktuelle Angebote &amp; Preisindikator für Brettspiele. Nutze Suche oder Filter:</p>
 <div class="search"><input id="q" type="search" placeholder="Spiel suchen …" aria-label="Spiele durchsuchen"></div>
+<div class="filters">
+  <label>Spieler <input id="filter-players" type="number" min="1" placeholder="z. B. 4"></label>
+  <label>Alter <input id="filter-age" type="number" min="0" placeholder="z. B. 10"></label>
+  
+  <label>Thema
+    <select id="filter-theme">
+      <option value="">Alle</option>
+      
+      <option value="Abstrakt">Abstrakt</option>
+      
+      <option value="Handel">Handel</option>
+      
+      <option value="Puzzle">Puzzle</option>
+      
+      <option value="Siedeln">Siedeln</option>
+      
+      <option value="Strategie">Strategie</option>
+      
+    </select>
+  </label>
+  
+</div>
 <ul class="game-list" data-list>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/7-wonders-duel/">7 Wonders Duel – Preisradar & Angebote</a></li>
+  <li data-min-players="3" data-max-players="7" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/7-wonders/">7 Wonders</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/7-wonders/">7 Wonders – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="2" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/7-wonders-duel/">7 Wonders Duel</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/ark-nova/">Ark Nova – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/ark-nova/">Ark Nova</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/azul/">Azul – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="8" data-themes="Abstrakt,Puzzle"><a href="https://brettspielpreisradar.de/spiel/azul/">Azul</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/brass-birmingham/">Brass: Birmingham – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/brass-birmingham/">Brass: Birmingham</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/carcassonne/">Carcassonne – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/carcassonne/">Carcassonne</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/cascadia/">Cascadia – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/cascadia/">Cascadia</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/catan/">CATAN – Preisradar & Angebote</a></li>
+  <li data-min-players="3" data-max-players="4" data-age="10" data-themes="Handel,Siedeln,Strategie"><a href="https://brettspielpreisradar.de/spiel/catan/">CATAN</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/clank/">Clank! – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/clank/">Clank!</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/codenames/">Codenames – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="8" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/codenames/">Codenames</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/concordia/">Concordia – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/concordia/">Concordia</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/die-crew/">Die Crew – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/die-crew/">Die Crew</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/quacksalber-von-quedlinburg/">Die Quacksalber von Quedlinburg – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/quacksalber-von-quedlinburg/">Die Quacksalber von Quedlinburg</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/die-verlorenen-ruinen-von-arnak/">Die verlorenen Ruinen von Arnak – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/die-verlorenen-ruinen-von-arnak/">Die verlorenen Ruinen von Arnak</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/dixit/">Dixit – Preisradar & Angebote</a></li>
+  <li data-min-players="3" data-max-players="6" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/dixit/">Dixit</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/dominion/">Dominion – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/dominion/">Dominion</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/dorfromantik/">Dorfromantik – Brettspiel Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="6" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/dorfromantik/">Dorfromantik</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/dune-imperium/">Dune: Imperium – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/dune-imperium/">Dune: Imperium</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/everdell/">Everdell – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/everdell/">Everdell</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/fluegelschlag/">Flügelschlag – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/fluegelschlag/">Flügelschlag</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/gloomhaven/">Gloomhaven – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/gloomhaven/">Gloomhaven</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/great-western-trail/">Great Western Trail – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/great-western-trail/">Great Western Trail</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/hanabi/">Hanabi – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/hanabi/">Hanabi</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/istanbul/">Istanbul – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/istanbul/">Istanbul</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/just-one/">Just One – Preisradar & Angebote</a></li>
+  <li data-min-players="3" data-max-players="7" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/just-one/">Just One</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/kingdomino/">Kingdomino – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/kingdomino/">Kingdomino</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/love-letter/">Love Letter – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="6" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/love-letter/">Love Letter</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/micromacro-crime-city/">MicroMacro: Crime City – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/micromacro-crime-city/">MicroMacro: Crime City</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/orleans/">Orléans – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/orleans/">Orléans</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/pandemie/">Pandemie – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/pandemie/">Pandemie</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/patchwork/">Patchwork – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="2" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/patchwork/">Patchwork</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/root/">Root – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/root/">Root</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/scythe/">Scythe – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/scythe/">Scythe</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/spirit-island/">Spirit Island – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/spirit-island/">Spirit Island</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/splendor/">Splendor – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="4" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/splendor/">Splendor</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/terraforming-mars/">Terraforming Mars – Preisradar & Angebote</a></li>
+  <li data-min-players="1" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/terraforming-mars/">Terraforming Mars</a></li>
 
-  <li><a href="https://brettspielpreisradar.de/spiel/zug-um-zug/">Zug um Zug – Preisradar & Angebote</a></li>
+  <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/zug-um-zug/">Zug um Zug</a></li>
 
 </ul>
   </main>
