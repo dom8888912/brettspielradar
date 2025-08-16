@@ -77,4 +77,5 @@ jobs:
           cname: brettspielpreisradar.de
 
       - name: Show live URL
-        run: echo "Live: https://brettspielpreisradar.de/" >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo "Live: https://brettspielpreisradar.de/" >> $GITHUB_STEP_SUMMARY
