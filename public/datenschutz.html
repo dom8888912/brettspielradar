@@ -9,9 +9,31 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="preload" href="/styles.css?v=2025-08-11-v5" as="style">
   <link rel="stylesheet" href="/styles.css?v=2025-08-11-v5">
+  <script>
+    function loadAnalytics(){
+      if(window.gaLoaded) return;
+      var s=document.createElement('script');
+      s.async=true;
+      s.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+      document.head.appendChild(s);
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js',new Date());
+      gtag('config','G-XXXXXXXXXX');
+      window.gaLoaded=true;
+    }
+    if(localStorage.getItem('cookie-consent')==='accepted'){
+      document.documentElement.classList.add('cookies-accepted');
+      loadAnalytics();
+    }
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
+    <span>Diese Seite nutzt Cookies für Google Analytics.</span>
+    <button id="cookie-accept" type="button">OK</button>
+  </div>
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a href="/" class="brand">
@@ -52,3 +74,4 @@
   <script src="/main.js?v=2025-08-11-v5" defer></script>
 </body>
 </html>
+
