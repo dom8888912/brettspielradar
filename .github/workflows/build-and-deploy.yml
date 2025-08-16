@@ -53,7 +53,7 @@ jobs:
       - name: Rewrite absolute asset links to SITE_URL
         run: |
           BASE="https://brettspielpreisradar.de/"
-          find dist -name "*.html" -print0 | xargs -0 sed -i -E 's|(href|src)="/|\1="'"$BASE"'|g'
+          find dist -name "*.html" -print0 | xargs -0 sed -i -E 's#(href|src)="/#\1="'"$BASE"'#g'
 
       # <base> setzen, damit relative Pfade stimmen
       - name: Inject <base> href
