@@ -34,11 +34,11 @@
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
-    <p>Wir verwenden Cookies, um anonyme Nutzungsstatistiken (Google Analytics) zu sammeln. Du kannst zustimmen oder ablehnen.</p>
+    <p>Wir nutzen die eBay API zur Darstellung von Angeboten (technisch notwendig). Für Statistik (Google API) und Affiliate-Links (eBay Partner Network) setzen wir Cookies nur nach deiner Einwilligung. Weitere Infos in der <a href="https://brettspielpreisradar.de/datenschutz">Datenschutzerklärung</a>. Deine Einwilligung kannst du jederzeit in den <a href="https://brettspielpreisradar.de/datenschutz#cookie-einstellungen" class="cookie-settings-link">Cookie-Einstellungen</a> anpassen.</p>
     <div class="cookie-actions">
       <button id="cookie-accept" type="button">Alle akzeptieren</button>
-      <button id="cookie-decline" type="button" class="btn-decline">Ablehnen</button>
-      <a href="https://brettspielpreisradar.de/datenschutz.html" class="cookie-more">Mehr Infos</a>
+      <button id="cookie-decline" type="button" class="btn-decline">Nur notwendige Cookies</button>
+      <button id="cookie-settings" type="button" class="btn-decline" onclick="location.href='/datenschutz#cookie-einstellungen'">Einstellungen</button>
     </div>
   </div>
   <header class="site-header" role="banner">
@@ -52,7 +52,7 @@
         <a href="https://brettspielpreisradar.de/">Start</a>
         <a href="https://brettspielpreisradar.de/hubs.html">Themen</a>
         <a href="https://brettspielpreisradar.de/impressum.html">Impressum</a>
-        <a href="https://brettspielpreisradar.de/datenschutz.html">Datenschutz</a>
+        <a href="https://brettspielpreisradar.de/datenschutz">Datenschutz</a>
       </nav>
     </div>
   </header>
@@ -61,12 +61,21 @@
 
     <article class="content-section">
       <h1 class="h2">Datenschutz</h1>
-      <p>Wir verwenden Google Analytics, um anonyme Nutzungsstatistiken zu erheben. Die Cookies werden nur gesetzt, wenn du über den Banner zustimmst. Serverseitige Logfiles werden automatisch vom Hoster erhoben.</p>
-      <ul>
-        <li>Verantwortlicher: [Dein Name/Firma], kontakt@brettspielpreisradar.de</li>
-        <li>Affiliate-Links: Beim Klick gelten die Datenschutzbestimmungen des jeweiligen Shops (z.&nbsp;B. eBay).</li>
-      </ul>
-      <p class="muted">Passe diesen Text an deine tatsächliche Situation an.</p>
+      <p>Es gibt keine Logins oder eigenen Formulare. Wir speichern keine personenbezogenen Daten.</p>
+      <h2>Verantwortlicher</h2>
+      <p>[Name/Firma]<br>[Straße, PLZ Ort, Land]<br>E-Mail: <a href="mailto:[E-Mail]">[E-Mail]</a></p>
+      <h2>Eingesetzte Dienste</h2>
+      <h3>Technisch notwendige Dienste</h3>
+      <p>eBay API – zur Darstellung von Angeboten. Dieser Dienst ist erforderlich, damit die Website funktioniert und setzt keine Cookies.</p>
+      <h3>Optionale Dienste (nur mit Einwilligung)</h3>
+      <p>eBay Partner Network (EPN) – Affiliate-/Tracking-Cookies zur Vergütung unserer Links.</p>
+      <p>Google API – anonyme Statistik.</p>
+      <h2 id="cookie-einstellungen">Cookie-Einstellungen</h2>
+      <p>Du kannst deine Einwilligung jederzeit ändern:</p>
+      <div class="cookie-actions">
+        <button id="settings-accept" type="button">Alle akzeptieren</button>
+        <button id="settings-decline" type="button" class="btn-decline">Nur notwendige Cookies</button>
+      </div>
     </article>
 
   </main>
