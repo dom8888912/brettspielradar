@@ -1,4 +1,4 @@
-// ui-version:2025-08-11-v7 – Menü-Overlay, Tooltip Toggle, Cookie-Banner mit Ablehnen
+// ui-version:2025-08-11-v8 – Menü-Overlay, Tooltip Toggle, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -32,21 +32,55 @@
     }
   });
 
+  // Suche
+  var q = document.getElementById('q');
+  var list = document.querySelector('[data-list]');
+  if (q && list){
+    q.addEventListener('input', function(){
+      var term = q.value.toLowerCase();
+      list.querySelectorAll('li').forEach(function(li){
+        li.style.display = li.textContent.toLowerCase().indexOf(term) === -1 ? 'none' : '';
+      });
+    });
+  }
+
   // Cookie Banner
   var banner = document.getElementById('cookie-banner');
   var accept = document.getElementById('cookie-accept');
   var decline = document.getElementById('cookie-decline');
-  if (banner && accept && decline){
-    accept.addEventListener('click', function(){
-      localStorage.setItem('cookie-consent','accepted');
-      document.documentElement.classList.add('cookies-accepted');
-      banner.style.display='none';
-      if (typeof loadAnalytics === 'function'){ loadAnalytics(); }
-    });
-    decline.addEventListener('click', function(){
-      localStorage.setItem('cookie-consent','declined');
-      document.documentElement.classList.add('cookies-declined');
-      banner.style.display='none';
-    });
+  var settingsAccept = document.getElementById('settings-accept');
+  var settingsDecline = document.getElementById('settings-decline');
+  var status = document.getElementById('consent-status');
+
+  function showStatus(msg){
+    if (status){
+      status.textContent = msg;
+      status.style.display = 'block';
+      setTimeout(function(){ status.style.display='none'; }, 3000);
+    }
   }
+
+  function consentAccept(){
+    localStorage.setItem('cookie-consent','accepted');
+    document.documentElement.classList.add('cookies-accepted');
+    if (banner) banner.style.display='none';
+    if (typeof loadAnalytics === 'function'){ loadAnalytics(); }
+  }
+
+  function consentDecline(){
+    localStorage.setItem('cookie-consent','declined');
+    document.documentElement.classList.add('cookies-declined');
+    if (banner) banner.style.display='none';
+  }
+
+  if (accept) accept.addEventListener('click', consentAccept);
+  if (decline) decline.addEventListener('click', consentDecline);
+  if (settingsAccept) settingsAccept.addEventListener('click', function(){
+    consentAccept();
+    showStatus('Einstellungen gespeichert.');
+  });
+  if (settingsDecline) settingsDecline.addEventListener('click', function(){
+    consentDecline();
+    showStatus('Einstellungen gespeichert.');
+  });
 })();
