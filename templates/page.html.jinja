@@ -26,19 +26,19 @@
         Preisindikator
         <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
           ⓘ
-          <span class="tip" role="tooltip">
-            <strong>So liest du das:</strong> Wir setzen drei Bereiche. Liegt ein Angebot <em>unter {{ '%.0f'|format(good or 0) }} €</em>,
-            markieren wir es als <strong>Top-Deal</strong>. Bis <em>{{ '%.0f'|format(ok or 0) }} €</em> ist der Preis in Ordnung.
-            Darüber ist es eher teuer. Die Schwellen basieren auf typischen Marktpreisen &amp; Erfahrungswerten.
-            <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
-          </span>
-        </button>
-      </h2>
-    </div>
-    {% if good and ok %}
+            <span class="tip" role="tooltip">
+              <strong>So liest du das:</strong> Wir setzen drei Bereiche. Liegt ein Angebot <em>unter {{ '%.0f'|format(good or 0) }}&nbsp;€</em>,
+              markieren wir es als <strong>Top-Deal</strong>. Bis <em>{{ '%.0f'|format(ok or 0) }}&nbsp;€</em> ist der Preis in Ordnung.
+              Darüber ist es eher teuer. Die Schwellen basieren auf typischen Marktpreisen &amp; Erfahrungswerten.
+              <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
+            </span>
+          </button>
+        </h2>
+      </div>
+      {% if good and ok %}
       <div class="legend">
-        <span class="legend-item"><span class="swatch good"></span> <strong>gut</strong>: unter {{ '%.0f'|format(good) }} €</span>
-        <span class="legend-item"><span class="swatch ok"></span> <strong>ok</strong>: bis {{ '%.0f'|format(ok) }} €</span>
+        <span class="legend-item"><span class="swatch good"></span> <strong>gut</strong>: unter {{ '%.0f'|format(good) }}&nbsp;€</span>
+        <span class="legend-item"><span class="swatch ok"></span> <strong>ok</strong>: bis {{ '%.0f'|format(ok) }}&nbsp;€</span>
         <span class="legend-item"><span class="swatch high"></span> <strong>teuer</strong>: darüber</span>
       </div>
     {% else %}
@@ -98,12 +98,12 @@
           <article class="offer-card{% if is_top %} top{% endif %}" data-offer data-accessory="{{ '1' if o.is_accessory else '0' }}" data-condition="{{ o.condition|lower if o.condition else '' }}">
             {% if is_top %}<div class="badge">Top-Deal</div>{% endif %}
             {% if o.is_accessory %}<div class="badge badge-grey" title="Zubehör/Erweiterung">Zubehör</div>{% endif %}
-            {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
-            <h3 class="offer-title">{{ o.title }}</h3>
-            <div class="offer-meta">
-              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }} €{% else %}–{% endif %}</span>
-              {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
-            </div>
+              {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
+              <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
+              <div class="offer-meta">
+                <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
+                {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
+              </div>
             <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">
               {% if 'ebay' in o.url %}Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
             </a>
@@ -126,8 +126,8 @@
         {% for o in offers %}
           {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
           <tr{% if is_top %} class="top"{% endif %} data-offer data-accessory="{{ '1' if o.is_accessory else '0' }}" data-condition="{{ o.condition|lower if o.condition else '' }}">
-            <td>{{ o.title }}</td>
-            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }} €{% else %}–{% endif %}</td>
+              <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></td>
+              <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</td>
             <td>{{ o.condition or '–' }}</td>
             <td>{% if o.is_accessory %}Ja{% else %}–{% endif %}</td>
             <td>{% if 'ebay' in o.url %}eBay{% else %}–{% endif %}</td>
