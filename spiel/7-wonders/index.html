@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ui-version:2025-08-11-v5 -->
+<!-- ui-version:2025-08-11-v7 -->
 <html lang="de">
 <head><base href="https://brettspielpreisradar.de/">
   <meta charset="utf-8">
@@ -7,8 +7,8 @@
   <title>7 Wonders – Preisradar & Angebote – Brettspiel Preisradar</title>
   <meta name="description" content="Preisradar, aktuelle Angebote und Deals für 7 Wonders – Preisradar &amp; Angebote.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5" as="style">
-  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5">
+  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7" as="style">
+  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7">
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="7 Wonders – Preisradar & Angebote – Brettspiel Preisradar">
@@ -27,17 +27,25 @@
       gtag('config','G-XXXXXXXXXX');
       window.gaLoaded=true;
     }
-    if(localStorage.getItem('cookie-consent')==='accepted'){
+    var consent=localStorage.getItem('cookie-consent');
+    if(consent==='accepted'){
       document.documentElement.classList.add('cookies-accepted');
       loadAnalytics();
+    }else if(consent==='declined'){
+      document.documentElement.classList.add('cookies-declined');
     }
   </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
-    <span>Diese Seite nutzt Cookies für Google Analytics.</span>
-    <button id="cookie-accept" type="button">OK</button>
+
+    <p>Wir verwenden Cookies, um anonyme Nutzungsstatistiken (Google Analytics) zu sammeln. Du kannst zustimmen oder ablehnen.</p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" type="button">Alle akzeptieren</button>
+      <button id="cookie-decline" type="button" class="btn-decline">Ablehnen</button>
+      <a href="https://brettspielpreisradar.de/datenschutz.html" class="cookie-more">Mehr Infos</a>
+    </div>
   </div>
   <header class="site-header" role="banner">
     <div class="container header-inner">
@@ -157,6 +165,19 @@
           <article class="offer-card top">
             <div class="badge">Top-Deal</div>
             
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/4uQAAOSwfLdkwP6m/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title">7 Wonders: Ancient Alien Makeover Steam Key für PC Windows (Versand am selben Tag)</h3>
+            <div class="offer-meta">
+              <span class="price">1.36 €</span>
+              <span class="condition">New</span>
+            </div>
+            <a class="btn btn-secondary" href="https://www.ebay.de/itm/116434426881?_skw=7+wonders+Brettspiel&hash=item1b1c085c01:g:4uQAAOSwfLdkwP6m" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+          </article>
+        
+          
+          <article class="offer-card top">
+            <div class="badge">Top-Deal</div>
+            
             <img class="offer-img" src="https://i.ebayimg.com/images/g/gpoAAOSwGlBlHDUO/s-l225.jpg" alt="" loading="lazy">
             <h3 class="offer-title">248 Hits der 70er-90er Jahre auf 7" Vinyl-Single zum Aussuchen!</h3>
             <div class="offer-meta">
@@ -229,19 +250,6 @@
               <span class="condition">Gut</span>
             </div>
             <a class="btn btn-secondary" href="https://www.ebay.de/itm/395623845884?_skw=7+wonders+Brettspiel&hash=item5c1d04cffc:g:Z6UAAOSwNKhmzxB3" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
-          </article>
-        
-          
-          <article class="offer-card top">
-            <div class="badge">Top-Deal</div>
-            
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/lIEAAOSwBlxoQ~Us/s-l225.jpg" alt="" loading="lazy">
-            <h3 class="offer-title">PC Spiel 7 Wonders 5 - Ancient Alien Makeover (Match-3-Spiel)</h3>
-            <div class="offer-meta">
-              <span class="price">2.00 €</span>
-              <span class="condition">Gut</span>
-            </div>
-            <a class="btn btn-secondary" href="https://www.ebay.de/itm/326727309714?_skw=7+wonders+Brettspiel&hash=item4c12771992:g:lIEAAOSwBlxoQ~Us" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
           </article>
         
       </div>
@@ -324,7 +332,7 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "1.00",
-      "highPrice": "2.00",
+      "highPrice": "1.99",
       "offerCount": "8"
     },
     
@@ -341,6 +349,6 @@
     </div>
   </footer>
 
-  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v5" defer></script>
+  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v7" defer></script>
 </body>
 </html>

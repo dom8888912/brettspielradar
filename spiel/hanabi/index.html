@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ui-version:2025-08-11-v5 -->
+<!-- ui-version:2025-08-11-v7 -->
 <html lang="de">
 <head><base href="https://brettspielpreisradar.de/">
   <meta charset="utf-8">
@@ -7,8 +7,8 @@
   <title>Hanabi – Preisradar & Angebote – Brettspiel Preisradar</title>
   <meta name="description" content="Preisradar, aktuelle Angebote und Deals für Hanabi – Preisradar &amp; Angebote.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5" as="style">
-  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5">
+  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7" as="style">
+  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7">
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Hanabi – Preisradar & Angebote – Brettspiel Preisradar">
@@ -27,17 +27,25 @@
       gtag('config','G-XXXXXXXXXX');
       window.gaLoaded=true;
     }
-    if(localStorage.getItem('cookie-consent')==='accepted'){
+    var consent=localStorage.getItem('cookie-consent');
+    if(consent==='accepted'){
       document.documentElement.classList.add('cookies-accepted');
       loadAnalytics();
+    }else if(consent==='declined'){
+      document.documentElement.classList.add('cookies-declined');
     }
   </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
-    <span>Diese Seite nutzt Cookies für Google Analytics.</span>
-    <button id="cookie-accept" type="button">OK</button>
+
+    <p>Wir verwenden Cookies, um anonyme Nutzungsstatistiken (Google Analytics) zu sammeln. Du kannst zustimmen oder ablehnen.</p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" type="button">Alle akzeptieren</button>
+      <button id="cookie-decline" type="button" class="btn-decline">Ablehnen</button>
+      <a href="https://brettspielpreisradar.de/datenschutz.html" class="cookie-more">Mehr Infos</a>
+    </div>
   </div>
   <header class="site-header" role="banner">
     <div class="container header-inner">
@@ -200,6 +208,6 @@
     </div>
   </footer>
 
-  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v5" defer></script>
+  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v7" defer></script>
 </body>
 </html>

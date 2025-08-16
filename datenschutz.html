@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ui-version:2025-08-11-v5 -->
+<!-- ui-version:2025-08-11-v7 -->
 <!-- Test-Preview -->
 <html lang="de">
 <head><base href="https://brettspielpreisradar.de/">
@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Datenschutz – Brettspiel Preisradar</title>
   <meta name="theme-color" content="#ffffff">
-  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5" as="style">
-  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v5">
+  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7" as="style">
+  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v7">
   <script>
     function loadAnalytics(){
       if(window.gaLoaded) return;
@@ -22,17 +22,24 @@
       gtag('config','G-XXXXXXXXXX');
       window.gaLoaded=true;
     }
-    if(localStorage.getItem('cookie-consent')==='accepted'){
+    var consent=localStorage.getItem('cookie-consent');
+    if(consent==='accepted'){
       document.documentElement.classList.add('cookies-accepted');
       loadAnalytics();
+    }else if(consent==='declined'){
+      document.documentElement.classList.add('cookies-declined');
     }
   </script>
 </head>
 <body>
   <a href="#main" class="skip-link">Zum Inhalt springen</a>
   <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite">
-    <span>Diese Seite nutzt Cookies für Google Analytics.</span>
-    <button id="cookie-accept" type="button">OK</button>
+    <p>Wir verwenden Cookies, um anonyme Nutzungsstatistiken (Google Analytics) zu sammeln. Du kannst zustimmen oder ablehnen.</p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" type="button">Alle akzeptieren</button>
+      <button id="cookie-decline" type="button" class="btn-decline">Ablehnen</button>
+      <a href="https://brettspielpreisradar.de/datenschutz.html" class="cookie-more">Mehr Infos</a>
+    </div>
   </div>
   <header class="site-header" role="banner">
     <div class="container header-inner">
@@ -54,10 +61,10 @@
 
     <article class="content-section">
       <h1 class="h2">Datenschutz</h1>
-      <p>Wir verarbeiten keine personenbezogenen Daten außer serverseitigen Logfiles. Es gibt keine Nutzerkonten und keine eigenen Cookies.</p>
+      <p>Wir verwenden Google Analytics, um anonyme Nutzungsstatistiken zu erheben. Die Cookies werden nur gesetzt, wenn du über den Banner zustimmst. Serverseitige Logfiles werden automatisch vom Hoster erhoben.</p>
       <ul>
         <li>Verantwortlicher: [Dein Name/Firma], kontakt@brettspielpreisradar.de</li>
-        <li>Affiliate-Links: Beim Klick gelten die Datenschutzbestimmungen des jeweiligen Shops (z. B. eBay).</li>
+        <li>Affiliate-Links: Beim Klick gelten die Datenschutzbestimmungen des jeweiligen Shops (z.&nbsp;B. eBay).</li>
       </ul>
       <p class="muted">Passe diesen Text an deine tatsächliche Situation an.</p>
     </article>
@@ -71,7 +78,7 @@
     </div>
   </footer>
 
-  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v5" defer></script>
+  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v7" defer></script>
 </body>
 </html>
 
