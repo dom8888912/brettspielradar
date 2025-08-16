@@ -1,4 +1,4 @@
-// ui-version:2025-08-11-v5 – Menü-Overlay & Tooltip Toggle (inline neben Titel)
+// ui-version:2025-08-11-v7 – Menü-Overlay, Tooltip Toggle, Cookie-Banner mit Ablehnen
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -35,12 +35,18 @@
   // Cookie Banner
   var banner = document.getElementById('cookie-banner');
   var accept = document.getElementById('cookie-accept');
-  if (banner && accept){
+  var decline = document.getElementById('cookie-decline');
+  if (banner && accept && decline){
     accept.addEventListener('click', function(){
       localStorage.setItem('cookie-consent','accepted');
       document.documentElement.classList.add('cookies-accepted');
       banner.style.display='none';
       if (typeof loadAnalytics === 'function'){ loadAnalytics(); }
+    });
+    decline.addEventListener('click', function(){
+      localStorage.setItem('cookie-consent','declined');
+      document.documentElement.classList.add('cookies-declined');
+      banner.style.display='none';
     });
   }
 })();
