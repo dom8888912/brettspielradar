@@ -143,7 +143,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
         q.extend([s for s in terms if isinstance(s, str) and s.strip()])
     if title:
         q += [f"{title} Brettspiel", f"{title} Spiel"]
-    if slug and slug.lower() not in title.lower():
+    if slug:
         q.append(f"{slug.replace('-', ' ')} Brettspiel")
     seen, out = set(), []
     for s in q:
