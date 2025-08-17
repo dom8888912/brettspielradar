@@ -1,5 +1,6 @@
 \
 import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
+from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -9,6 +10,9 @@ HIST_DIR = ROOT / "data" / "history"
 TEMPLATES = ROOT / "templates"
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
+
+EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
+EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
 
 env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
@@ -61,6 +65,17 @@ def avg_window(rows, days):
         return None
     return round(sum(vals)/len(vals), 2)
 
+def build_epn_search_url(game):
+    queries = game.get("search_queries") or game.get("search_terms") or []
+    if isinstance(queries, list) and queries:
+        q = queries[0]
+    else:
+        q = game.get("slug") or ""
+    url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
+    if EPN_CAMPAIGN_ID:
+        url += f"&campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{game.get('slug','')}"
+    return url
+
 def render_game(yaml_path, site_url):
     game = load_yaml(yaml_path)
     offers = load_offers(game["slug"])
@@ -85,6 +100,7 @@ def render_game(yaml_path, site_url):
     prices = [o["price_eur"] for o in offers if "price_eur" in o]
     min_price = min(prices) if prices else None
 
+    search_url = build_epn_search_url(game)
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
@@ -93,7 +109,8 @@ def render_game(yaml_path, site_url):
         avg_price_eur=avg_price_eur,
         avg30=avg30, avg60=avg60, avg90=avg90,
         delta60=delta60,
-        min_price=min_price
+        min_price=min_price,
+        ebay_search_url=search_url
     )
 
     layout_tpl = env.get_template("layout.html.jinja")

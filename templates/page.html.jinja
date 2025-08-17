@@ -45,7 +45,11 @@
       <p class="muted">Für dieses Spiel haben wir noch keine Preisschwellen hinterlegt.</p>
     {% endif %}
     <div class="cta-row">
+      {% if offers and offers|length > 0 %}
       <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+      {% else %}
+      <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+      {% endif %}
     </div>
   </section>
 
