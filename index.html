@@ -79,28 +79,6 @@
   </div>
 </details>
 <div class="search"><input id="q" type="search" placeholder="Spiel suchen …" aria-label="Spiele durchsuchen"></div>
-<div class="filters">
-  <label>Spieler <input id="filter-players" type="number" min="1" placeholder="z. B. 4"></label>
-  <label>Alter <input id="filter-age" type="number" min="0" placeholder="z. B. 10"></label>
-  
-  <label>Thema
-    <select id="filter-theme">
-      <option value="">Alle</option>
-      
-      <option value="Abstrakt">Abstrakt</option>
-      
-      <option value="Handel">Handel</option>
-      
-      <option value="Puzzle">Puzzle</option>
-      
-      <option value="Siedeln">Siedeln</option>
-      
-      <option value="Strategie">Strategie</option>
-      
-    </select>
-  </label>
-  
-</div>
 <ul class="game-list" data-list>
 
   <li data-min-players="3" data-max-players="7" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/7-wonders/">7 Wonders</a></li>
@@ -178,6 +156,31 @@
   <li data-min-players="2" data-max-players="5" data-age="" data-themes=""><a href="https://brettspielpreisradar.de/spiel/zug-um-zug/">Zug um Zug</a></li>
 
 </ul>
+<details>
+  <summary>Filter</summary>
+  <div class="filters">
+    <label>Spieler <input id="filter-players" type="number" min="1" placeholder="z. B. 4"></label>
+    <label>Alter <input id="filter-age" type="number" min="0" placeholder="z. B. 10"></label>
+    
+    <label>Thema
+      <select id="filter-theme">
+        <option value="">Alle</option>
+        
+        <option value="Abstrakt">Abstrakt</option>
+        
+        <option value="Handel">Handel</option>
+        
+        <option value="Puzzle">Puzzle</option>
+        
+        <option value="Siedeln">Siedeln</option>
+        
+        <option value="Strategie">Strategie</option>
+        
+      </select>
+    </label>
+    
+  </div>
+</details>
   </main>
 
   <footer class="site-footer" role="contentinfo">
