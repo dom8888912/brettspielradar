@@ -36,9 +36,15 @@ def price_rating(offers, rules):
         return ("keine Daten", 0.0, "teuer")
     avg = statistics.mean(prices)
     if rules:
-        if avg < rules.get("good_threshold_eur", 0):
+        good_threshold = rules.get("good_threshold_eur")
+        if good_threshold is None:
+            good_threshold = 0
+        ok_threshold = rules.get("ok_threshold_eur")
+        if ok_threshold is None:
+            ok_threshold = 9999
+        if avg < good_threshold:
             return ("unter", avg, "unter")
-        elif avg <= rules.get("ok_threshold_eur", 9999):
+        elif avg <= ok_threshold:
             return ("ok", avg, "ok")
         else:
             return ("teuer", avg, "teuer")
