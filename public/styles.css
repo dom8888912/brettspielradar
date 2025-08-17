@@ -82,6 +82,9 @@ a:hover{text-decoration:underline}
 .offer-link{display:inline-flex;align-items:center}
 .search{margin:20px 0}
 .search input{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.05rem}
+.controls{display:flex;gap:12px;align-items:flex-start;margin:20px 0}
+.controls .search{flex:1;margin:0}
+.controls details{margin:0}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .filters label{display:flex;flex-direction:column;font-size:.95rem;flex:1 1 120px}
 .filters input,.filters select{padding:8px 10px;border:1px solid var(--border);border-radius:8px}

@@ -50,14 +50,22 @@
       var pMatch = true;
       var aMatch = true;
       var tMatch = true;
-      if (players){
+      if (players !== null){
         var min = parseInt(li.dataset.minPlayers,10);
         var max = parseInt(li.dataset.maxPlayers,10);
-        if (min && max){ pMatch = players >= min && players <= max; }
+        if (!isNaN(min) && !isNaN(max)){
+          pMatch = players >= min && players <= max;
+        }else{
+          pMatch = false;
+        }
       }
-      if (age){
+      if (age !== null){
         var gAge = parseInt(li.dataset.age,10);
-        if (gAge){ aMatch = gAge <= age; }
+        if (!isNaN(gAge)){
+          aMatch = gAge <= age;
+        }else{
+          aMatch = false;
+        }
       }
       if (theme){
         var themes = li.dataset.themes ? li.dataset.themes.split(',') : [];
