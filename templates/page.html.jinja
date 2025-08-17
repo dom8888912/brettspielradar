@@ -35,7 +35,7 @@
           </button>
         </h2>
       </div>
-      {% if good and ok %}
+      {% if good is not none and ok is not none %}
       <div class="legend">
         <span class="legend-item"><span class="swatch good"></span> <strong>gut</strong>: unter {{ '%.0f'|format(good) }}&nbsp;€</span>
         <span class="legend-item"><span class="swatch ok"></span> <strong>ok</strong>: bis {{ '%.0f'|format(ok) }}&nbsp;€</span>
