@@ -4,9 +4,10 @@
   var btn = document.getElementById('nav-toggle');
   var nav = document.getElementById('main-nav');
   if (btn && nav){
-    function closeNav(){ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+    function closeNav(){ nav.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
     btn.addEventListener('click', function(e){
       var open = nav.classList.toggle('open');
+      btn.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       e.stopPropagation();
     });
