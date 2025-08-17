@@ -1,11 +1,11 @@
 /* ui-version:2025-08-11-v8 – Cookie-Banner mit Auswahl, Suche & Skip-Link Fix */
 :root{
+  --color-primary:#ff7f11;
+  --color-secondary:#ff9f1c;
   --bg:#ffffff;
   --panel:#ffffff;
   --muted:#475569;
   --text:#0f172a;
-  --brand:#0ea5e9;
-  --brand-2:#16a34a;
   --card:#ffffff;
   --border:#e2e8f0;
   --good:#16a34a;
@@ -23,12 +23,12 @@ html{font-size:16px}
 @media (min-width:880px){ html{font-size:17px} }
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
 
-a{color:#0369a1;text-decoration:none}
+a{color:var(--color-primary);text-decoration:none}
 a:hover{text-decoration:underline}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
 
 .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{left:10px;top:10px;width:auto;height:auto;overflow:visible;padding:8px 12px;background:var(--brand);color:#fff;border-radius:8px;z-index:1000}
+.skip-link:focus{left:10px;top:10px;width:auto;height:auto;overflow:visible;padding:8px 12px;background:var(--color-primary);color:#fff;border-radius:8px;z-index:1000}
 
 .container{max-width:980px;margin:0 auto;padding:16px}
 .site-header{background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40}
@@ -74,11 +74,11 @@ a:hover{text-decoration:underline}
 
 .cta-row{margin-top:8px}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid transparent;padding:12px 14px;font-weight:700;min-height:44px}
-.btn-primary{background:var(--brand);color:white;width:100%}
+.btn-primary{background:var(--color-primary);color:white;width:100%}
 .btn-primary:hover{opacity:.92;text-decoration:none}
-.btn-secondary{background:#0ea5e9;color:white;width:100%}
+.btn-secondary{background:var(--color-secondary);color:white;width:100%}
 .btn-secondary:hover{opacity:.95}
-.btn-link{color:#0369a1}
+.btn-link{color:var(--color-primary)}
 .offer-link{display:inline-flex;align-items:center}
 .search{margin:20px 0}
 .search input{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-size:1.05rem}
@@ -112,7 +112,7 @@ a:hover{text-decoration:underline}
   display:flex;flex-direction:column;min-height:320px;
 }
 .offer-card.top{border-color:rgba(22,163,74,.4);box-shadow:0 0 0 1px rgba(22,163,74,.2) inset, 0 2px 10px rgba(22,163,74,.06)}
-.badge{position:absolute;top:10px;right:10px;background:var(--brand-2);color:#052e16;font-weight:800;font-size:.75rem;border-radius:999px;padding:4px 8px}
+.badge{position:absolute;top:10px;right:10px;background:var(--color-secondary);color:#052e16;font-weight:800;font-size:.75rem;border-radius:999px;padding:4px 8px}
 .badge-grey{background:var(--badge);color:var(--badge-text);right:auto;left:10px}
 .offer-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-bottom:10px}
 .offer-title{
@@ -138,14 +138,14 @@ a:hover{text-decoration:underline}
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;color:var(--text);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:.9rem;text-align:center}
 .cookie-banner .cookie-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
 .cookie-banner button{border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600}
-#cookie-accept,#settings-accept{background:var(--brand);color:#fff}
+#cookie-accept,#settings-accept{background:var(--color-primary);color:#fff}
 #cookie-decline,#settings-decline,#cookie-settings{background:#e2e8f0;color:var(--text)}
-.cookie-banner .cookie-more,.cookie-banner .cookie-settings-link{color:#0369a1;font-size:.85rem}
+.cookie-banner .cookie-more,.cookie-banner .cookie-settings-link{color:var(--color-primary);font-size:.85rem}
 .cookies-accepted .cookie-banner,.cookies-declined .cookie-banner{display:none}
 .cookie-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:999}
 .cookies-accepted .cookie-overlay,.cookies-declined .cookie-overlay{display:none}
 
-.consent-status{margin-top:10px;font-size:.9rem;color:var(--brand);display:none;text-align:center}
+.consent-status{margin-top:10px;font-size:.9rem;color:var(--color-primary);display:none;text-align:center}
 
 @media (prefers-reduced-motion: reduce){
   *{scroll-behavior:auto !important;animation:none !important;transition:none !important}
