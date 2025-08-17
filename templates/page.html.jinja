@@ -57,8 +57,8 @@
     <h2 class="h2">Kaufberatung</h2>
     {% set primary_text = game.summary or game.description or game.about or game.intro or game.overview or game.text %}
     {% set paragraphs = game.kaufberatung or game.paragraphs or game.extra_paragraphs %}
-    {% if primary_text %}<p>{{ primary_text }}</p>{% endif %}
-    {% if paragraphs %}{% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}{% endif %}
+    {% if primary_text %}{{ primary_text | md | safe }}{% endif %}
+    {% if paragraphs %}{% for p in paragraphs %}{{ p | md | safe }}{% endfor %}{% endif %}
     {% if not primary_text and not paragraphs %}
       <p class="muted">Keine Details hinterlegt – wir ergänzen diese Seite bald.</p>
     {% endif %}
@@ -183,7 +183,7 @@
         {% endif %}
         <details>
           <summary>{{ question }}</summary>
-          {% if answer %}<div class="answer"><p>{{ answer }}</p></div>{% endif %}
+          {% if answer %}<div class="answer">{{ answer | md | safe }}</div>{% endif %}
         </details>
       {% endfor %}
     </div>

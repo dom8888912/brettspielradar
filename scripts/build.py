@@ -19,6 +19,18 @@ env = Environment(
     autoescape=select_autoescape(["html"])
 )
 
+def simple_md(text):
+    """Convert a tiny subset of Markdown to HTML."""
+    if not text:
+        return ""
+    txt = str(text)
+    txt = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", txt)
+    txt = re.sub(r"\*(.+?)\*", r"<em>\1</em>", txt)
+    paras = [p.strip().replace("\n", " ") for p in re.split(r"\n\s*\n", txt) if p.strip()]
+    return "".join(f"<p>{p}</p>" for p in paras)
+
+env.filters["md"] = simple_md
+
 def load_yaml(path):
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
