@@ -142,7 +142,7 @@ def copy_public():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(p.read_text(encoding="utf-8"), encoding="utf-8")
 
-def build_index(site_url):
+def build_game_list(site_url):
     raw_games = [load_yaml(p) for p in CONTENT.glob("*.yaml")]
     games = []
     theme_set = set()
@@ -183,16 +183,34 @@ def build_index(site_url):
         games.append(g)
 
     games = sorted(games, key=lambda g: g["title_short"].lower())
-    tpl = env.get_template("index.html.jinja")
+    tpl = env.get_template("games.html.jinja")
     inner = tpl.render(games=games, themes=sorted(theme_set))
     layout_tpl = env.get_template("layout.html.jinja")
     out_html = layout_tpl.render(
-        title="Brettspiel-Preisradar",
+        title="Alle Brettspiel-Angebote",
         product_name="Brettspiele",
-        meta_description="Preisradar & Angebote für Brettspiele.",
+        meta_description="Aktuelle Angebote & Preisvergleich für Brettspiele.",
         content=inner,
         disclosure="",
-        site_url=site_url
+        site_url=site_url,
+        canonical=f"{site_url}/alle-spiele.html",
+    )
+    DIST.mkdir(exist_ok=True)
+    (DIST / "alle-spiele.html").write_text(out_html, encoding="utf-8")
+
+
+def build_home(site_url):
+    tpl = env.get_template("landing.html.jinja")
+    inner = tpl.render()
+    layout_tpl = env.get_template("layout.html.jinja")
+    out_html = layout_tpl.render(
+        title="Brettspiel-Angebote & Preisvergleich",
+        product_name="Brettspiele",
+        meta_description="Brettspielpreisradar erklärt, wie du günstige Brettspiel-Angebote findest.",
+        content=inner,
+        disclosure="",
+        site_url=site_url,
+        canonical=f"{site_url}/",
     )
     DIST.mkdir(exist_ok=True)
     (DIST / "index.html").write_text(out_html, encoding="utf-8")
@@ -232,6 +250,7 @@ def build_sitemap(site_url):
         u = ET.SubElement(urlset, "url")
         ET.SubElement(u, "loc").text = loc
     add(site_url + "/")
+    add(site_url + "/alle-spiele.html")
     add(site_url + "/hubs.html")
     for s in slugs:
         add(f"{site_url}/spiel/{s}/")
@@ -250,7 +269,8 @@ def main():
     copy_public()
     for yml in CONTENT.glob("*.yaml"):
         render_game(yml, site_url)
-    build_index(site_url)
+    build_game_list(site_url)
+    build_home(site_url)
     build_hubs(site_url)
     build_sitemap(site_url)
 

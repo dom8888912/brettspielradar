@@ -1,7 +1,7 @@
 {# ui-version:2025-08-11-v6 #}
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/">Alle Spiele</a> <span aria-hidden="true">›</span>
+    <a href="/alle-spiele.html">Alle Spiele</a> <span aria-hidden="true">›</span>
     <a href="/hubs.html">Brettspiele</a> <span aria-hidden="true">›</span>
     <span aria-current="page">{{ game.title }}</span>
   </nav>
@@ -191,7 +191,7 @@
   {% endif %}
 
   <section class="content-section">
-    <a class="btn btn-link" href="/">← Alle Spiele</a>
+    <a class="btn btn-link" href="/alle-spiele.html">← Alle Spiele</a>
   </section>
 
   {% set prices = (offers | map(attribute='price_eur') | reject('equalto', None) | list) if offers else [] %}
