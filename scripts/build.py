@@ -82,11 +82,32 @@ def build_epn_search_url(game):
         url += f"&campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{game.get('slug','')}"
     return url
 
+
+def parse_players(p):
+    """Return (min_players, max_players) parsed from a players string."""
+    if not p:
+        return (None, None)
+    p = str(p).replace("–", "-")
+    m = re.match(r"(\d+)\s*-\s*(\d+)", p)
+    if m:
+        return int(m.group(1)), int(m.group(2))
+    if str(p).isdigit():
+        n = int(p)
+        return n, n
+    return (None, None)
+
 def render_game(yaml_path, site_url):
     game = load_yaml(yaml_path)
     offers = load_offers(game["slug"])
     rating_text, avg_price, _ = price_rating(offers, game.get("price_rules"))
     avg_price_eur = round(avg_price, 2) if avg_price else None
+
+    # parse player count for template chip
+    min_p, max_p = parse_players(game.get("players"))
+    if min_p and max_p:
+        game["players"] = {"min": min_p, "max": max_p}
+    else:
+        game["players"] = None
 
     # history
     hist = load_history(game["slug"])
@@ -146,18 +167,6 @@ def build_game_list(site_url):
     raw_games = [load_yaml(p) for p in CONTENT.glob("*.yaml")]
     games = []
     theme_set = set()
-
-    def parse_players(p):
-        if not p:
-            return (None, None)
-        p = str(p).replace("–", "-")
-        m = re.match(r"(\d+)\s*-\s*(\d+)", p)
-        if m:
-            return int(m.group(1)), int(m.group(2))
-        if p.isdigit():
-            n = int(p)
-            return n, n
-        return (None, None)
 
     def parse_age(a):
         if not a:
