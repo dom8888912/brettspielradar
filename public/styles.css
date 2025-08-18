@@ -33,18 +33,18 @@ a:hover{text-decoration:underline}
 .container{max-width:980px;margin:0 auto;padding:16px}
 .site-header{background:var(--panel);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--text)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--color-primary)}
 .brand-text{font-size:1.05rem}
-.nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;border-radius:10px;background:var(--color-primary);color:#fff;transition:background .3s}
-.nav-toggle .hamburger{width:20px;height:2px;position:relative;background:#fff;border-radius:2px;transition:transform .3s}
-.nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:"";position:absolute;left:0;width:20px;height:2px;background:#fff;border-radius:2px;transition:transform .3s,opacity .3s}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;border-radius:10px;background:#fff;color:var(--color-primary);transition:background .3s}
+.nav-toggle .hamburger{display:block;width:20px;height:2px;position:relative;background:var(--color-primary);border-radius:2px;transition:transform .3s}
+.nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--color-primary);border-radius:2px;transition:transform .3s,opacity .3s}
 .nav-toggle .hamburger::before{top:-6px}
 .nav-toggle .hamburger::after{top:6px}
 .nav-toggle.open .hamburger{transform:rotate(45deg)}
 .nav-toggle.open .hamburger::before{transform:rotate(90deg) translateX(6px)}
 .nav-toggle.open .hamburger::after{opacity:0}
-.main-nav{max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease,opacity .3s ease;display:block;pointer-events:none}
-.main-nav.open{max-height:300px;opacity:1;position:absolute;left:0;right:0;top:56px;background:var(--color-primary);box-shadow:var(--shadow);z-index:50;pointer-events:auto}
+.main-nav{max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease,opacity .3s ease;display:block;pointer-events:none;position:absolute;left:0;right:0;top:56px}
+.main-nav.open{max-height:300px;opacity:1;background:var(--color-primary);box-shadow:var(--shadow);z-index:50;pointer-events:auto}
 .main-nav a{display:block;padding:12px 16px;color:#0f172a}
 .main-nav.open a{color:#fff;border-top:1px solid rgba(255,255,255,.15)}
 .main-nav.open a:first-child{border-top:none}
