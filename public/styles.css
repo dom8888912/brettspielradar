@@ -146,10 +146,11 @@ a:hover{text-decoration:underline}
 .footer-inner{padding:20px 16px}
 .muted{color:var(--muted)}
 
-.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;color:var(--text);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:.9rem;text-align:center}
-.cookie-banner .cookie-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
-.cookie-banner button{border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600}
-#cookie-accept,#settings-accept{background:var(--color-primary);color:#fff}
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;color:var(--text);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;font-size:.9rem;text-align:center;border-radius:12px 12px 0 0}
+.cookie-banner .cookie-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
+.cookie-banner button{border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600;transition:background .3s,transform .3s}
+#cookie-accept,#settings-accept{background:var(--color-primary);color:#fff;padding:10px 20px;font-size:1rem;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+#cookie-accept:hover,#settings-accept:hover{transform:scale(1.05)}
 #cookie-decline,#settings-decline,#cookie-settings{background:#e2e8f0;color:var(--text)}
 .cookie-banner .cookie-more,.cookie-banner .cookie-settings-link{color:var(--color-primary);font-size:.85rem}
 .cookies-accepted .cookie-banner,.cookies-declined .cookie-banner{display:none}
