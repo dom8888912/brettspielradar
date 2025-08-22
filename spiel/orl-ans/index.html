@@ -130,13 +130,26 @@
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
-      <small class="muted">Sortierung nach Preis (aufsteigend), nur Angebote in EUR.</small>
+      <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
     </div>
 
     
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
     
   </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  const hist = [];
+  if(hist.length){
+    const ctx = document.getElementById('priceChart');
+    const labels = hist.map(r=>r.date);
+    const data = hist.map(r=>r.avg);
+    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+  }
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Orléans – Preisradar & Angebote", "offers": []}</script>
+
 
   
   <section class="content-section">
