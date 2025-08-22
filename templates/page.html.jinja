@@ -101,11 +101,14 @@
     </div>
 
     {% if offers and offers|length > 0 %}
+
+      {# --- Filter UI (optional, kann später per JS verdrahtet werden) --- #}
       <div class="offer-filters">
         <label><input type="checkbox" id="filter-hide-accessory"> Zubehör ausblenden</label>
         <label><input type="checkbox" id="filter-only-new"> Nur Neu</label>
       </div>
 
+      {# --- Grid/Card-Layout für mobile/tablet --- #}
       <div class="offer-grid">
         {% for o in offers %}
           {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
@@ -133,6 +136,37 @@
           </article>
         {% endif %}
       </div>
+
+      {# --- Desktop-Tabelle (wird per CSS ab ≥880px eingeblendet) --- #}
+      <table class="offer-table">
+        <thead>
+          <tr>
+            <th>Verkäufer</th>
+            <th>Preis</th>
+            <th>Versand</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for o in offers %}
+          {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
+          <tr{% if is_top %} class="top"{% endif %}>
+            <td>{{ o.shop or ('eBay' if 'ebay' in o.url else '–') }}</td>
+            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        {% endfor %}
+        {% if amazon_search_url %}
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td>–</td>
+            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+        {% endif %}
+        </tbody>
+      </table>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
@@ -175,28 +209,6 @@
         </li>
       {% endfor %}
     </ul>
-  </section>
-  {% endif %}
-
-  {% set faq_items = game.faq or game.faqs or game.faq_list %}
-  {% if faq_items %}
-  <section class="content-section">
-    <h2 class="h2">Häufige Fragen</h2>
-    <div class="faq">
-      {% for q in faq_items %}
-        {% if q is mapping %}
-          {% set question = q.question or q.q or (q.keys()|list)[0] %}
-          {% set answer = q.answer or q.a or (q[question] if q[question] is defined else '') %}
-        {% else %}
-          {% set question = q %}
-          {% set answer = "" %}
-        {% endif %}
-        <details>
-          <summary>{{ question }}</summary>
-          {% if answer %}<div class="answer">{{ answer | md | safe }}</div>{% endif %}
-        </details>
-      {% endfor %}
-    </div>
   </section>
   {% endif %}
 
