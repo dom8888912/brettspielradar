@@ -131,20 +131,22 @@
       </div>
 
       <table class="offer-table">
-        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
         <tbody>
           {% for o in offers %}
           <tr class="{% if loop.first %}top{% endif %}">
             <td>{{ o.shop }}</td>
-            <td>{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
-            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
+            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td><a class="btn btn-secondary" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
           {% endfor %}
           {% if amazon_search_url %}
           <tr>
             <td>Amazon</td>
             <td>–</td>
-            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+            <td>–</td>
+            <td><a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
           </tr>
           {% endif %}
         </tbody>

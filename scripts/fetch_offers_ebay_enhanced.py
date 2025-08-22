@@ -98,8 +98,8 @@ EXCLUDE_TERMS = [t.lower() for t in FILTER_CFG.get("exclude_terms", [])]
 # Only offers from these sellers will be saved.
 ALLOWED_SELLERS = {s.lower() for s in FILTER_CFG.get("allowed_sellers", [])}
 
-# eBay condition IDs that are treated as "new". Items outside this list are
-# ignored unless the textual condition explicitly mentions "neu" oder "new".
+# eBay condition IDs that are treated as "new".
+# Items outside this list are ignored unless the textual condition explicitly mentions "neu" or "new".
 ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 1500, 1750])}
 
 # Required seller account type (e.g. BUSINESS) to exclude private listings.
