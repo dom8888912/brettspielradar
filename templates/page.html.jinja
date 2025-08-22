@@ -113,6 +113,15 @@
             </a>
           </article>
         {% endfor %}
+        {% if amazon_search_url %}
+          <article class="offer-card" data-offer data-accessory="0" data-condition="">
+            <h3 class="offer-title"><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
+            <div class="offer-meta">
+              <span class="price">–</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+          </article>
+        {% endif %}
       </div>
 
       <table class="offer-table">
@@ -138,10 +147,25 @@
             <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
         {% endfor %}
+        {% if amazon_search_url %}
+          <tr>
+            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+            <td>Amazon</td>
+            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+        {% endif %}
         </tbody>
       </table>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
+      {% if amazon_search_url %}
+      <div class="cta-row">
+        <a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+      </div>
+      {% endif %}
     {% endif %}
   </section>
 
