@@ -170,7 +170,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
             out.append(s2)
     return out[:6]
 
-def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, Any]]:
+def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, Any]]:
     slug = game.get("slug")
     if not slug:
         return []
@@ -184,7 +184,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, An
                 continue
 
             price = pick_price_eur(it)
-            if price is None:
+            if price is None or price <= 0:
                 continue
             shipping = pick_shipping_eur(it)
             total = price + shipping if price is not None else None
@@ -247,7 +247,7 @@ def main():
     updated = 0
     for g in games:
         slug = g["slug"]
-        offers = fetch_for_game(g, max_keep=1)
+        offers = fetch_for_game(g, max_keep=10)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
         with outp.open("w", encoding="utf-8") as f:
