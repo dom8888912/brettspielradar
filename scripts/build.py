@@ -1,4 +1,4 @@
-import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
+import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -49,26 +49,6 @@ def build_amazon_search_url(game):
     else:
         q = game.get("title") or game.get("slug") or ""
     return f"https://www.amazon.de/s?k={quote_plus(q)}&tag={AMAZON_PARTNER_ID}"
-
-def price_rating(offers, rules):
-    prices = [o["price_eur"] for o in offers if "price_eur" in o]
-    if not prices:
-        return ("keine Daten", 0.0, "teuer")
-    avg = statistics.mean(prices)
-    if rules:
-        good_threshold = rules.get("good_threshold_eur")
-        if good_threshold is None:
-            good_threshold = 0
-        ok_threshold = rules.get("ok_threshold_eur")
-        if ok_threshold is None:
-            ok_threshold = 9999
-        if avg < good_threshold:
-            return ("unter", avg, "unter")
-        elif avg <= ok_threshold:
-            return ("ok", avg, "ok")
-        else:
-            return ("teuer", avg, "teuer")
-    return ("ok", avg, "ok")
 
 def load_history(slug):
     path = HIST_DIR / f"{slug}.jsonl"
@@ -122,9 +102,6 @@ def render_game(yaml_path, site_url):
         offers_raw,
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
-    rating_text, avg_price, _ = price_rating(offers, game.get("price_rules"))
-    avg_price_eur = round(avg_price, 2) if avg_price else None
-
     # parse player count for template chip
     min_p, max_p = parse_players(game.get("players"))
     if min_p and max_p:
@@ -135,8 +112,7 @@ def render_game(yaml_path, site_url):
     # history windows (weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
     avg30 = avg_window(hist, 30)
-    avg60 = avg_window(hist, 60)
-    avg90 = avg_window(hist, 90)
+
     cutoff = dt.date.today() - dt.timedelta(days=30)
     hist30 = [
         {"date": r["date"].isoformat(), "avg": r["avg"]}
@@ -144,19 +120,24 @@ def render_game(yaml_path, site_url):
         if isinstance(r.get("avg"), (int, float)) and r["avg"] > 0 and r["date"] >= cutoff
     ]
 
-    # delta vs 60-day average
-    delta60 = None
-    if avg_price_eur is not None and avg60:
-        try:
-            delta60 = round(((avg_price_eur - avg60) / avg60) * 100, 1)
-        except Exception:
-            delta60 = None
-
     # minimaler Preis für Anzeige
     min_price = None
     if offers:
         first = offers[0]
         min_price = first.get("total_eur") or first.get("price_eur")
+
+    price_trend = None
+    if min_price is not None and avg30:
+        try:
+            ratio = min_price / avg30
+            if ratio <= 0.95:
+                price_trend = "good"
+            elif ratio <= 1.05:
+                price_trend = "ok"
+            else:
+                price_trend = "high"
+        except Exception:
+            price_trend = None
 
     # Affiliate-Suchen
     ebay_search_url = build_epn_search_url(game)
@@ -165,14 +146,10 @@ def render_game(yaml_path, site_url):
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
-        offers=offers[:10],
-        rating_text=rating_text,
-        avg_price_eur=avg_price_eur,
+        offers=offers[:1],
         avg30=avg30,
-        avg60=avg60,
-        avg90=avg90,
-        delta60=delta60,
         min_price=min_price,
+        price_trend=price_trend,
         ebay_search_url=ebay_search_url,
         amazon_search_url=amazon_search_url,
         history=hist30,

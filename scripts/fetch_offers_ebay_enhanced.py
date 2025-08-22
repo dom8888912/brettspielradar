@@ -9,6 +9,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
+- Limits results to a fixed whitelist of trusted business sellers
 """
 
 import os, json, time
@@ -82,6 +83,21 @@ EXCLUDE_TERMS = [
   "einsatz", "ersatzteil", "ersatzteile", "promo", "upgrade", "coins", "münzen",
   "spielmatte", "playmat", "inlay", "aufbewahrung", "storage", "standee", "minis"
 ]
+
+# only these sellers are considered trustworthy for price comparisons
+ALLOWED_SELLERS = {
+  "thaliabuecher",
+  "alternate.gmbh",
+  "buecher-de",
+  "spiele-offensive",
+  "voelkner_de",
+  "hugendubel-digital",
+  "fantasywelt_de",
+  "palast-der-spiele-de",
+  "funtainment_muenchen",
+  "spieleladen_asl",
+}
+
 def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
@@ -197,7 +213,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if looks_like_accessory(title):
                 continue
 
-            # Zusätzliche Sicherungs-Filter (sollten vom API-Filter bereits greiffen)
+            # Zusätzliche Sicherungs-Filter (sollten vom API-Filter bereits greifen)
             cond_id = str(it.get("conditionId") or "")
             cond_txt = (it.get("condition") or "").lower()
             if cond_id and cond_id not in {"1000", "1500", "1750"} and "neu" not in cond_txt and "new" not in cond_txt:
@@ -207,6 +223,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if acc_type != "BUSINESS":
                 continue
             shop = seller.get("username") or "eBay"
+            if shop.lower() not in ALLOWED_SELLERS:
+                continue
 
             img = (it.get("image") or {}).get("imageUrl")
 
