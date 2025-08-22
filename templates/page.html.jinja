@@ -84,6 +84,16 @@
   </section>
   {% endif %}
 
+  <section class="content-section price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)</h2>
+    {% if avg30 %}
+      <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+    {% else %}
+      <p class="muted">Noch keine Preisdaten.</p>
+    {% endif %}
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
+
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -123,8 +133,6 @@
           </article>
         {% endif %}
       </div>
-
-      <div class="price-chart"><canvas id="priceChart"></canvas></div>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
@@ -139,7 +147,7 @@
   <script>
   const hist = {{ history_json | safe }};
   if(hist.length){
-    const ctx = document.getElementById('priceChart');
+    const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
     new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});

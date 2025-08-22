@@ -137,6 +137,12 @@ def render_game(yaml_path, site_url):
     avg30 = avg_window(hist, 30)
     avg60 = avg_window(hist, 60)
     avg90 = avg_window(hist, 90)
+    cutoff = dt.date.today() - dt.timedelta(days=30)
+    hist30 = [
+        {"date": r["date"].isoformat(), "avg": r["avg"]}
+        for r in hist
+        if isinstance(r.get("avg"), (int, float)) and r["avg"] > 0 and r["date"] >= cutoff
+    ]
 
     # delta vs 60-day average
     delta60 = None
@@ -159,7 +165,7 @@ def render_game(yaml_path, site_url):
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
-        offers=offers[:1],
+        offers=offers[:10],
         rating_text=rating_text,
         avg_price_eur=avg_price_eur,
         avg30=avg30,
@@ -168,7 +174,9 @@ def render_game(yaml_path, site_url):
         delta60=delta60,
         min_price=min_price,
         ebay_search_url=ebay_search_url,
-        amazon_search_url=amazon_search_url
+        amazon_search_url=amazon_search_url,
+        history=hist30,
+        history_json=json.dumps(hist30)
     )
 
     layout_tpl = env.get_template("layout.html.jinja")

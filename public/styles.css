@@ -134,6 +134,8 @@ a:hover{text-decoration:underline}
 .condition{font-size:.9rem;color:#0f172a;background:#f1f5f9;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
 .offer-card .btn{margin-top:auto}
 .price-chart{margin-top:20px}
+.price-history .avg-price{font-weight:700;font-size:1.1rem;margin:0}
+.price-history canvas{max-width:100%}
 
 .faq details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:#f8fafc}
 .faq summary{cursor:pointer;padding:12px 14px;font-weight:700;min-height:44px;display:flex;align-items:center}
