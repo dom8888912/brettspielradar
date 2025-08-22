@@ -91,11 +91,14 @@
     </div>
 
     {% if offers and offers|length > 0 %}
+
+      {# --- Filter UI (optional, kann später per JS verdrahtet werden) --- #}
       <div class="offer-filters">
         <label><input type="checkbox" id="filter-hide-accessory"> Zubehör ausblenden</label>
         <label><input type="checkbox" id="filter-only-new"> Nur Neu</label>
       </div>
 
+      {# --- Grid/Card-Layout für mobile/tablet --- #}
       <div class="offer-grid">
         {% for o in offers %}
           {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
@@ -123,6 +126,37 @@
           </article>
         {% endif %}
       </div>
+
+      {# --- Desktop-Tabelle (wird per CSS ab ≥880px eingeblendet) --- #}
+      <table class="offer-table">
+        <thead>
+          <tr>
+            <th>Verkäufer</th>
+            <th>Preis</th>
+            <th>Versand</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for o in offers %}
+          {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
+          <tr{% if is_top %} class="top"{% endif %}>
+            <td>{{ o.shop or ('eBay' if 'ebay' in o.url else '–') }}</td>
+            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        {% endfor %}
+        {% if amazon_search_url %}
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td>–</td>
+            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+        {% endif %}
+        </tbody>
+      </table>
 
       <div class="price-chart"><canvas id="priceChart"></canvas></div>
     {% else %}
