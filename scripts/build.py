@@ -110,7 +110,11 @@ def parse_players(p):
 
 def render_game(yaml_path, site_url):
     game = load_yaml(yaml_path)
-    offers = load_offers(game["slug"])
+    offers_raw = load_offers(game["slug"])
+    offers = sorted(
+        offers_raw,
+        key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
+    )
     rating_text, avg_price, _ = price_rating(offers, game.get("price_rules"))
     avg_price_eur = round(avg_price, 2) if avg_price else None
 
@@ -135,21 +139,50 @@ def render_game(yaml_path, site_url):
         except Exception:
             delta60 = None
 
-    # min price for Top-Deal
-    prices = [o["price_eur"] for o in offers if "price_eur" in o]
-    min_price = min(prices) if prices else None
+    min_total = None
+    if offers:
+        first = offers[0]
+        min_total = first.get("total_eur") or first.get("price_eur")
 
     search_url = build_epn_search_url(game)
+
+    history_json = json.dumps(
+        [{"date": r["date"].isoformat(), "avg": r.get("avg")} for r in hist],
+        ensure_ascii=False,
+    )
+
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": game["title"],
+        "offers": [],
+    }
+    for o in offers[:1]:
+        if o.get("price_eur") is not None:
+            schema["offers"].append(
+                {
+                    "@type": "Offer",
+                    "price": f"{o['price_eur']:.2f}",
+                    "priceCurrency": "EUR",
+                    "url": o.get("url"),
+                }
+            )
+    schema_json = json.dumps(schema, ensure_ascii=False)
+
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
-        offers=offers[:8],
+        offers=offers[:1],
         rating_text=rating_text,
         avg_price_eur=avg_price_eur,
-        avg30=avg30, avg60=avg60, avg90=avg90,
+        avg30=avg30,
+        avg60=avg60,
+        avg90=avg90,
         delta60=delta60,
-        min_price=min_price,
-        ebay_search_url=search_url
+        min_total=min_total,
+        ebay_search_url=search_url,
+        history_json=history_json,
+        schema_json=schema_json,
     )
 
     layout_tpl = env.get_template("layout.html.jinja")

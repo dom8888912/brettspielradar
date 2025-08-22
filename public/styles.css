@@ -106,8 +106,6 @@ a:hover{text-decoration:underline}
 .checklist{list-style:disc;padding-left:20px;margin:0}
 
 .offers-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.offer-filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-.offer-filters label{display:flex;align-items:center;gap:4px;font-size:.95rem}
 .offer-grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media (min-width:480px){ .offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (min-width:880px){ .offer-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
@@ -125,6 +123,7 @@ a:hover{text-decoration:underline}
 .offer-card.top{border-color:rgba(22,163,74,.4);box-shadow:0 0 0 1px rgba(22,163,74,.2) inset, 0 2px 10px rgba(22,163,74,.06)}
 .badge{position:absolute;top:10px;right:10px;background:var(--color-secondary);color:#052e16;font-weight:800;font-size:.75rem;border-radius:999px;padding:4px 8px}
 .badge-grey{background:var(--badge);color:var(--badge-text);right:auto;left:10px}
+.badge-cheap{background:var(--good);color:#fff;font-weight:700;font-size:.75rem;border-radius:999px;padding:2px 6px;margin-left:4px}
 .offer-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-bottom:10px}
 .offer-title{
   margin:0 0 8px;font-size:1rem;
@@ -134,6 +133,7 @@ a:hover{text-decoration:underline}
 .price{font-size:1.2rem;font-weight:800}
 .condition{font-size:.9rem;color:#0f172a;background:#f1f5f9;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
 .offer-card .btn{margin-top:auto}
+.price-chart{margin-top:20px}
 
 .faq details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:#f8fafc}
 .faq summary{cursor:pointer;padding:12px 14px;font-weight:700;min-height:44px;display:flex;align-items:center}
