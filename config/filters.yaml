@@ -1,0 +1,48 @@
+# Terms that indicate accessories or components which should be excluded
+# from the price statistics (case-insensitive).
+exclude_terms:
+  - erweiterung
+  - expansion
+  - insert
+  - organizer
+  - sleeve
+  - sleeves
+  - einsatz
+  - ersatzteil
+  - ersatzteile
+  - promo
+  - upgrade
+  - coins
+  - münzen
+  - spielmatte
+  - playmat
+  - inlay
+  - aufbewahrung
+  - storage
+  - standee
+  - minis
+
+# Whitelist of trustworthy eBay seller usernames. Only offers from these
+# sellers are considered for the comparison.
+allowed_sellers:
+  - thaliabuecher
+  - alternate.gmbh
+  - buecher-de
+  - spiele-offensive
+  - voelkner_de
+  - hugendubel-digital
+  - fantasywelt_de
+  - palast-der-spiele-de
+  - funtainment_muenchen
+  - spieleladen_asl
+
+# eBay condition IDs that count as "new" and are stored in the statistics.
+# 1000 = New, 1500 = New other, 1750 = New with defects
+condition_ids:
+  - 1000
+  - 1500
+  - 1750
+
+# Require offers to come from this seller account type to filter out private
+# listings.
+seller_account_type: BUSINESS

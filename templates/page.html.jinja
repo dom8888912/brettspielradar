@@ -17,6 +17,10 @@
     </ul>
   </header>
 
+  {% if missing_fields %}
+  <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
+  {% endif %}
+
   <section class="price-indicator">
     <div class="pi-head">
       <h2 class="h2 pi-title">
@@ -24,7 +28,7 @@
         <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
           ⓘ
             <span class="tip" role="tooltip">
-              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 30 Tage.
+              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage.
               Liegt er deutlich (<em>mehr als 5&nbsp;%</em>) darunter, wird er <strong>grün</strong> markiert. Im Bereich von ±5&nbsp;% ist er
               <strong>orange</strong>. Deutlich darüber färbt er sich <strong>rot</strong>.
               <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
@@ -34,7 +38,7 @@
       </div>
       {% if min_price and avg30 %}
       <p class="pi-status {{ price_trend }}">
-        Aktuell: {{ '%.2f'|format(min_price) }}&nbsp;€ – 30-Tage-Schnitt: {{ '%.2f'|format(avg30) }}&nbsp;€
+        Aktuell: {{ '%.2f'|format(min_price) }}&nbsp;€ – {{ avg_days }}-Tage-Schnitt: {{ '%.2f'|format(avg30) }}&nbsp;€
       </p>
     {% else %}
       <p class="muted">Noch keine ausreichenden Preisdaten.</p>
@@ -98,31 +102,46 @@
     {% if offers and offers|length > 0 %}
       <div class="offer-grid">
         {% for o in offers %}
-          {% set is_top = (price_trend == 'good') %}
-          <article class="offer-card{% if is_top %} top{% endif %}" data-offer data-accessory="{{ '1' if o.is_accessory else '0' }}" data-condition="{{ o.condition|lower if o.condition else '' }}">
-            {% if is_top %}<div class="badge">Top-Deal</div>{% endif %}
-            {% if o.is_accessory %}<div class="badge badge-grey" title="Zubehör/Erweiterung">Zubehör</div>{% endif %}
-              {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
-              <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
-              <div class="offer-meta">
-                <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
-                {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
-              </div>
-            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">
-              {% if 'ebay' in o.url %}Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
-            </a>
+          {% set is_best = loop.first %}
+          <article class="offer-card{% if is_best %} top{% endif %}" data-offer>
+            {% if is_best %}<div class="badge">Bestpreis</div>{% endif %}
+            {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
+            <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
+            <div class="offer-meta">
+              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
+              {% if o.shop %}<span class="seller">{{ o.shop }}</span>{% endif %}
+            </div>
+            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
           </article>
         {% endfor %}
         {% if amazon_search_url %}
-          <article class="offer-card" data-offer data-accessory="0" data-condition="">
+          <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
-            <div class="offer-meta">
-              <span class="price">–</span>
-            </div>
+            <div class="offer-meta"><span class="price">–</span></div>
             <a class="btn btn-secondary offer-link" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
           </article>
         {% endif %}
       </div>
+
+      <table class="offer-table">
+        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <tbody>
+          {% for o in offers %}
+          <tr class="{% if loop.first %}top{% endif %}">
+            <td>{{ o.shop }}</td>
+            <td>{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
+            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          {% endfor %}
+          {% if amazon_search_url %}
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}

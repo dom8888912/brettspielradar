@@ -68,8 +68,8 @@ def avg_window(rows, days):
     cutoff = dt.date.today() - dt.timedelta(days=days)
     vals = [r["avg"] for r in rows if r.get("avg") and r["date"] >= cutoff]
     if not vals:
-        return None
-    return round(sum(vals)/len(vals), 2)
+        return (None, 0)
+    return (round(sum(vals)/len(vals), 2), len(vals))
 
 def build_epn_search_url(game):
     queries = game.get("search_queries") or game.get("search_terms") or []
@@ -97,6 +97,10 @@ def parse_players(p):
 
 def render_game(yaml_path, site_url):
     game = load_yaml(yaml_path)
+
+    required_fields = ["players", "playtime", "playtime_minutes", "complexity", "weight", "year"]
+    missing_fields = [f for f in required_fields if not game.get(f)]
+
     offers_raw = load_offers(game["slug"])
     offers = sorted(
         offers_raw,
@@ -111,7 +115,7 @@ def render_game(yaml_path, site_url):
 
     # history windows (weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
-    avg30 = avg_window(hist, 30)
+    avg30, avg_days = avg_window(hist, 30)
 
     cutoff = dt.date.today() - dt.timedelta(days=30)
     hist30 = [
@@ -146,14 +150,16 @@ def render_game(yaml_path, site_url):
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
-        offers=offers[:1],
+        offers=offers[:3],
         avg30=avg30,
+        avg_days=avg_days,
         min_price=min_price,
         price_trend=price_trend,
         ebay_search_url=ebay_search_url,
         amazon_search_url=amazon_search_url,
         history=hist30,
-        history_json=json.dumps(hist30)
+        history_json=json.dumps(hist30),
+        missing_fields=missing_fields
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
