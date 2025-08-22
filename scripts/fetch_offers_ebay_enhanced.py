@@ -7,7 +7,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Marketplace via header (X-EBAY-C-MARKETPLACE-ID=EBAY_DE)
 - Optional EPN affiliate via X-EBAY-C-ENDUSERCTX
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
-- Includes image_url and flags accessory items (is_accessory=True) but DOES NOT exclude them
+- Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
 """
 
@@ -87,12 +87,17 @@ def looks_like_accessory(title: str) -> bool:
     return any(term in t for term in EXCLUDE_TERMS)
 
 def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
+    filters = [
+        "priceCurrency:EUR",
+        "conditionIds:{1000}",  # nur Neuware
+        "sellerAccountTypes:{BUSINESS}",
+    ]
     params = {
         "q": query,
         "limit": str(limit),
         "sort": "price",
         "fieldgroups": "EXTENDED",
-        "filter": "priceCurrency:EUR",
+        "filter": ",".join(filters),
     }
     r = requests.get(SEARCH_URL, params=params, headers=HEADERS, timeout=25)
     if r.status_code != 200:
@@ -127,6 +132,18 @@ def pick_price_eur(item) -> float:
             pass
     return None
 
+def pick_shipping_eur(item) -> float:
+    """Extract shipping cost in EUR from an item summary."""
+    opts = item.get("shippingOptions") or []
+    for opt in opts:
+        cost = opt.get("shippingCost")
+        if isinstance(cost, dict) and cost.get("currency") == "EUR":
+            try:
+                return float(cost.get("value"))
+            except (TypeError, ValueError):
+                pass
+    return 0.0
+
 def build_url(item, slug: str) -> str:
     url = item.get("itemAffiliateWebUrl") or item.get("itemWebUrl") or ""
     if EPN_CAMPAIGN_ID and url and "campid=" not in url:
@@ -153,7 +170,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
             out.append(s2)
     return out[:6]
 
-def fetch_for_game(game: Dict[str, Any], max_keep: int = 12) -> List[Dict[str, Any]]:
+def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, Any]]:
     slug = game.get("slug")
     if not slug:
         return []
@@ -168,26 +185,41 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 12) -> List[Dict[str, A
             price = pick_price_eur(it)
             if price is None:
                 continue
+            shipping = pick_shipping_eur(it)
+            total = price + shipping if price is not None else None
             url = build_url(it, slug)
             if not url:
                 continue
             title = (it.get("title") or "").strip()
+            if looks_like_accessory(title):
+                continue
+            cond_id = str(it.get("conditionId") or "")
+            cond_txt = (it.get("condition") or "").lower()
+            if cond_id and cond_id not in {"1000", "1500", "1750"} and "neu" not in cond_txt and "new" not in cond_txt:
+                continue
+            seller = it.get("seller") or {}
+            acc_type = (seller.get("accountType") or seller.get("sellerAccountType") or "").upper()
+            if acc_type != "BUSINESS":
+                continue
+            shop = seller.get("username") or "eBay"
             img = (it.get("image") or {}).get("imageUrl")
             offers.append({
                 "id": iid,
                 "title": title[:140],
                 "price_eur": round(price, 2),
+                "shipping_eur": round(shipping, 2),
+                "total_eur": round(total, 2) if total is not None else None,
                 "condition": it.get("condition"),
                 "url": url,
                 "image_url": img,
-                "is_accessory": looks_like_accessory(title),
+                "shop": shop,
             })
             seen.add(iid)
             if len(offers) >= max_keep:
                 break
         if len(offers) >= max_keep:
             break
-    offers.sort(key=lambda x: (x["price_eur"] if x["price_eur"] is not None else 1e9))
+    offers.sort(key=lambda x: (x.get("total_eur") if x.get("total_eur") is not None else 1e9))
     return offers
 
 def load_games() -> List[Dict[str, Any]]:
@@ -208,7 +240,7 @@ def main():
     updated = 0
     for g in games:
         slug = g["slug"]
-        offers = fetch_for_game(g, max_keep=12)
+        offers = fetch_for_game(g, max_keep=1)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
         with outp.open("w", encoding="utf-8") as f:

@@ -87,7 +87,7 @@
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
-      <small class="muted">Sortierung nach Preis (aufsteigend), nur Angebote in EUR.</small>
+      <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
     </div>
 
     {% if offers and offers|length > 0 %}
@@ -124,41 +124,7 @@
         {% endif %}
       </div>
 
-      <table class="offer-table">
-        <thead>
-          <tr>
-            <th>Angebot</th>
-            <th>Preis</th>
-            <th>Zustand</th>
-            <th>Zubehör</th>
-            <th>Anbieter</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for o in offers %}
-          {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
-          <tr{% if is_top %} class="top"{% endif %} data-offer data-accessory="{{ '1' if o.is_accessory else '0' }}" data-condition="{{ o.condition|lower if o.condition else '' }}">
-              <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></td>
-              <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</td>
-            <td>{{ o.condition or '–' }}</td>
-            <td>{% if o.is_accessory %}Ja{% else %}–{% endif %}</td>
-            <td>{% if 'ebay' in o.url %}eBay{% else %}–{% endif %}</td>
-            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
-          </tr>
-        {% endfor %}
-        {% if amazon_search_url %}
-          <tr>
-            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></td>
-            <td>–</td>
-            <td>–</td>
-            <td>–</td>
-            <td>Amazon</td>
-            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
-          </tr>
-        {% endif %}
-        </tbody>
-      </table>
+      <div class="price-chart"><canvas id="priceChart"></canvas></div>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
@@ -168,6 +134,18 @@
       {% endif %}
     {% endif %}
   </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  const hist = {{ history_json | safe }};
+  if(hist.length){
+    const ctx = document.getElementById('priceChart');
+    const labels = hist.map(r=>r.date);
+    const data = hist.map(r=>r.avg);
+    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+  }
+  </script>
+  <script type="application/ld+json">{{ schema_json | safe }}</script>
 
   {% if game.alternatives %}
   <section class="content-section">
