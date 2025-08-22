@@ -134,29 +134,38 @@
     </div>
 
     
-      <table class="offer-table">
-        <thead>
-          <tr>
-            <th>Shop</th>
-            <th>Preis</th>
-            <th>Versand</th>
-            <th>Gesamt</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div class="offer-filters">
+        <label><input type="checkbox" id="filter-hide-accessory"> Zubehör ausblenden</label>
+        <label><input type="checkbox" id="filter-only-new"> Nur Neu</label>
+      </div>
+
+      <div class="offer-grid">
         
           
-          <tr class="top">
-            <td>geben-tut-gut-gmbh <span class="badge-cheap">Günstigster Preis</span></td>
-            <td>5.00&nbsp;€</td>
-            <td>5.10&nbsp;€</td>
-            <td>10.10&nbsp;€</td>
-            <td><a href="https://www.ebay.de/itm/266720901581?_skw=the+mind+Brettspiel&hash=item3e19cdf9cd%3Ag%3ADVoAAeSw8Etoh3H-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
-          </tr>
+          <article class="offer-card" data-offer data-accessory="0" data-condition="neu">
+            
+            
+              <img class="offer-img" src="https://i.ebayimg.com/images/g/DVoAAeSw8Etoh3H-/s-l225.jpg" alt="" loading="lazy">
+              <h3 class="offer-title"><a href="https://www.ebay.de/itm/266720901581?_skw=the+mind+Brettspiel&hash=item3e19cdf9cd%3Ag%3ADVoAAeSw8Etoh3H-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Netflix Stranger Things Attack of the Mind Flayer  Gesellschaftsspiel Spiel NEU</a></h3>
+              <div class="offer-meta">
+                <span class="price">5.00&nbsp;€</span>
+                <span class="condition">Neu</span>
+              </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/266720901581?_skw=the+mind+Brettspiel&hash=item3e19cdf9cd%3Ag%3ADVoAAeSw8Etoh3H-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">
+              Zum Angebot auf eBay
+            </a>
+          </article>
         
-        </tbody>
-      </table>
+        
+          <article class="offer-card" data-offer>
+            <h3 class="offer-title"><a href="https://www.amazon.de/s?k=The+Mind+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
+            <div class="offer-meta">
+              <span class="price">–</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=The+Mind+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+          </article>
+        
+      </div>
 
       <div class="price-chart"><canvas id="priceChart"></canvas></div>
     
@@ -164,7 +173,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [];
+  const hist = ;
   if(hist.length){
     const ctx = document.getElementById('priceChart');
     const labels = hist.map(r=>r.date);
@@ -172,7 +181,7 @@
     new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
   }
   </script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "The Mind – Preisradar & Angebote", "offers": [{"@type": "Offer", "price": "5.00", "priceCurrency": "EUR", "url": "https://www.ebay.de/itm/266720901581?_skw=the+mind+Brettspiel&hash=item3e19cdf9cd%3Ag%3ADVoAAeSw8Etoh3H-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049"}]}</script>
+  <script type="application/ld+json"></script>
 
 
   
