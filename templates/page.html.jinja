@@ -16,9 +16,9 @@
       {% if game.year %}<li class="chip">📅 {{ game.year }}</li>{% endif %}
     </ul>
   </header>
-
-  {% set good = (game.price_rules.good_threshold_eur if game.price_rules else None) %}
-  {% set ok = (game.price_rules.ok_threshold_eur if game.price_rules else None) %}
+  {% if missing_fields %}
+  <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
+  {% endif %}
 
   <section class="price-indicator">
     <div class="pi-head">
@@ -27,22 +27,20 @@
         <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
           ⓘ
             <span class="tip" role="tooltip">
-              <strong>So liest du das:</strong> Wir setzen drei Bereiche. Liegt ein Angebot <em>unter {{ '%.0f'|format(good or 0) }}&nbsp;€</em>,
-              markieren wir es als <strong>Top-Deal</strong>. Bis <em>{{ '%.0f'|format(ok or 0) }}&nbsp;€</em> ist der Preis in Ordnung.
-              Darüber ist es eher teuer. Die Schwellen basieren auf typischen Marktpreisen &amp; Erfahrungswerten.
+              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage.
+              Liegt er deutlich (<em>mehr als 5&nbsp;%</em>) darunter, wird er <strong>grün</strong> markiert. Im Bereich von ±5&nbsp;% ist er
+              <strong>orange</strong>. Deutlich darüber färbt er sich <strong>rot</strong>.
               <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
             </span>
           </button>
         </h2>
       </div>
-      {% if good is not none and ok is not none %}
-      <div class="legend">
-        <span class="legend-item"><span class="swatch good"></span> <strong>gut</strong>: unter {{ '%.0f'|format(good) }}&nbsp;€</span>
-        <span class="legend-item"><span class="swatch ok"></span> <strong>ok</strong>: bis {{ '%.0f'|format(ok) }}&nbsp;€</span>
-        <span class="legend-item"><span class="swatch high"></span> <strong>teuer</strong>: darüber</span>
-      </div>
+      {% if min_price and avg30 %}
+      <p class="pi-status {{ price_trend }}">
+        Aktuell: {{ '%.2f'|format(min_price) }}&nbsp;€ – {{ avg_days }}‑Tage‑Schnitt: {{ '%.2f'|format(avg30) }}&nbsp;€
+      </p>
     {% else %}
-      <p class="muted">Für dieses Spiel haben wir noch keine Preisschwellen hinterlegt.</p>
+      <p class="muted">Noch keine ausreichenden Preisdaten.</p>
     {% endif %}
     <div class="cta-row">
       {% if offers and offers|length > 0 %}
@@ -84,6 +82,16 @@
   </section>
   {% endif %}
 
+  <section class="content-section price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)</h2>
+    {% if avg30 %}
+      <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+    {% else %}
+      <p class="muted">Noch keine Preisdaten.</p>
+    {% endif %}
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
+
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -91,40 +99,49 @@
     </div>
 
     {% if offers and offers|length > 0 %}
-      <div class="offer-filters">
-        <label><input type="checkbox" id="filter-hide-accessory"> Zubehör ausblenden</label>
-        <label><input type="checkbox" id="filter-only-new"> Nur Neu</label>
-      </div>
-
       <div class="offer-grid">
         {% for o in offers %}
-          {% set is_top = (good and o.price_eur is number and o.price_eur <= good) %}
-          <article class="offer-card{% if is_top %} top{% endif %}" data-offer data-accessory="{{ '1' if o.is_accessory else '0' }}" data-condition="{{ o.condition|lower if o.condition else '' }}">
-            {% if is_top %}<div class="badge">Top-Deal</div>{% endif %}
-            {% if o.is_accessory %}<div class="badge badge-grey" title="Zubehör/Erweiterung">Zubehör</div>{% endif %}
-              {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
-              <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
-              <div class="offer-meta">
-                <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
-                {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
-              </div>
-            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">
-              {% if 'ebay' in o.url %}Zum Angebot auf eBay{% else %}Zum Angebot{% endif %}
-            </a>
+          {% set is_best = loop.first %}
+          <article class="offer-card{% if is_best %} top{% endif %}" data-offer>
+            {% if is_best %}<div class="badge">Bestpreis</div>{% endif %}
+            {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
+            <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
+            <div class="offer-meta">
+              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
+              {% if o.shop %}<span class="seller">{{ o.shop }}</span>{% endif %}
+            </div>
+            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
           </article>
         {% endfor %}
         {% if amazon_search_url %}
-          <article class="offer-card" data-offer data-accessory="0" data-condition="">
+          <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
-            <div class="offer-meta">
-              <span class="price">–</span>
-            </div>
+            <div class="offer-meta"><span class="price">–</span></div>
             <a class="btn btn-secondary offer-link" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
           </article>
         {% endif %}
       </div>
-
-      <div class="price-chart"><canvas id="priceChart"></canvas></div>
+      <table class="offer-table">
+        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
+        <tbody>
+          {% for o in offers %}
+          <tr class="{% if loop.first %}top{% endif %}">
+            <td>{{ o.shop }}</td>
+            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
+            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td><a class="btn btn-secondary" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          {% endfor %}
+          {% if amazon_search_url %}
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td>–</td>
+            <td><a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
@@ -139,7 +156,7 @@
   <script>
   const hist = {{ history_json | safe }};
   if(hist.length){
-    const ctx = document.getElementById('priceChart');
+    const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
     new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});

@@ -9,6 +9,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
+- Limits results to a fixed whitelist of trusted business sellers
 """
 
 import os, json, time
@@ -76,21 +77,42 @@ def build_headers() -> Dict[str, str]:
 
 HEADERS = build_headers()
 
-# accessory detection (label, not exclusion)
-EXCLUDE_TERMS = [
-  "erweiterung", "expansion", "insert", "organizer", "sleeve", "sleeves",
-  "einsatz", "ersatzteil", "ersatzteile", "promo", "upgrade", "coins", "münzen",
-  "spielmatte", "playmat", "inlay", "aufbewahrung", "storage", "standee", "minis"
-]
+# Load external filter configuration so that the fetcher can be reused for
+# other projects without touching the code.
+FILTER_PATH = ROOT / "config" / "filters.yaml"
+
+def load_filter_config(path: Path) -> Dict[str, Any]:
+    """Return filter rules from YAML file or an empty dict if missing."""
+    if path.exists():
+        with path.open("r", encoding="utf-8") as fh:
+            return yaml.safe_load(fh) or {}
+    return {}
+
+FILTER_CFG = load_filter_config(FILTER_PATH)
+
+# Keywords that typically indicate accessories or upgrades. Offers whose title
+# contains any of these substrings will be skipped to keep only the base game.
+EXCLUDE_TERMS = [t.lower() for t in FILTER_CFG.get("exclude_terms", [])]
+
+# Whitelisted seller usernames considered trustworthy for price comparison.
+# Only offers from these sellers will be saved.
+ALLOWED_SELLERS = {s.lower() for s in FILTER_CFG.get("allowed_sellers", [])}
+
+# eBay condition IDs that are treated as "new". Items outside this list are
+# ignored unless the textual condition explicitly mentions "neu" or "new".
+ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 1500, 1750])}
+
+# Required seller account type (e.g. BUSINESS) to exclude private listings.
+SELLER_ACCOUNT_TYPE = FILTER_CFG.get("seller_account_type", "BUSINESS").upper()
 def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
 
 def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
     filters = [
-        "priceCurrency:EUR",
-        "conditionIds:{1000}",  # nur Neuware
-        "sellerAccountTypes:{BUSINESS}",
+        "priceCurrency:EUR",  # only EUR prices
+        f"conditionIds:{{{','.join(sorted(ALLOWED_CONDITION_IDS))}}}",  # restrict to new-condition IDs
+        f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
     ]
     params = {
         "q": query,
@@ -170,7 +192,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
             out.append(s2)
     return out[:6]
 
-def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, Any]]:
+def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, Any]]:
     slug = game.get("slug")
     if not slug:
         return []
@@ -183,7 +205,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, An
             if not iid or iid in seen:
                 continue
             price = pick_price_eur(it)
-            if price is None:
+            if price is None or price <= 0:
                 continue
             shipping = pick_shipping_eur(it)
             total = price + shipping if price is not None else None
@@ -195,13 +217,15 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, An
                 continue
             cond_id = str(it.get("conditionId") or "")
             cond_txt = (it.get("condition") or "").lower()
-            if cond_id and cond_id not in {"1000", "1500", "1750"} and "neu" not in cond_txt and "new" not in cond_txt:
+            if cond_id and cond_id not in ALLOWED_CONDITION_IDS and "neu" not in cond_txt and "new" not in cond_txt:
                 continue
             seller = it.get("seller") or {}
             acc_type = (seller.get("accountType") or seller.get("sellerAccountType") or "").upper()
-            if acc_type != "BUSINESS":
+            if acc_type != SELLER_ACCOUNT_TYPE:
                 continue
             shop = seller.get("username") or "eBay"
+            if shop.lower() not in ALLOWED_SELLERS:
+                continue
             img = (it.get("image") or {}).get("imageUrl")
             offers.append({
                 "id": iid,
@@ -240,7 +264,7 @@ def main():
     updated = 0
     for g in games:
         slug = g["slug"]
-        offers = fetch_for_game(g, max_keep=1)
+        offers = fetch_for_game(g, max_keep=10)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
         with outp.open("w", encoding="utf-8") as f:
