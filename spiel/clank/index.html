@@ -33,6 +33,8 @@
       loadAnalytics();
     }else if(consent==='declined'){
       document.documentElement.classList.add('cookies-declined');
+    }else{
+      document.documentElement.classList.add('cookies-pending');
     }
   </script>
 </head>
