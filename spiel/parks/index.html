@@ -98,7 +98,7 @@
         <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
           ⓘ
             <span class="tip" role="tooltip">
-              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 1 Tage.
+              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage.
               Liegt er deutlich (<em>mehr als 5&nbsp;%</em>) darunter, wird er <strong>grün</strong> markiert. Im Bereich von ±5&nbsp;% ist er
               <strong>orange</strong>. Deutlich darüber färbt er sich <strong>rot</strong>.
               <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
@@ -108,7 +108,7 @@
       </div>
       
       <p class="pi-status ok">
-        Aktuell: 13.54&nbsp;€ – 1-Tage-Schnitt: 13.54&nbsp;€
+        Aktuell: 13.54&nbsp;€ – 2-Tage-Schnitt: 13.54&nbsp;€
       </p>
     
     <div class="cta-row">
@@ -192,7 +192,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 13.54}];
+  const hist = [{"date": "2025-08-22", "avg": 13.54}, {"date": "2025-08-22", "avg": 13.54}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);

@@ -98,7 +98,7 @@
         <button type="button" class="info-badge" aria-label="Erklärung zum Preisindikator" aria-expanded="false">
           ⓘ
             <span class="tip" role="tooltip">
-              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 0 Tage.
+              <strong>So liest du das:</strong> Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 1 Tage.
               Liegt er deutlich (<em>mehr als 5&nbsp;%</em>) darunter, wird er <strong>grün</strong> markiert. Im Bereich von ±5&nbsp;% ist er
               <strong>orange</strong>. Deutlich darüber färbt er sich <strong>rot</strong>.
               <br><em>Transparenz:</em> Links sind Affiliate-Links. Für dich ändert sich der Preis nicht.
@@ -107,11 +107,13 @@
         </h2>
       </div>
       
-      <p class="muted">Noch keine ausreichenden Preisdaten.</p>
+      <p class="pi-status ok">
+        Aktuell: 5.49&nbsp;€ – 1-Tage-Schnitt: 5.49&nbsp;€
+      </p>
     
     <div class="cta-row">
       
-      <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=CATAN+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
       
     </div>
   </section>
@@ -131,7 +133,7 @@
   <section class="content-section price-history">
     <h2 class="h2">Preisverlauf (30 Tage)</h2>
     
-      <p class="muted">Noch keine Preisdaten.</p>
+      <p class="avg-price">Durchschnitt: 5.49&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -143,18 +145,54 @@
     </div>
 
     
-      <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
-      
-      <div class="cta-row">
-        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=CATAN+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+      <div class="offer-grid">
+        
+          
+          <article class="offer-card top" data-offer>
+            <div class="badge">Bestpreis</div>
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/9kcAAOSwd3ZnYBgS/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/388868675801?_skw=Catan+deutsch&hash=item5a8a6118d9%3Ag%3A9kcAAOSwd3ZnYBgS&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spiel Catan - Der Schamane (Sonderkarte für Aufbruch der Menschheit) NEU/OVP</a></h3>
+            <div class="offer-meta">
+              <span class="price">5.49&nbsp;€</span>
+              <span class="seller">spiele-offensive</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/388868675801?_skw=Catan+deutsch&hash=item5a8a6118d9%3Ag%3A9kcAAOSwd3ZnYBgS&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
+        
+          <article class="offer-card" data-offer>
+            <h3 class="offer-title"><a href="https://www.amazon.de/s?k=CATAN+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
+            <div class="offer-meta"><span class="price">–</span></div>
+            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=CATAN+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+          </article>
+        
       </div>
-      
+
+      <table class="offer-table">
+        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <tbody>
+          
+          <tr class="top">
+            <td>spiele-offensive</td>
+            <td>5.49&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
+            <td><a href="https://www.ebay.de/itm/388868675801?_skw=Catan+deutsch&hash=item5a8a6118d9%3Ag%3A9kcAAOSwd3ZnYBgS&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
+          
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td><a href="https://www.amazon.de/s?k=CATAN+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+          
+        </tbody>
+      </table>
     
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [];
+  const hist = [{"date": "2025-08-22", "avg": 5.49}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
@@ -197,6 +235,14 @@
     "name": "CATAN – Preisradar &amp; Angebote",
     "category": "Board game",
     
+    
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": "5.49",
+      "highPrice": "5.49",
+      "offerCount": "1"
+    },
     
     "url": "/spiel/catan/"
   }
