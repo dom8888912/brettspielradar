@@ -1,4 +1,3 @@
-\
 import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -103,7 +102,6 @@ def build_epn_search_url(game):
         url += f"&campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{game.get('slug','')}"
     return url
 
-
 def parse_players(p):
     """Return (min_players, max_players) parsed from a players string."""
     if not p:
@@ -119,7 +117,11 @@ def parse_players(p):
 
 def render_game(yaml_path, site_url):
     game = load_yaml(yaml_path)
-    offers = [o for o in load_offers(game["slug"]) if not o.get("is_accessory")]
+    offers_raw = load_offers(game["slug"])
+    offers = sorted(
+        offers_raw,
+        key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
+    )
     rating_text, avg_price, _ = price_rating(offers, game.get("price_rules"))
     avg_price_eur = round(avg_price, 2) if avg_price else None
 
@@ -130,7 +132,7 @@ def render_game(yaml_path, site_url):
     else:
         game["players"] = None
 
-    # history
+    # history windows (weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
     avg30 = avg_window(hist, 30)
     avg60 = avg_window(hist, 60)
@@ -144,23 +146,29 @@ def render_game(yaml_path, site_url):
         except Exception:
             delta60 = None
 
-    # min price for Top-Deal
-    prices = [o["price_eur"] for o in offers if "price_eur" in o]
-    min_price = min(prices) if prices else None
+    # minimaler Preis für Anzeige
+    min_price = None
+    if offers:
+        first = offers[0]
+        min_price = first.get("total_eur") or first.get("price_eur")
 
-    search_url = build_epn_search_url(game)
-    amazon_url = build_amazon_search_url(game)
+    # Affiliate-Suchen
+    ebay_search_url = build_epn_search_url(game)
+    amazon_search_url = build_amazon_search_url(game)
+
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
-        offers=offers[:8],
+        offers=offers[:1],
         rating_text=rating_text,
         avg_price_eur=avg_price_eur,
-        avg30=avg30, avg60=avg60, avg90=avg90,
+        avg30=avg30,
+        avg60=avg60,
+        avg90=avg90,
         delta60=delta60,
         min_price=min_price,
-        ebay_search_url=search_url,
-        amazon_search_url=amazon_url
+        ebay_search_url=ebay_search_url,
+        amazon_search_url=amazon_search_url
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
@@ -229,7 +237,6 @@ def build_game_list(site_url):
     )
     DIST.mkdir(exist_ok=True)
     (DIST / "alle-spiele.html").write_text(out_html, encoding="utf-8")
-
 
 def build_home(site_url):
     tpl = env.get_template("landing.html.jinja")
