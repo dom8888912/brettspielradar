@@ -47,7 +47,7 @@ def build_amazon_search_url(game):
     if isinstance(queries, list) and queries:
         q = queries[0]
     else:
-        q = game.get("slug") or ""
+        q = game.get("title") or game.get("slug") or ""
     return f"https://www.amazon.de/s?k={quote_plus(q)}&tag={AMAZON_PARTNER_ID}"
 
 def price_rating(offers, rules):
@@ -102,7 +102,6 @@ def build_epn_search_url(game):
         url += f"&campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{game.get('slug','')}"
     return url
 
-
 def parse_players(p):
     """Return (min_players, max_players) parsed from a players string."""
     if not p:
@@ -133,7 +132,7 @@ def render_game(yaml_path, site_url):
     else:
         game["players"] = None
 
-    # history windows (werden weiterhin für Chips genutzt)
+    # history windows (weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
     avg30 = avg_window(hist, 30)
     avg60 = avg_window(hist, 60)
@@ -238,7 +237,6 @@ def build_game_list(site_url):
     )
     DIST.mkdir(exist_ok=True)
     (DIST / "alle-spiele.html").write_text(out_html, encoding="utf-8")
-
 
 def build_home(site_url):
     tpl = env.get_template("landing.html.jinja")

@@ -114,7 +114,7 @@
           </article>
         {% endfor %}
         {% if amazon_search_url %}
-          <article class="offer-card" data-offer>
+          <article class="offer-card" data-offer data-accessory="0" data-condition="">
             <h3 class="offer-title"><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
             <div class="offer-meta">
               <span class="price">–</span>
@@ -146,7 +146,6 @@
   }
   </script>
   <script type="application/ld+json">{{ schema_json | safe }}</script>
-
 
   {% if game.alternatives %}
   <section class="content-section">
