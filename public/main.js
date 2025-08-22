@@ -120,12 +120,14 @@
 
   function consentAccept(){
     localStorage.setItem('cookie-consent','accepted');
+    document.documentElement.classList.remove('cookies-pending');
     document.documentElement.classList.add('cookies-accepted');
     if (banner) banner.style.display='none';
     if (typeof loadAnalytics === 'function'){ loadAnalytics(); }
   }
   function consentDecline(){
     localStorage.setItem('cookie-consent','declined');
+    document.documentElement.classList.remove('cookies-pending');
     document.documentElement.classList.add('cookies-declined');
     if (banner) banner.style.display='none';
   }
