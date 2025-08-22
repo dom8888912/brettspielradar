@@ -1,4 +1,4 @@
-/* ui-version:2025-08-11-v8 – Cookie-Banner mit Auswahl, Suche & Skip-Link Fix */
+/* ui-version:2025-08-11-v9 – Neuer Preisindikator */
 :root{
   --color-primary:#ff7f11;
   --color-secondary:#ff9f1c;
@@ -16,6 +16,13 @@
   --shadow:0 8px 24px rgba(0,0,0,.08);
   --badge:#334155;
   --badge-text:#e2e8f0;
+  --pi-green:#0a8f55;
+  --pi-orange:#b26a00;
+  --pi-red:#b00020;
+  --pi-bg:#f6f7f9;
+  --pi-fg:#0d1117;
+  --pi-muted:#6b7280;
+  --pi-ring:rgba(0,0,0,.08);
 }
 
 *{box-sizing:border-box}
@@ -63,26 +70,33 @@ a:hover{text-decoration:underline}
 .chip{background:#eef2ff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:.9rem}
 
 .h2{font-size:1.25rem;margin:18px 0 10px}
-.pi-head .pi-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.content-section,.price-indicator{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;margin:14px 0}
+.content-section{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;margin:14px 0}
 
-.legend{display:flex;flex-direction:column;gap:12px;margin:6px 0 10px}
-.legend-item{display:flex;align-items:center;gap:8px;font-size:.95rem}
-.swatch{display:inline-block;width:12px;height:12px;border-radius:3px}
-.swatch.good{background:var(--good)}
-.swatch.ok{background:var(--ok)}
-.swatch.high{background:var(--high)}
-.pi-status{font-weight:700;margin:8px 0}
-.pi-status.good{color:var(--good)}
-.pi-status.ok{color:var(--ok)}
-.pi-status.high{color:var(--high)}
+/* Price Indicator */
+.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0;max-width:560px;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
+.pi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.pi-title{font-weight:600}
+.pi-badge{font-weight:700;padding:4px 8px;border-radius:999px;background:var(--pi-bg)}
+.pi-badge.green{background:color-mix(in srgb,var(--pi-green) 14%,white);color:var(--pi-green)}
+.pi-badge.orange{background:color-mix(in srgb,var(--pi-orange) 14%,white);color:var(--pi-orange)}
+.pi-badge.red{background:color-mix(in srgb,var(--pi-red) 14%,white);color:var(--pi-red)}
 
-.info-badge{position:relative;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;border:1px solid var(--border);background:#f8fafc;cursor:help;user-select:none;font-weight:800;font-size:12px;line-height:1}
-.info-badge .tip{position:absolute;display:none;left:0;top:30px;min-width:200px;max-width:86vw;background:#0f172a;color:#f8fafc;padding:10px 12px;border-radius:10px;box-shadow:var(--shadow);z-index:60;font-size:.85rem;line-height:1.4;word-wrap:break-word;white-space:normal}
-.info-badge .tip::after{content:"";position:absolute;top:-6px;left:12px;border-width:6px;border-style:solid;border-color:transparent transparent #0f172a transparent}
-.info-badge:hover .tip,
-.info-badge:focus .tip,
-.info-badge[aria-expanded="true"] .tip{display:block}
+.pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr 1fr;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring)}
+.pi-segment{height:100%}
+.pi-green{background:color-mix(in srgb,var(--pi-green) 18%,white)}
+.pi-orange{background:color-mix(in srgb,var(--pi-orange) 18%,white)}
+.pi-red{background:color-mix(in srgb,var(--pi-red) 18%,white)}
+.pi-marker{position:absolute;top:-4px;width:0;height:18px;border-left:2px solid #111;left:50%}
+
+.pi-sparkline{width:100%;height:36px;margin:2px 0 8px}
+.pi-sparkline path{fill:none;stroke:currentColor;stroke-width:1.4}
+.pi-sparkline circle{fill:currentColor}
+
+.pi-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;margin:6px 0}
+.pi-stats dt{font-weight:600;color:var(--pi-muted)}
+.pi-stats dd{margin:0}
+.pi-note{margin:6px 0 0;color:var(--pi-muted);font-size:12px}
+@media (max-width:420px){ .pi-stats{grid-template-columns:1fr} }
 
 .cta-row{margin-top:8px}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid transparent;padding:12px 14px;font-weight:700;min-height:44px}
