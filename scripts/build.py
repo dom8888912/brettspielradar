@@ -42,6 +42,21 @@ def load_offers(slug):
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def append_history(slug, offers):
+    """Append today's average price to the history file."""
+    prices = []
+    for o in offers:
+        p = o.get("total_eur") or o.get("price_eur")
+        if isinstance(p, (int, float)):
+            prices.append(p)
+    if not prices:
+        return
+    avg = round(sum(prices) / len(prices), 2)
+    HIST_DIR.mkdir(parents=True, exist_ok=True)
+    entry = {"date": dt.date.today().isoformat(), "avg": avg}
+    with open(HIST_DIR / f"{slug}.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry) + "\n")
+
 def build_amazon_search_url(game):
     queries = game.get("search_queries") or game.get("search_terms") or []
     if isinstance(queries, list) and queries:
@@ -106,6 +121,7 @@ def render_game(yaml_path, site_url):
         offers_raw,
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
+    append_history(game["slug"], offers)
     # parse player count for template chip
     min_p, max_p = parse_players(game.get("players"))
     if min_p and max_p:

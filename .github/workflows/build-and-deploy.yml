@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -48,6 +50,16 @@ jobs:
         env:
           SITE_URL: https://brettspielpreisradar.de/
         run: python scripts/build.py
+
+      - name: Commit price history
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add data/history || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update price history"
+            git push origin main
+          fi
 
       # absolute /pfade -> SITE_URL umschreiben
       - name: Rewrite absolute asset links to SITE_URL
