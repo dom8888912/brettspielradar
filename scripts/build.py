@@ -1,4 +1,3 @@
-\
 import os, json, statistics, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -13,6 +12,7 @@ DIST = ROOT / "dist"
 
 EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
+AMAZON_PARTNER_ID = os.getenv("AMAZON_PARTNER_ID", "28310edf-21").strip()
 
 env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
@@ -41,6 +41,14 @@ def load_offers(slug):
         return []
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
+
+def build_amazon_search_url(game):
+    queries = game.get("search_queries") or game.get("search_terms") or []
+    if isinstance(queries, list) and queries:
+        q = queries[0]
+    else:
+        q = game.get("slug") or ""
+    return f"https://www.amazon.de/s?k={quote_plus(q)}&tag={AMAZON_PARTNER_ID}"
 
 def price_rating(offers, rules):
     prices = [o["price_eur"] for o in offers if "price_eur" in o]
@@ -125,7 +133,7 @@ def render_game(yaml_path, site_url):
     else:
         game["players"] = None
 
-    # history
+    # history windows (werden weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
     avg30 = avg_window(hist, 30)
     avg60 = avg_window(hist, 60)
@@ -139,35 +147,15 @@ def render_game(yaml_path, site_url):
         except Exception:
             delta60 = None
 
-    min_total = None
+    # minimaler Preis für Anzeige
+    min_price = None
     if offers:
         first = offers[0]
-        min_total = first.get("total_eur") or first.get("price_eur")
+        min_price = first.get("total_eur") or first.get("price_eur")
 
-    search_url = build_epn_search_url(game)
-
-    history_json = json.dumps(
-        [{"date": r["date"].isoformat(), "avg": r.get("avg")} for r in hist],
-        ensure_ascii=False,
-    )
-
-    schema = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": game["title"],
-        "offers": [],
-    }
-    for o in offers[:1]:
-        if o.get("price_eur") is not None:
-            schema["offers"].append(
-                {
-                    "@type": "Offer",
-                    "price": f"{o['price_eur']:.2f}",
-                    "priceCurrency": "EUR",
-                    "url": o.get("url"),
-                }
-            )
-    schema_json = json.dumps(schema, ensure_ascii=False)
+    # Affiliate-Suchen
+    ebay_search_url = build_epn_search_url(game)
+    amazon_search_url = build_amazon_search_url(game)
 
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
@@ -179,10 +167,9 @@ def render_game(yaml_path, site_url):
         avg60=avg60,
         avg90=avg90,
         delta60=delta60,
-        min_total=min_total,
-        ebay_search_url=search_url,
-        history_json=history_json,
-        schema_json=schema_json,
+        min_price=min_price,
+        ebay_search_url=ebay_search_url,
+        amazon_search_url=amazon_search_url
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
