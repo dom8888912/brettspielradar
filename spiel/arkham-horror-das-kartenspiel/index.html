@@ -104,20 +104,20 @@
       <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
     </div>
 
-    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 3 Tage">
+    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 4 Tage">
       <path id="pi-line" d=""></path>
       <circle id="pi-dot" r="1.6" cx="100" cy="0"></circle>
     </svg>
 
     <dl class="pi-stats">
       <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-      <div><dt>Ø 3 Tage</dt><dd id="pi-avg">–</dd></div>
+      <div><dt>Ø 4 Tage</dt><dd id="pi-avg">–</dd></div>
       <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
       <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
     </dl>
 
     <p class="pi-note">
-      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 3 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 4 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
     </p>
 
     <div class="cta-row">
@@ -219,7 +219,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-22", "avg": 36.49}];
+  const hist = [{"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-22", "avg": 36.49}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
