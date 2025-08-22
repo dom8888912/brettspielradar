@@ -77,7 +77,7 @@ def build_headers() -> Dict[str, str]:
 
 HEADERS = build_headers()
 
-# accessory detection (label, not exclusion)
+# accessory detection – accessories are skipped entirely
 EXCLUDE_TERMS = [
   "erweiterung", "expansion", "insert", "organizer", "sleeve", "sleeves",
   "einsatz", "ersatzteil", "ersatzteile", "promo", "upgrade", "coins", "münzen",
@@ -97,6 +97,7 @@ ALLOWED_SELLERS = {
   "funtainment_muenchen",
   "spieleladen_asl",
 }
+
 def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
@@ -121,7 +122,7 @@ def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
     items = r.json().get("itemSummaries") or []
     return items
 
-def pick_price_eur(item) -> float:
+def pick_price_eur(item) -> float | None:
     # 1) Fixpreis
     price = item.get("price")
     if isinstance(price, dict) and price.get("currency") == "EUR":
@@ -197,17 +198,22 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             iid = it.get("itemId")
             if not iid or iid in seen:
                 continue
+
             price = pick_price_eur(it)
             if price is None or price <= 0:
                 continue
             shipping = pick_shipping_eur(it)
             total = price + shipping if price is not None else None
+
             url = build_url(it, slug)
             if not url:
                 continue
+
             title = (it.get("title") or "").strip()
             if looks_like_accessory(title):
                 continue
+
+            # Zusätzliche Sicherungs-Filter (sollten vom API-Filter bereits greifen)
             cond_id = str(it.get("conditionId") or "")
             cond_txt = (it.get("condition") or "").lower()
             if cond_id and cond_id not in {"1000", "1500", "1750"} and "neu" not in cond_txt and "new" not in cond_txt:
@@ -219,7 +225,9 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             shop = seller.get("username") or "eBay"
             if shop.lower() not in ALLOWED_SELLERS:
                 continue
+
             img = (it.get("image") or {}).get("imageUrl")
+
             offers.append({
                 "id": iid,
                 "title": title[:140],

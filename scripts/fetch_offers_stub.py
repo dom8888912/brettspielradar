@@ -1,12 +1,16 @@
 import json, pathlib, yaml
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content" / "games"
 DATA = ROOT / "data" / "offers"
+
 def main():
     DATA.mkdir(parents=True, exist_ok=True)
     for yml in CONTENT.glob("*.yaml"):
         game = yaml.safe_load(yml.read_text(encoding="utf-8"))
-        slug = game["slug"]; title = game["title"]
+        slug = game["slug"]
+        title = game["title"]
+
         price = 59.90
         offer = {
             "title": f"{title} – neu OVP",
@@ -17,6 +21,9 @@ def main():
             "shop": "thaliabuecher",
             "url": "https://example.com?aff=DEIN_ID",
         }
-        (DATA / f"{slug}.json").write_text(json.dumps([offer], ensure_ascii=False, indent=2), encoding="utf-8")
+        (DATA / f"{slug}.json").write_text(
+            json.dumps([offer], ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
 if __name__ == "__main__":
     main()

@@ -112,6 +112,7 @@ def render_game(yaml_path, site_url):
     # history windows (weiterhin für Chips genutzt)
     hist = load_history(game["slug"])
     avg30 = avg_window(hist, 30)
+
     cutoff = dt.date.today() - dt.timedelta(days=30)
     hist30 = [
         {"date": r["date"].isoformat(), "avg": r["avg"]}
