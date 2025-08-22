@@ -1,4 +1,4 @@
-// ui-version:2025-08-11-v8 – Menü-Overlay, Tooltip Toggle, Suche & Cookie-Banner unten
+// ui-version:2025-08-11-v9 – Menü-Overlay, Preisindikator, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -19,19 +19,37 @@
     });
   }
 
-  // Tooltip (für Touch/Keyboard: Toggle per Klick)
-  document.addEventListener('click', function(e){
-    var badge = e.target.closest('.info-badge');
-    var openBadge = document.querySelector('.info-badge[aria-expanded="true"]');
-    if (badge){
-      var isOpen = badge.getAttribute('aria-expanded') === 'true';
-      if (openBadge && openBadge !== badge){ openBadge.setAttribute('aria-expanded','false'); }
-      badge.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      e.stopPropagation();
-    }else{
-      if (openBadge){ openBadge.setAttribute('aria-expanded','false'); }
-    }
-  });
+  // Preisindikator
+  window.renderPI = function(d){
+    var diffPct = ((d.current - d.avg30) / d.avg30) * 100;
+    var badge = document.getElementById('pi-badge');
+    if(!badge) return;
+    var badgeText = (diffPct>0?'+':'') + diffPct.toFixed(1) + '%';
+    badge.textContent = badgeText;
+    badge.classList.remove('green','orange','red');
+    badge.classList.add(diffPct <= -5 ? 'green' : Math.abs(diffPct) <= 5 ? 'orange' : 'red');
+    badge.setAttribute('aria-label','Abweichung zum Durchschnitt: ' + badgeText);
+
+    document.getElementById('pi-current').textContent = d.current.toFixed(2) + ' €';
+    document.getElementById('pi-avg').textContent = d.avg30.toFixed(2) + ' €';
+    document.getElementById('pi-range').textContent = d.low30.toFixed(2) + ' – ' + d.high30.toFixed(2) + ' €';
+    document.getElementById('pi-diff').textContent = badgeText;
+
+    var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
+    var pos = clamp((diffPct + 15) / 30, 0, 1);
+    document.getElementById('pi-marker').style.left = (pos * 100) + '%';
+
+    var min = Math.min.apply(null, d.history);
+    var max = Math.max.apply(null, d.history);
+    var points = d.history.map(function(v,i){
+      var x = (i / (d.history.length - 1)) * 100;
+      var y = 24 - ((v - min) / (max - min || 1)) * 24;
+      return x + ',' + y;
+    }).join(' ');
+    document.getElementById('pi-line').setAttribute('d', 'M ' + points.replace(/ /g, ' L '));
+    var lastY = 24 - ((d.current - min) / (max - min || 1)) * 24;
+    document.getElementById('pi-dot').setAttribute('cy', lastY);
+  };
 
   // Suche & Filter
   var q = document.getElementById('q');
