@@ -76,7 +76,7 @@ def build_headers() -> Dict[str, str]:
 
 HEADERS = build_headers()
 
-# accessory detection (label, not exclusion)
+# accessory detection – accessories are skipped entirely
 EXCLUDE_TERMS = [
   "erweiterung", "expansion", "insert", "organizer", "sleeve", "sleeves",
   "einsatz", "ersatzteil", "ersatzteile", "promo", "upgrade", "coins", "münzen",
@@ -92,7 +92,8 @@ def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
         "limit": str(limit),
         "sort": "price",
         "fieldgroups": "EXTENDED",
-        "filter": "priceCurrency:EUR",
+        # EUR only and only commercial sellers
+        "filter": "priceCurrency:EUR,sellerAccountTypes:BUSINESS",
     }
     r = requests.get(SEARCH_URL, params=params, headers=HEADERS, timeout=25)
     if r.status_code != 200:
@@ -172,7 +173,19 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 12) -> List[Dict[str, A
             if not url:
                 continue
             title = (it.get("title") or "").strip()
+            if looks_like_accessory(title):
+                continue
             img = (it.get("image") or {}).get("imageUrl")
+            seller = (it.get("seller") or {}).get("username")
+            ship = None
+            ship_opts = it.get("shippingOptions") or []
+            if ship_opts:
+                cost = (ship_opts[0] or {}).get("shippingCost")
+                if isinstance(cost, dict) and cost.get("currency") == "EUR":
+                    try:
+                        ship = float(cost.get("value"))
+                    except (TypeError, ValueError):
+                        pass
             offers.append({
                 "id": iid,
                 "title": title[:140],
@@ -180,7 +193,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 12) -> List[Dict[str, A
                 "condition": it.get("condition"),
                 "url": url,
                 "image_url": img,
-                "is_accessory": looks_like_accessory(title),
+                "seller": seller,
+                "shipping_eur": ship,
             })
             seen.add(iid)
             if len(offers) >= max_keep:
