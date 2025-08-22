@@ -9,6 +9,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
+- Limits results to a fixed whitelist of trusted business sellers
 """
 
 import os, json, time
@@ -82,6 +83,20 @@ EXCLUDE_TERMS = [
   "einsatz", "ersatzteil", "ersatzteile", "promo", "upgrade", "coins", "münzen",
   "spielmatte", "playmat", "inlay", "aufbewahrung", "storage", "standee", "minis"
 ]
+
+# only these sellers are considered trustworthy for price comparisons
+ALLOWED_SELLERS = {
+  "thaliabuecher",
+  "alternate.gmbh",
+  "buecher-de",
+  "spiele-offensive",
+  "voelkner_de",
+  "hugendubel-digital",
+  "fantasywelt_de",
+  "palast-der-spiele-de",
+  "funtainment_muenchen",
+  "spieleladen_asl",
+}
 def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
@@ -170,7 +185,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
             out.append(s2)
     return out[:6]
 
-def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, Any]]:
+def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, Any]]:
     slug = game.get("slug")
     if not slug:
         return []
@@ -183,7 +198,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, An
             if not iid or iid in seen:
                 continue
             price = pick_price_eur(it)
-            if price is None:
+            if price is None or price <= 0:
                 continue
             shipping = pick_shipping_eur(it)
             total = price + shipping if price is not None else None
@@ -202,6 +217,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 1) -> List[Dict[str, An
             if acc_type != "BUSINESS":
                 continue
             shop = seller.get("username") or "eBay"
+            if shop.lower() not in ALLOWED_SELLERS:
+                continue
             img = (it.get("image") or {}).get("imageUrl")
             offers.append({
                 "id": iid,
@@ -240,7 +257,7 @@ def main():
     updated = 0
     for g in games:
         slug = g["slug"]
-        offers = fetch_for_game(g, max_keep=1)
+        offers = fetch_for_game(g, max_keep=10)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
         with outp.open("w", encoding="utf-8") as f:

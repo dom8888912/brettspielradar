@@ -72,6 +72,10 @@ a:hover{text-decoration:underline}
 .swatch.good{background:var(--good)}
 .swatch.ok{background:var(--ok)}
 .swatch.high{background:var(--high)}
+.pi-status{font-weight:700;margin:8px 0}
+.pi-status.good{color:var(--good)}
+.pi-status.ok{color:var(--ok)}
+.pi-status.high{color:var(--high)}
 
 .info-badge{position:relative;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;border:1px solid var(--border);background:#f8fafc;cursor:help;user-select:none;font-weight:800;font-size:12px;line-height:1}
 .info-badge .tip{position:absolute;display:none;left:0;top:30px;min-width:200px;max-width:86vw;background:#0f172a;color:#f8fafc;padding:10px 12px;border-radius:10px;box-shadow:var(--shadow);z-index:60;font-size:.85rem;line-height:1.4;word-wrap:break-word;white-space:normal}
@@ -134,6 +138,8 @@ a:hover{text-decoration:underline}
 .condition{font-size:.9rem;color:#0f172a;background:#f1f5f9;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
 .offer-card .btn{margin-top:auto}
 .price-chart{margin-top:20px}
+.price-history .avg-price{font-weight:700;font-size:1.1rem;margin:0}
+.price-history canvas{max-width:100%}
 
 .faq details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:#f8fafc}
 .faq summary{cursor:pointer;padding:12px 14px;font-weight:700;min-height:44px;display:flex;align-items:center}
