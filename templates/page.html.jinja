@@ -16,6 +16,7 @@
       {% if game.year %}<li class="chip">📅 {{ game.year }}</li>{% endif %}
     </ul>
   </header>
+
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
   {% endif %}
@@ -37,7 +38,7 @@
       </div>
       {% if min_price and avg30 %}
       <p class="pi-status {{ price_trend }}">
-        Aktuell: {{ '%.2f'|format(min_price) }}&nbsp;€ – {{ avg_days }}‑Tage‑Schnitt: {{ '%.2f'|format(avg30) }}&nbsp;€
+        Aktuell: {{ '%.2f'|format(min_price) }}&nbsp;€ – {{ avg_days }}-Tage-Schnitt: {{ '%.2f'|format(avg30) }}&nbsp;€
       </p>
     {% else %}
       <p class="muted">Noch keine ausreichenden Preisdaten.</p>
@@ -121,6 +122,7 @@
           </article>
         {% endif %}
       </div>
+
       <table class="offer-table">
         <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
         <tbody>
@@ -184,28 +186,6 @@
         </li>
       {% endfor %}
     </ul>
-  </section>
-  {% endif %}
-
-  {% set faq_items = game.faq or game.faqs or game.faq_list %}
-  {% if faq_items %}
-  <section class="content-section">
-    <h2 class="h2">Häufige Fragen</h2>
-    <div class="faq">
-      {% for q in faq_items %}
-        {% if q is mapping %}
-          {% set question = q.question or q.q or (q.keys()|list)[0] %}
-          {% set answer = q.answer or q.a or (q[question] if q[question] is defined else '') %}
-        {% else %}
-          {% set question = q %}
-          {% set answer = "" %}
-        {% endif %}
-        <details>
-          <summary>{{ question }}</summary>
-          {% if answer %}<div class="answer">{{ answer | md | safe }}</div>{% endif %}
-        </details>
-      {% endfor %}
-    </div>
   </section>
   {% endif %}
 
