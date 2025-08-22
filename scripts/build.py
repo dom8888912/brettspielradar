@@ -13,6 +13,7 @@ DIST = ROOT / "dist"
 
 EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
+AMAZON_PARTNER_ID = os.getenv("AMAZON_PARTNER_ID", "28310edf-21").strip()
 
 env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
@@ -41,6 +42,14 @@ def load_offers(slug):
         return []
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
+
+def build_amazon_search_url(game):
+    queries = game.get("search_queries") or game.get("search_terms") or []
+    if isinstance(queries, list) and queries:
+        q = queries[0]
+    else:
+        q = game.get("slug") or ""
+    return f"https://www.amazon.de/s?k={quote_plus(q)}&tag={AMAZON_PARTNER_ID}"
 
 def price_rating(offers, rules):
     prices = [o["price_eur"] for o in offers if "price_eur" in o]
@@ -140,6 +149,7 @@ def render_game(yaml_path, site_url):
     min_price = min(prices) if prices else None
 
     search_url = build_epn_search_url(game)
+    amazon_url = build_amazon_search_url(game)
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
@@ -149,7 +159,8 @@ def render_game(yaml_path, site_url):
         avg30=avg30, avg60=avg60, avg90=avg90,
         delta60=delta60,
         min_price=min_price,
-        ebay_search_url=search_url
+        ebay_search_url=search_url,
+        amazon_search_url=amazon_url
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
