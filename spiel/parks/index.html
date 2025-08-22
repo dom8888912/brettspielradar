@@ -111,7 +111,7 @@
     
     <div class="cta-row">
       
-      <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=PARKS+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
       
     </div>
   </section>
@@ -143,12 +143,48 @@
     </div>
 
     
-      <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
-      
-      <div class="cta-row">
-        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=PARKS+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+      <div class="offer-grid">
+        
+          
+          <article class="offer-card top" data-offer>
+            <div class="badge">Bestpreis</div>
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/rJEAAOSw~HxmICG3/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/404929430930?_skw=parks+Brettspiel&hash=item5e47acc592%3Ag%3ArJEAAOSw%7EHxmICG3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Unlock! Kids: Chaos im Park</a></h3>
+            <div class="offer-meta">
+              <span class="price">8.55&nbsp;€</span>
+              <span class="seller">funtainment_muenchen</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404929430930?_skw=parks+Brettspiel&hash=item5e47acc592%3Ag%3ArJEAAOSw%7EHxmICG3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
+        
+          <article class="offer-card" data-offer>
+            <h3 class="offer-title"><a href="https://www.amazon.de/s?k=PARKS+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
+            <div class="offer-meta"><span class="price">–</span></div>
+            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=PARKS+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+          </article>
+        
       </div>
-      
+
+      <table class="offer-table">
+        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <tbody>
+          
+          <tr class="top">
+            <td>funtainment_muenchen</td>
+            <td>13.54&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
+            <td><a href="https://www.ebay.de/itm/404929430930?_skw=parks+Brettspiel&hash=item5e47acc592%3Ag%3ArJEAAOSw%7EHxmICG3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
+          
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td><a href="https://www.amazon.de/s?k=PARKS+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+          </tr>
+          
+        </tbody>
+      </table>
     
   </section>
 
@@ -197,6 +233,14 @@
     "name": "PARKS – Preisradar &amp; Angebote",
     "category": "Board game",
     
+    
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": "8.55",
+      "highPrice": "8.55",
+      "offerCount": "1"
+    },
     
     "url": "/spiel/parks/"
   }
