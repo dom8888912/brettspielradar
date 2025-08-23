@@ -112,7 +112,7 @@
       </dl>
 
       <p class="pi-note">
-        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
       </p>
 
       <div class="cta-row">
@@ -125,7 +125,7 @@
     <section class="price-history">
       <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 2 Tage">i</span></h2>
       
-        <p class="avg-price">Durchschnitt (2 Tage): 25.10&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 25.17&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -238,7 +238,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "avg": 25.63}, {"date": "2025-08-23", "avg": 24.57}];
+    const hist = [{"date": "2025-08-22", "avg": 25.63}, {"date": "2025-08-23", "avg": 17.65}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -246,7 +246,7 @@
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
       
       if (typeof window.renderPI === 'function'){
-        window.renderPI({current: 17.65, avg7: 25.10, history: data});
+        window.renderPI({current: 17.65, avg7: 25.17, history: data});
       }
       
     }
