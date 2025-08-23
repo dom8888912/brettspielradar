@@ -69,14 +69,21 @@ def load_history(slug):
     path = HIST_DIR / f"{slug}.jsonl"
     if not path.exists():
         return []
-    rows = []
+    day_values = {}
     for line in path.read_text(encoding="utf-8").splitlines():
         try:
             x = json.loads(line)
-            x["date"] = dt.date.fromisoformat(x["date"])
-            rows.append(x)
+            day = dt.date.fromisoformat(x["date"])
+            val = x.get("avg")
+            if isinstance(val, (int, float)):
+                day_values.setdefault(day, []).append(val)
         except Exception:
             pass
+    rows = [
+        {"date": day, "avg": round(sum(vals)/len(vals), 2)}
+        for day, vals in sorted(day_values.items())
+        if vals
+    ]
     return rows
 
 def avg_window(rows, days):
@@ -129,9 +136,10 @@ def render_game(yaml_path, site_url):
     else:
         game["players"] = None
 
-    # history windows (weiterhin für Chips genutzt)
+    # Preisverlauf laden und Fenster berechnen
     hist = load_history(game["slug"])
-    avg30, avg_days = avg_window(hist, 30)
+    avg7, avg_days = avg_window(hist, 7)
+    avg30, _ = avg_window(hist, 30)
 
     cutoff = dt.date.today() - dt.timedelta(days=30)
     hist30 = [
@@ -139,6 +147,7 @@ def render_game(yaml_path, site_url):
         for r in hist
         if isinstance(r.get("avg"), (int, float)) and r["avg"] > 0 and r["date"] >= cutoff
     ]
+    hist_days = len(hist30)
 
     # minimaler Preis für Anzeige
     min_price = None
@@ -147,9 +156,9 @@ def render_game(yaml_path, site_url):
         min_price = first.get("total_eur") or first.get("price_eur")
 
     price_trend = None
-    if min_price is not None and avg30:
+    if min_price is not None and avg7:
         try:
-            ratio = min_price / avg30
+            ratio = min_price / avg7
             if ratio <= 0.95:
                 price_trend = "good"
             elif ratio <= 1.05:
@@ -168,7 +177,9 @@ def render_game(yaml_path, site_url):
         game=game,
         offers=offers[:3],
         avg30=avg30,
+        avg7=avg7,
         avg_days=avg_days,
+        hist_days=hist_days,
         min_price=min_price,
         price_trend=price_trend,
         ebay_search_url=ebay_search_url,
