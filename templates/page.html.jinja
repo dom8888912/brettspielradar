@@ -31,18 +31,13 @@
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
 
-      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ hist_days }} Tage">
-        <path id="pi-line" d=""></path>
-        <g id="pi-dots"></g>
-      </svg>
-
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
         <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">i</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
-        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
       </p>
 
       <div class="cta-row">
@@ -55,7 +50,7 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten {{ hist_days }} Tage">i</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">i</span></h2>
       {% if avg30 %}
         <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
       {% else %}
@@ -168,7 +163,7 @@
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
       {% if min_price and avg7 %}
       if (typeof window.renderPI === 'function'){
-        window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}, history: data});
+        window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}});
       }
       {% endif %}
     }

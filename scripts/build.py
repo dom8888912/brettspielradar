@@ -46,7 +46,7 @@ def load_offers(slug):
     return data
 
 def append_history(slug, offers):
-    """Append today's average price to the history file."""
+    """Append today's minimal price to the history file."""
     prices = []
     for o in offers:
         p = o.get("total_eur") or o.get("price_eur")
@@ -54,9 +54,9 @@ def append_history(slug, offers):
             prices.append(p)
     if not prices:
         return
-    avg = round(sum(prices) / len(prices), 2)
+    min_price = round(min(prices), 2)
     HIST_DIR.mkdir(parents=True, exist_ok=True)
-    entry = {"date": dt.date.today().isoformat(), "avg": avg}
+    entry = {"date": dt.date.today().isoformat(), "avg": min_price}
     with open(HIST_DIR / f"{slug}.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(entry) + "\n")
 
@@ -90,7 +90,8 @@ def load_history(slug):
     return rows
 
 def avg_window(rows, days):
-    cutoff = dt.date.today() - dt.timedelta(days=days)
+    """Return average over the last ``days`` days (inclusive)."""
+    cutoff = dt.date.today() - dt.timedelta(days=days - 1)
     vals = [r["avg"] for r in rows if r.get("avg") and r["date"] >= cutoff]
     if not vals:
         return (None, 0)
@@ -132,6 +133,13 @@ def render_game(yaml_path, site_url):
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
     append_history(game["slug"], offers)
+
+    # minimaler Preis für Anzeige
+    min_price = None
+    if offers:
+        first = offers[0]
+        min_price = first.get("total_eur") or first.get("price_eur")
+
     # parse player count for template chip
     min_p, max_p = parse_players(game.get("players"))
     if min_p and max_p:
@@ -152,11 +160,13 @@ def render_game(yaml_path, site_url):
     ]
     hist_days = len(hist30)
 
-    # minimaler Preis für Anzeige
-    min_price = None
-    if offers:
-        first = offers[0]
-        min_price = first.get("total_eur") or first.get("price_eur")
+    if min_price is not None:
+        today = dt.date.today().isoformat()
+        if hist30 and hist30[-1]["date"] == today:
+            hist30[-1]["avg"] = round(min_price, 2)
+        else:
+            hist30.append({"date": today, "avg": round(min_price, 2)})
+        hist_days = len(hist30)
 
     price_trend = None
     if min_price is not None and avg7:
