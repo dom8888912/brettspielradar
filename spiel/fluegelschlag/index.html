@@ -101,25 +101,23 @@
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
 
-      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 7 Tage">
+      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 2 Tage">
         <path id="pi-line" d=""></path>
         <g id="pi-dots"></g>
       </svg>
 
       <dl class="pi-stats">
-        <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 7 Tage</dt><dd id="pi-avg">–</dd></div>
-        <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
-        <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
+        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">i</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
-        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 7 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
       </p>
 
       <div class="cta-row">
         
-        <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=Fl%C3%BCgelschlag+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
         
       </div>
     </section>
@@ -127,7 +125,7 @@
     <section class="price-history">
       <h2 class="h2">Preisverlauf (30 Tage)</h2>
       
-        <p class="avg-price">Durchschnitt: 30.13&nbsp;€</p>
+        <p class="avg-price">Durchschnitt: 30.34&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -152,23 +150,101 @@
     </div>
 
     
-      <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
-      
-      <div class="cta-row">
-        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=Fl%C3%BCgelschlag+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
+      <div class="offer-grid">
+        
+          
+          <article class="offer-card top" data-offer>
+            <div class="badge">Bestpreis</div>
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/4hQAAOSwoMFk1kG4/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/404434140935?_skw=fluegelschlag+Brettspiel&hash=item5e2a273f07%3Ag%3A4hQAAOSwoMFk1kG4&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Wingspan Speckled Eggs ( Flügelschlag gesprenkelte Eier )</a></h3>
+            <div class="offer-meta">
+              <span class="price">18.00&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
+              <span class="seller">funtainment_muenchen</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404434140935?_skw=fluegelschlag+Brettspiel&hash=item5e2a273f07%3Ag%3A4hQAAOSwoMFk1kG4&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
+          
+          <article class="offer-card" data-offer>
+            
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/1KQAAOSwB~Zk1kJm/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/404434144981?_skw=fluegelschlag+Brettspiel&hash=item5e2a274ed5%3Ag%3A1KQAAOSwB%7EZk1kJm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Mariposas Spiel Elisabeth Hargrave  Flügelschlag Brettspiel Deutsch OVP</a></h3>
+            <div class="offer-meta">
+              <span class="price">22.50&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
+              <span class="seller">funtainment_muenchen</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404434144981?_skw=fluegelschlag+Brettspiel&hash=item5e2a274ed5%3Ag%3A1KQAAOSwB%7EZk1kJm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
+          
+          <article class="offer-card" data-offer>
+            
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/bfAAAOSwl7BnUHT3/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/405399454755?_skw=fluegelschlag+Brettspiel&hash=item5e63b0c423%3Ag%3AbfAAAOSwl7BnUHT3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Flügelschlag: Fan Art Pack DE</a></h3>
+            <div class="offer-meta">
+              <span class="price">27.00&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
+              <span class="seller">funtainment_muenchen</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/405399454755?_skw=fluegelschlag+Brettspiel&hash=item5e63b0c423%3Ag%3AbfAAAOSwl7BnUHT3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
+        
+          <article class="offer-card" data-offer>
+            <h3 class="offer-title"><a href="https://www.amazon.de/s?k=Fl%C3%BCgelschlag+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
+            <div class="offer-meta"><span class="price">–</span></div>
+            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=Fl%C3%BCgelschlag+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
+          </article>
+        
       </div>
-      
+
+      <table class="offer-table">
+        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
+        <tbody>
+          
+          <tr class="top">
+            <td>funtainment_muenchen</td>
+            <td>18.00&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
+            <td>4.99&nbsp;€</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/404434140935?_skw=fluegelschlag+Brettspiel&hash=item5e2a273f07%3Ag%3A4hQAAOSwoMFk1kG4&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
+          <tr class="">
+            <td>funtainment_muenchen</td>
+            <td>22.50&nbsp;€</td>
+            <td>4.99&nbsp;€</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/404434144981?_skw=fluegelschlag+Brettspiel&hash=item5e2a274ed5%3Ag%3A1KQAAOSwB%7EZk1kJm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
+          <tr class="">
+            <td>funtainment_muenchen</td>
+            <td>27.00&nbsp;€</td>
+            <td>4.99&nbsp;€</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/405399454755?_skw=fluegelschlag+Brettspiel&hash=item5e63b0c423%3Ag%3AbfAAAOSwl7BnUHT3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
+          
+          <tr>
+            <td>Amazon</td>
+            <td>–</td>
+            <td>–</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.amazon.de/s?k=Fl%C3%BCgelschlag+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a></td>
+          </tr>
+          
+        </tbody>
+      </table>
     
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 28.84}, {"date": "2025-08-22", "avg": 28.84}, {"date": "2025-08-22", "avg": 28.84}, {"date": "2025-08-22", "avg": 28.84}, {"date": "2025-08-23", "avg": 31.85}, {"date": "2025-08-23", "avg": 31.85}, {"date": "2025-08-23", "avg": 31.85}];
+  const hist = [{"date": "2025-08-22", "avg": 28.84}, {"date": "2025-08-23", "avg": 31.85}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false,tension:0,pointRadius:3}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+    
+    renderPI({current: 22.99, avg7: 30.34, history: data});
     
   }
   </script>
@@ -207,6 +283,14 @@
     "name": "Flügelschlag – Preisradar &amp; Angebote",
     "category": "Board game",
     
+    
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": "18.00",
+      "highPrice": "27.00",
+      "offerCount": "3"
+    },
     
     "url": "/spiel/fluegelschlag/"
   }

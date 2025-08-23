@@ -21,19 +21,17 @@
 
   // Preisindikator
   window.renderPI = function(d){
-    var diffPct = ((d.current - d.avg30) / d.avg30) * 100;
+    var diffPct = ((d.current - d.avg7) / d.avg7) * 100;
     var badge = document.getElementById('pi-badge');
     if(!badge) return;
     var badgeText = (diffPct>0?'+':'') + diffPct.toFixed(1) + '%';
     badge.textContent = badgeText;
     badge.classList.remove('green','orange','red');
     badge.classList.add(diffPct <= -5 ? 'green' : Math.abs(diffPct) <= 5 ? 'orange' : 'red');
-    badge.setAttribute('aria-label','Abweichung zum Durchschnitt: ' + badgeText);
+    badge.setAttribute('aria-label','Differenz zum Durchschnitt: ' + badgeText);
 
     document.getElementById('pi-current').textContent = d.current.toFixed(2) + ' €';
-    document.getElementById('pi-avg').textContent = d.avg30.toFixed(2) + ' €';
-    document.getElementById('pi-range').textContent = d.low30.toFixed(2) + ' – ' + d.high30.toFixed(2) + ' €';
-    document.getElementById('pi-diff').textContent = badgeText;
+    document.getElementById('pi-avg').textContent = d.avg7.toFixed(2) + ' €';
 
     var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
     var pos = clamp((diffPct + 15) / 30, 0, 1);
