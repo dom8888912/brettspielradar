@@ -32,17 +32,20 @@ def test_queries_for_includes_alt_titles_and_synonyms():
     assert "Settlers of Catan" in queries
 
 
-def test_search_once_adds_category_filter():
+def test_search_once_adds_filters():
     mod = load_module()
     with patch("scripts.fetch_offers_ebay_enhanced.requests.get") as mock_get:
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.json.return_value = {}
         mock_get.return_value = mock_resp
-        mod.search_once("catan", category_id="180349")
+        mod.search_once("catan", category_id="180349", min_price=20)
         _, kwargs = mock_get.call_args
         assert "filter" in kwargs["params"]
-        assert "categoryIds:180349" in kwargs["params"]["filter"]
+        flt = kwargs["params"]["filter"]
+        assert "categoryIds:180349" in flt
+        assert "price:[20..]" in flt
+        assert "buyingOptions:{FIXED_PRICE}" in flt
 
 
 def test_fetch_for_game_fallback_to_other_sellers():
@@ -61,3 +64,13 @@ def test_fetch_for_game_fallback_to_other_sellers():
         ]
         offers = mod.fetch_for_game(game)
         assert offers and offers[0]["shop"] == "other"
+
+
+def test_fetch_for_game_passes_min_price():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"], "price_filter": {"min": 5}}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = []
+        mod.fetch_for_game(game)
+        _, kwargs = mock_search.call_args
+        assert kwargs["min_price"] == 5

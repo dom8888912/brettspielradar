@@ -111,14 +111,22 @@ def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
 
-def search_once(query: str, limit: int = 50, category_id: str | None = None) -> List[Dict[str, Any]]:
+def search_once(
+    query: str,
+    limit: int = 50,
+    category_id: str | None = None,
+    min_price: float | None = None,
+) -> List[Dict[str, Any]]:
     filters = [
         "priceCurrency:EUR",  # only EUR prices
         f"conditionIds:{{{','.join(sorted(ALLOWED_CONDITION_IDS))}}}",  # restrict to new-condition IDs
         f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
+        "buyingOptions:{FIXED_PRICE}",  # exclude auctions
     ]
     if category_id:
         filters.append(f"categoryIds:{category_id}")
+    if min_price is not None:
+        filters.append(f"price:[{min_price}..]")
     params = {
         "q": query,
         "limit": str(limit),
@@ -150,13 +158,6 @@ def pick_price_eur(item) -> float:
                 return float(minp.get("value"))
             except (TypeError, ValueError):
                 pass
-    # 3) Auktionen
-    bid = item.get("currentBidPrice")
-    if isinstance(bid, dict) and bid.get("currency") == "EUR":
-        try:
-            return float(bid.get("value"))
-        except (TypeError, ValueError):
-            pass
     return None
 
 def pick_shipping_eur(item) -> float:
@@ -208,13 +209,18 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     if not slug:
         return []
     category_id = str(game.get("ebay_category_id") or "").strip() or None
+    price_filter = game.get("price_filter") or {}
+    try:
+        min_price = float(price_filter.get("min"))
+    except (TypeError, ValueError):
+        min_price = None
 
     whitelisted: List[Dict[str, Any]] = []
     fallback: List[Dict[str, Any]] = []
     seen = set()
 
     for q in queries_for(game):
-        items = search_once(q, limit=50, category_id=category_id)
+        items = search_once(q, limit=50, category_id=category_id, min_price=min_price)
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
         for it in items:
             iid = it.get("itemId")
