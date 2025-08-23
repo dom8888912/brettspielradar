@@ -1,3 +1,4 @@
+
 // ui-version:2025-08-23-v11 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
 (function(){
   // Menü
