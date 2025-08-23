@@ -123,9 +123,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)</h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 2 Tage">i</span></h2>
       
-        <p class="avg-price">Durchschnitt: 36.49&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 36.49&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -218,16 +218,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-23", "avg": 36.49}];
-  if(hist.length){
-    const ctx = document.getElementById('priceHistoryChart');
-    const labels = hist.map(r=>r.date);
-    const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    
-    renderPI({current: 27.49, avg7: 36.49, history: data});
-    
-  }
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = [{"date": "2025-08-22", "avg": 36.49}, {"date": "2025-08-23", "avg": 36.49}];
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.avg);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      
+      if (typeof window.renderPI === 'function'){
+        window.renderPI({current: 27.49, avg7: 36.49, history: data});
+      }
+      
+    }
+  });
   </script>
   <script type="application/ld+json"></script>
 

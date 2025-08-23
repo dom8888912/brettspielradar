@@ -123,9 +123,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)</h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 2 Tage">i</span></h2>
       
-        <p class="avg-price">Durchschnitt: 24.99&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 25.10&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -176,6 +176,18 @@
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/405528010576?_skw=root+Brettspiel&hash=item5e6b5a5f50%3Ag%3Ae%7EAAAeSwC4Nnpgne&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
           </article>
         
+          
+          <article class="offer-card" data-offer>
+            
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/vXcAAeSwyFlogKpn/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/406071159853?_skw=root+Brettspiel&hash=item5e8bba2c2d%3Ag%3AvXcAAeSwyFlogKpn&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Root - Marodeur-Heuerlinge und Heuerlinge-Schachtel</a></h3>
+            <div class="offer-meta">
+              <span class="price">28.80&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
+              <span class="seller">funtainment_muenchen</span>
+            </div>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/406071159853?_skw=root+Brettspiel&hash=item5e8bba2c2d%3Ag%3AvXcAAeSwyFlogKpn&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+          </article>
+        
         
           <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="https://www.amazon.de/s?k=Root+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
@@ -203,6 +215,13 @@
             <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/405528010576?_skw=root+Brettspiel&hash=item5e6b5a5f50%3Ag%3Ae%7EAAAeSwC4Nnpgne&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
           
+          <tr class="">
+            <td>funtainment_muenchen</td>
+            <td>28.80&nbsp;€</td>
+            <td>4.99&nbsp;€</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/406071159853?_skw=root+Brettspiel&hash=item5e8bba2c2d%3Ag%3AvXcAAeSwyFlogKpn&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+          
           
           <tr>
             <td>Amazon</td>
@@ -218,16 +237,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 25.63}, {"date": "2025-08-23", "avg": 24.36}];
-  if(hist.length){
-    const ctx = document.getElementById('priceHistoryChart');
-    const labels = hist.map(r=>r.date);
-    const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    
-    renderPI({current: 17.65, avg7: 24.99, history: data});
-    
-  }
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = [{"date": "2025-08-22", "avg": 25.63}, {"date": "2025-08-23", "avg": 24.57}];
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.avg);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      
+      if (typeof window.renderPI === 'function'){
+        window.renderPI({current: 17.65, avg7: 25.10, history: data});
+      }
+      
+    }
+  });
   </script>
   <script type="application/ld+json"></script>
 
@@ -269,8 +292,8 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "12.66",
-      "highPrice": "19.80",
-      "offerCount": "2"
+      "highPrice": "28.80",
+      "offerCount": "3"
     },
     
     "url": "/spiel/root/"
