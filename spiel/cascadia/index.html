@@ -104,20 +104,20 @@
       <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
     </div>
 
-    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 4 Tage">
+    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 5 Tage">
       <path id="pi-line" d=""></path>
       <circle id="pi-dot" r="1.6" cx="100" cy="0"></circle>
     </svg>
 
     <dl class="pi-stats">
       <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-      <div><dt>Ø 4 Tage</dt><dd id="pi-avg">–</dd></div>
+      <div><dt>Ø 5 Tage</dt><dd id="pi-avg">–</dd></div>
       <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
       <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
     </dl>
 
     <p class="pi-note">
-      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 4 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 5 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
     </p>
 
     <div class="cta-row">
@@ -142,7 +142,7 @@
   <section class="content-section price-history">
     <h2 class="h2">Preisverlauf (30 Tage)</h2>
     
-      <p class="avg-price">Durchschnitt: 28.30&nbsp;€</p>
+      <p class="avg-price">Durchschnitt: 28.25&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -183,13 +183,13 @@
           
           <article class="offer-card" data-offer>
             
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/~G0AAOSwGr1nYKvp/s-l225.jpg" alt="" loading="lazy">
-            <h3 class="offer-title"><a href="https://www.ebay.de/itm/256663169788?_skw=cascadia+Brettspiel&hash=item3bc2512afc%3Ag%3A%7EG0AAOSwGr1nYKvp&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Kosmos Cascadia Rolling Hills, Brettspiel</a></h3>
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/6ZwAAeSwoiZoBPO-/s-l225.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/405789464523?_skw=cascadia+Brettspiel&hash=item5e7aefd7cb%3Ag%3A6ZwAAeSwoiZoBPO-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Kosmos Spiele|Cascadia Junior|ab 6 Jahren</a></h3>
             <div class="offer-meta">
-              <span class="price">27.99&nbsp;€</span>
-              <span class="seller">alternate.gmbh</span>
+              <span class="price">23.99&nbsp;€</span>
+              <span class="seller">buecher-de</span>
             </div>
-            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/256663169788?_skw=cascadia+Brettspiel&hash=item3bc2512afc%3Ag%3A%7EG0AAOSwGr1nYKvp&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/405789464523?_skw=cascadia+Brettspiel&hash=item5e7aefd7cb%3Ag%3A6ZwAAeSwoiZoBPO-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
           </article>
         
         
@@ -218,9 +218,9 @@
           </tr>
           
           <tr class="">
-            <td>alternate.gmbh</td>
-            <td>27.99&nbsp;€</td>
-            <td><a href="https://www.ebay.de/itm/256663169788?_skw=cascadia+Brettspiel&hash=item3bc2512afc%3Ag%3A%7EG0AAOSwGr1nYKvp&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+            <td>buecher-de</td>
+            <td>27.94&nbsp;€</td>
+            <td><a href="https://www.ebay.de/itm/405789464523?_skw=cascadia+Brettspiel&hash=item5e7aefd7cb%3Ag%3A6ZwAAeSwoiZoBPO-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
           
           
@@ -237,14 +237,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}];
+  const hist = [{"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-22", "avg": 28.3}, {"date": "2025-08-23", "avg": 28.05}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
     new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
     
-    renderPI({current: 24.79, avg30: 28.30, low30: Math.min(...data), high30: Math.max(...data), history: data});
+    renderPI({current: 24.79, avg30: 28.25, low30: Math.min(...data), high30: Math.max(...data), history: data});
     
   }
   </script>
@@ -288,7 +288,7 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "19.80",
-      "highPrice": "27.99",
+      "highPrice": "23.99",
       "offerCount": "3"
     },
     
