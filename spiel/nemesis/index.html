@@ -90,42 +90,48 @@
   
   <p class="muted">⚠️ Fehlende YAML-Werte: players, playtime, playtime_minutes, complexity, weight, year</p>
   
+  <div class="price-top">
+    <section class="price-indicator" role="group" aria-label="Preisindikator">
+      <div class="pi-header">
+        <span class="pi-title">Preisindikator</span>
+        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+      </div>
 
-  <section class="price-indicator" role="group" aria-label="Preisindikator">
-    <div class="pi-header">
-      <span class="pi-title">Preisindikator</span>
-      <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-    </div>
+      <div class="pi-bar" aria-hidden="true">
+        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+      </div>
 
-    <div class="pi-bar" aria-hidden="true">
-      <div class="pi-segment pi-green"></div>
-      <div class="pi-segment pi-orange"></div>
-      <div class="pi-segment pi-red"></div>
-      <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-    </div>
+      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 6 Tage">
+        <path id="pi-line" d=""></path>
+        <circle id="pi-dot" r="1.6" cx="99" cy="0"></circle>
+      </svg>
 
-    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 5 Tage">
-      <path id="pi-line" d=""></path>
-      <circle id="pi-dot" r="1.6" cx="100" cy="0"></circle>
-    </svg>
+      <dl class="pi-stats">
+        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø 6 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 6 Tage">i</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Tief/Hoch<span class="info-icon" title="Niedrigster und höchster Tagespreis in den letzten 6 Tagen">i</span></dt><dd id="pi-range">–</dd></div>
+        <div><dt>Abweichung<span class="info-icon" title="Aktuelle Differenz zum 30-Tage-Durchschnitt">i</span></dt><dd id="pi-diff">–</dd></div>
+      </dl>
 
-    <dl class="pi-stats">
-      <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-      <div><dt>Ø 5 Tage</dt><dd id="pi-avg">–</dd></div>
-      <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
-      <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
-    </dl>
+      <p class="pi-note">
+        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 6 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+      </p>
 
-    <p class="pi-note">
-      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 5 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
-    </p>
+      <div class="cta-row">
+        
+        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+        
+      </div>
+    </section>
 
-    <div class="cta-row">
+    <section class="price-history">
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 30 Tage">i</span></h2>
       
-      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+        <p class="avg-price">Durchschnitt: 22.99&nbsp;€</p>
       
-    </div>
-  </section>
+      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+    </section>
+  </div>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -138,14 +144,6 @@
 
   
   
-
-  <section class="content-section price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)</h2>
-    
-      <p class="avg-price">Durchschnitt: 22.99&nbsp;€</p>
-    
-    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-  </section>
 
   <section class="offers" id="angebote">
     <div class="offers-head">
@@ -162,7 +160,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/fpIAAOSwOxNnUKv5/s-l225.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/405399827562?_skw=nemesis+Brettspiel&hash=item5e63b6746a%3Ag%3AfpIAAOSwOxNnUKv5&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Sidequest Nemesis DE</a></h3>
             <div class="offer-meta">
-              <span class="price">18.00&nbsp;€</span>
+              <span class="price">18.00&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
               <span class="seller">funtainment_muenchen</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/405399827562?_skw=nemesis+Brettspiel&hash=item5e63b6746a%3Ag%3AfpIAAOSwOxNnUKv5&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
@@ -172,26 +170,28 @@
           <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="https://www.amazon.de/s?k=Nemesis+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
             <div class="offer-meta"><span class="price">–</span></div>
-            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=Nemesis+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=Nemesis+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
           </article>
         
       </div>
 
       <table class="offer-table">
-        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
         <tbody>
           
           <tr class="top">
             <td>funtainment_muenchen</td>
-            <td>22.99&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
-            <td><a href="https://www.ebay.de/itm/405399827562?_skw=nemesis+Brettspiel&hash=item5e63b6746a%3Ag%3AfpIAAOSwOxNnUKv5&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+            <td>18.00&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
+            <td>4.99&nbsp;€</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/405399827562?_skw=nemesis+Brettspiel&hash=item5e63b6746a%3Ag%3AfpIAAOSwOxNnUKv5&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
           
           
           <tr>
             <td>Amazon</td>
             <td>–</td>
-            <td><a href="https://www.amazon.de/s?k=Nemesis+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+            <td>–</td>
+            <td><a class="btn btn-secondary btn-sm" href="https://www.amazon.de/s?k=Nemesis+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a></td>
           </tr>
           
         </tbody>
@@ -201,7 +201,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = [{"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-23", "avg": 22.99}];
+  const hist = [{"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-22", "avg": 22.99}, {"date": "2025-08-23", "avg": 22.99}, {"date": "2025-08-23", "avg": 22.99}];
   if(hist.length){
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);

@@ -90,42 +90,48 @@
   
   <p class="muted">⚠️ Fehlende YAML-Werte: players, playtime, playtime_minutes, complexity, weight, year</p>
   
+  <div class="price-top">
+    <section class="price-indicator" role="group" aria-label="Preisindikator">
+      <div class="pi-header">
+        <span class="pi-title">Preisindikator</span>
+        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+      </div>
 
-  <section class="price-indicator" role="group" aria-label="Preisindikator">
-    <div class="pi-header">
-      <span class="pi-title">Preisindikator</span>
-      <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-    </div>
+      <div class="pi-bar" aria-hidden="true">
+        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+      </div>
 
-    <div class="pi-bar" aria-hidden="true">
-      <div class="pi-segment pi-green"></div>
-      <div class="pi-segment pi-orange"></div>
-      <div class="pi-segment pi-red"></div>
-      <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-    </div>
+      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 0 Tage">
+        <path id="pi-line" d=""></path>
+        <circle id="pi-dot" r="1.6" cx="99" cy="0"></circle>
+      </svg>
 
-    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 0 Tage">
-      <path id="pi-line" d=""></path>
-      <circle id="pi-dot" r="1.6" cx="100" cy="0"></circle>
-    </svg>
+      <dl class="pi-stats">
+        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø 0 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 0 Tage">i</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Tief/Hoch<span class="info-icon" title="Niedrigster und höchster Tagespreis in den letzten 0 Tagen">i</span></dt><dd id="pi-range">–</dd></div>
+        <div><dt>Abweichung<span class="info-icon" title="Aktuelle Differenz zum 30-Tage-Durchschnitt">i</span></dt><dd id="pi-diff">–</dd></div>
+      </dl>
 
-    <dl class="pi-stats">
-      <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-      <div><dt>Ø 0 Tage</dt><dd id="pi-avg">–</dd></div>
-      <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
-      <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
-    </dl>
+      <p class="pi-note">
+        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 0 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+      </p>
 
-    <p class="pi-note">
-      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 0 Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
-    </p>
+      <div class="cta-row">
+        
+        <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=HEAT%3A+Pedal+to+the+Metal+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        
+      </div>
+    </section>
 
-    <div class="cta-row">
+    <section class="price-history">
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 30 Tage">i</span></h2>
       
-      <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=HEAT%3A+Pedal+to+the+Metal+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        <p class="muted">Noch keine Preisdaten.</p>
       
-    </div>
-  </section>
+      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+    </section>
+  </div>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -139,14 +145,6 @@
   
   
 
-  <section class="content-section price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)</h2>
-    
-      <p class="muted">Noch keine Preisdaten.</p>
-    
-    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-  </section>
-
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -157,7 +155,7 @@
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       
       <div class="cta-row">
-        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=HEAT%3A+Pedal+to+the+Metal+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=HEAT%3A+Pedal+to+the+Metal+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
       </div>
       
     
