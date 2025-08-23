@@ -119,7 +119,7 @@
 
       <div class="cta-row">
         
-        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+        <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=Orl%C3%A9ans+deutsch+Brettspiel" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
         
       </div>
     </section>
@@ -152,50 +152,12 @@
     </div>
 
     
-      <div class="offer-grid">
-        
-          
-          <article class="offer-card top" data-offer>
-            <div class="badge">Bestpreis</div>
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/g9AAAeSwITtogDM6/s-l225.jpg" alt="" loading="lazy">
-            <h3 class="offer-title"><a href="https://www.ebay.de/itm/197555034499?_skw=orleans+Brettspiel&hash=item2dff329983%3Ag%3Ag9AAAeSwITtogDM6&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Pegasus DLP00230 - Orleans Fan Kit</a></h3>
-            <div class="offer-meta">
-              <span class="price">37.59&nbsp;€<span class="shipping"> + 0.00&nbsp;€ Versand</span></span>
-              <span class="seller">hugendubel-digital</span>
-            </div>
-            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/197555034499?_skw=orleans+Brettspiel&hash=item2dff329983%3Ag%3Ag9AAAeSwITtogDM6&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
-          </article>
-        
-        
-          <article class="offer-card" data-offer>
-            <h3 class="offer-title"><a href="https://www.amazon.de/s?k=Orl%C3%A9ans+deutsch+Brettspiel&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
-            <div class="offer-meta"><span class="price">–</span></div>
-            <a class="btn btn-secondary offer-link" href="https://www.amazon.de/s?k=Orl%C3%A9ans+deutsch+Brettspiel&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
-          </article>
-        
+      <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
+      
+      <div class="cta-row">
+        <a class="btn btn-secondary" href="https://www.amazon.de/s?k=Orl%C3%A9ans+deutsch+Brettspiel&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
       </div>
-
-      <table class="offer-table">
-        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
-        <tbody>
-          
-          <tr class="top">
-            <td>hugendubel-digital</td>
-            <td>37.59&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
-            <td>0.00&nbsp;€</td>
-            <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/197555034499?_skw=orleans+Brettspiel&hash=item2dff329983%3Ag%3Ag9AAAeSwITtogDM6&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
-          </tr>
-          
-          
-          <tr>
-            <td>Amazon</td>
-            <td>–</td>
-            <td>–</td>
-            <td><a class="btn btn-secondary btn-sm" href="https://www.amazon.de/s?k=Orl%C3%A9ans+deutsch+Brettspiel&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a></td>
-          </tr>
-          
-        </tbody>
-      </table>
+      
     
   </section>
 
@@ -207,8 +169,6 @@
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
     new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false,tension:0,pointRadius:3}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    
-    renderPI({current: 37.59, avg30: 37.59, low30: Math.min(...data), high30: Math.max(...data), history: data});
     
   }
   </script>
@@ -230,14 +190,6 @@
     "name": "Orléans – Preisradar &amp; Angebote",
     "category": "Board game",
     "releaseDate": "2014",
-    
-    "offers": {
-      "@type": "AggregateOffer",
-      "priceCurrency": "EUR",
-      "lowPrice": "37.59",
-      "highPrice": "37.59",
-      "offerCount": "1"
-    },
     
     "url": "/spiel/orleans/"
   }
