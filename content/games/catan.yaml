@@ -97,7 +97,7 @@ search_queries:
 include_keywords: ["deutsch", "Angebote", "Preisvergleich", "Brettspiel kaufen"]
 exclude_keywords: ["englisch", "english", "spanisch", "spanish", "italienisch", "französisch", "Insert", "Inlay", "Sleeves", "Kartenhüllen", "Organizer", "Ersatzteile", "Promo", "Erweiterung", "Exp.", "Holzbox", "Konvolut", "Karten", "Hexfelder", "Zubehör",]
 condition_whitelist: ["New","Used","Like New"]
-price_filter: { min: 5, max: 200 }
+price_filter: { min: 20, max: 50 }
 retailers_whitelist: ["Amazon","Thalia","Müller","Smyths","Spiele-Offensive","Milan-Spiele","Fantasywelt","ebay"]
 search_profiles:
   amazon:
