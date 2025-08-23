@@ -15,6 +15,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 import os, json, time
 from pathlib import Path
 from typing import List, Dict, Any
+from urllib.parse import quote_plus
 import requests, yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -201,6 +202,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     seen = set()
     for q in queries_for(game):
         items = search_once(q, limit=50)
+        search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
         for it in items:
             iid = it.get("itemId")
             if not iid or iid in seen:
@@ -238,6 +240,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
                 "url": url,
                 "image_url": img,
                 "shop": shop,
+                "search_url": search_url,
             })
             seen.add(iid)
             if len(offers) >= max_keep:
