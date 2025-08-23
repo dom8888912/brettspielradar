@@ -55,9 +55,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)</h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten {{ hist_days }} Tage">i</span></h2>
       {% if avg30 %}
-        <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+        <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
       {% else %}
         <p class="muted">Noch keine Preisdaten.</p>
       {% endif %}
@@ -159,16 +159,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = {{ history_json | safe }};
-  if(hist.length){
-    const ctx = document.getElementById('priceHistoryChart');
-    const labels = hist.map(r=>r.date);
-    const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    {% if min_price and avg7 %}
-    renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}, history: data});
-    {% endif %}
-  }
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = {{ history_json | safe }};
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.avg);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      {% if min_price and avg7 %}
+      if (typeof window.renderPI === 'function'){
+        window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}, history: data});
+      }
+      {% endif %}
+    }
+  });
   </script>
   <script type="application/ld+json">{{ schema_json | safe }}</script>
 

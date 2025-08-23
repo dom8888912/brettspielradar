@@ -12,7 +12,7 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Limits results to a fixed whitelist of trusted business sellers
 """
 
-import os, json, time
+import os, json, time, datetime as dt
 from pathlib import Path
 from typing import List, Dict, Any
 from urllib.parse import quote_plus
@@ -271,8 +271,12 @@ def main():
         offers = fetch_for_game(g, max_keep=10)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
+        meta = {
+            "fetched_at": dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+            "offers": offers,
+        }
         with outp.open("w", encoding="utf-8") as f:
-            json.dump(offers, f, ensure_ascii=False, indent=2)
+            json.dump(meta, f, ensure_ascii=False, indent=2)
         print(f"✔ {slug}: {len(offers)} Angebote gespeichert.")
         updated += 1
         time.sleep(0.2)  # freundlich zur API
