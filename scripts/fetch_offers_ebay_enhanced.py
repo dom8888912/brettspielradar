@@ -110,12 +110,14 @@ def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
 
-def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
+def search_once(query: str, limit: int = 50, category_id: str | None = None) -> List[Dict[str, Any]]:
     filters = [
         "priceCurrency:EUR",  # only EUR prices
         f"conditionIds:{{{','.join(sorted(ALLOWED_CONDITION_IDS))}}}",  # restrict to new-condition IDs
         f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
     ]
+    if category_id:
+        filters.append(f"categoryIds:{category_id}")
     params = {
         "q": query,
         "limit": str(limit),
@@ -177,11 +179,17 @@ def build_url(item, slug: str) -> str:
 
 def queries_for(game: Dict[str, Any]) -> List[str]:
     title = (game.get("title") or "").strip()
-    slug  = (game.get("slug") or "").strip()
-    q = []
+    slug = (game.get("slug") or "").strip()
+    q: List[str] = []
     terms = game.get("search_terms")
     if isinstance(terms, list):
         q.extend([s for s in terms if isinstance(s, str) and s.strip()])
+    alt_titles = game.get("alt_titles") or []
+    if isinstance(alt_titles, list):
+        q.extend([s for s in alt_titles if isinstance(s, str) and s.strip()])
+    synonyms = game.get("synonyms") or []
+    if isinstance(synonyms, list):
+        q.extend([s for s in synonyms if isinstance(s, str) and s.strip()])
     if title:
         q += [f"{title} Brettspiel", f"{title} Spiel"]
     if slug:
@@ -198,10 +206,11 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     slug = game.get("slug")
     if not slug:
         return []
-    offers = []
+    category_id = str(game.get("ebay_category_id") or "").strip() or None
+    offers: List[Dict[str, Any]] = []
     seen = set()
     for q in queries_for(game):
-        items = search_once(q, limit=50)
+        items = search_once(q, limit=50, category_id=category_id)
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
         for it in items:
             iid = it.get("itemId")

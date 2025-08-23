@@ -1,6 +1,10 @@
 slug: catan
 uuid: "201e8e9e-b2b4-51f4-a3f9-28c08373cf73"
 title: "CATAN – Preisradar & Angebote"
+alt_titles:
+  - "Die Siedler von Catan"
+  - "Settlers of Catan"
+ebay_category_id: 180349
 players: null
 playtime_minutes: null
 weight: null
