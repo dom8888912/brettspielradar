@@ -45,6 +45,17 @@ jobs:
             python scripts/fetch_offers_stub.py
           fi
 
+      - name: Upload offers artifact
+        if: ${{ hashFiles('data/offers/*') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: offers
+          path: data/offers/
+
+      - name: Document offers artifact location
+        if: ${{ hashFiles('data/offers/*') != '' }}
+        run: echo 'Offers saved as artifact **offers** from `data/offers/`.' >> $GITHUB_STEP_SUMMARY
+
       # Production-Basis-URL (Custom Domain)
       - name: Build site (Production)
         env:
