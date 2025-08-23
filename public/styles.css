@@ -1,4 +1,4 @@
-/* ui-version:2025-08-11-v9 – Neuer Preisindikator */
+/* ui-version:2025-08-23-v10 – Neuer Preisindikator */
 :root{
   --color-primary:#ff7f11;
   --color-secondary:#ff9f1c;
@@ -83,6 +83,9 @@ a:hover{text-decoration:underline}
 
 .pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring);background:linear-gradient(to right,color-mix(in srgb,var(--pi-green) 18%,white) 0%,color-mix(in srgb,var(--pi-green) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 100%)}
 .pi-marker{position:absolute;top:-4px;width:2px;height:18px;background:#111;left:50%;transform:translateX(-1px)}
+.pi-marker.green{background:var(--pi-green)}
+.pi-marker.orange{background:var(--pi-orange)}
+.pi-marker.red{background:var(--pi-red)}
 
 .pi-sparkline{width:100%;height:36px;margin:2px 0 8px}
 .pi-sparkline path{fill:none;stroke:currentColor;stroke-width:1.4}
