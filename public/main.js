@@ -1,4 +1,4 @@
-// ui-version:2025-08-11-v9 – Menü-Overlay, Preisindikator, Suche & Cookie-Banner unten
+// ui-version:2025-08-23-v10 – Menü-Overlay, Preisindikator, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -24,10 +24,14 @@
     var diffPct = ((d.current - d.avg7) / d.avg7) * 100;
     var badge = document.getElementById('pi-badge');
     if(!badge) return;
+    var marker = document.getElementById('pi-marker');
     var badgeText = (diffPct>0?'+':'') + diffPct.toFixed(1) + '%';
+    var colorClass = diffPct <= -5 ? 'green' : Math.abs(diffPct) <= 5 ? 'orange' : 'red';
     badge.textContent = badgeText;
     badge.classList.remove('green','orange','red');
-    badge.classList.add(diffPct <= -5 ? 'green' : Math.abs(diffPct) <= 5 ? 'orange' : 'red');
+    marker.classList.remove('green','orange','red');
+    badge.classList.add(colorClass);
+    marker.classList.add(colorClass);
     badge.setAttribute('aria-label','Differenz zum Durchschnitt: ' + badgeText);
 
     document.getElementById('pi-current').textContent = d.current.toFixed(2) + ' €';
@@ -35,7 +39,7 @@
 
     var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
     var pos = clamp((diffPct + 15) / 30, 0, 1);
-    document.getElementById('pi-marker').style.left = 'calc(' + (pos*100) + '% - 1px)';
+    marker.style.left = 'calc(' + (pos*100) + '% - 1px)';
 
     var min = Math.min.apply(null, d.history);
     var max = Math.max.apply(null, d.history);
