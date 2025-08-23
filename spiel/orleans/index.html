@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ui-version:2025-08-11-v9 -->
+<!-- ui-version:2025-08-23-v12 -->
 <html lang="de">
 <head><base href="https://brettspielpreisradar.de/">
   <meta charset="utf-8">
@@ -7,8 +7,8 @@
   <title>Orléans – Preisradar & Angebote – Brettspiel Preisradar</title>
   <meta name="description" content="Preisradar, aktuelle Angebote und Deals für Orléans – Preisradar &amp; Angebote.">
   <meta name="theme-color" content="#ffffff">
-  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v9" as="style">
-  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-11-v9">
+  <link rel="preload" href="https://brettspielpreisradar.de/styles.css?v=2025-08-23-v12" as="style">
+  <link rel="stylesheet" href="https://brettspielpreisradar.de/styles.css?v=2025-08-23-v12">
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Orléans – Preisradar & Angebote – Brettspiel Preisradar">
@@ -102,8 +102,8 @@
       </div>
 
       <dl class="pi-stats">
-        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">i</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
@@ -118,7 +118,7 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">i</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">ℹ</span></h2>
       
         <p class="avg-price">Durchschnitt (2 Tage): 37.59&nbsp;€</p>
       
@@ -201,12 +201,12 @@
       const labels = hist.map(r=>r.date);
       const data = hist.map(r=>r.min);
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-      
-      if (typeof window.renderPI === 'function'){
-        window.renderPI({current: 37.59, avg7: 37.59});
-      }
-      
     }
+    
+    if (typeof window.renderPI === 'function'){
+      window.renderPI({current: 37.59, avg7: 37.59});
+    }
+    
   });
   </script>
   <script type="application/ld+json"></script>
@@ -250,6 +250,6 @@
     </div>
   </footer>
 
-  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-11-v9" defer></script>
+  <script src="https://brettspielpreisradar.de/main.js?v=2025-08-23-v12" defer></script>
 </body>
 </html>
