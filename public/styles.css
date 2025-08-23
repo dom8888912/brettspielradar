@@ -82,7 +82,7 @@ a:hover{text-decoration:underline}
 .pi-badge.red{background:color-mix(in srgb,var(--pi-red) 14%,white);color:var(--pi-red)}
 
 .pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring);background:linear-gradient(to right,color-mix(in srgb,var(--pi-green) 18%,white) 0%,color-mix(in srgb,var(--pi-green) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 100%)}
-.pi-marker{position:absolute;top:-4px;width:2px;height:18px;background:#111}
+.pi-marker{position:absolute;top:-4px;width:2px;height:18px;background:#111;left:50%;transform:translateX(-1px)}
 
 .pi-sparkline{width:100%;height:36px;margin:2px 0 8px}
 .pi-sparkline path{fill:none;stroke:currentColor;stroke-width:1.4}
@@ -99,6 +99,7 @@ a:hover{text-decoration:underline}
   .price-top .price-indicator,.price-top .price-history{flex:1}
 }
 .price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff}
+.info-icon{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--info);color:var(--text);font-size:.7rem;line-height:14px;text-align:center;margin-left:4px;cursor:help}
 
 .cta-row{margin-top:8px}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid transparent;padding:12px 14px;font-weight:700;min-height:44px}
