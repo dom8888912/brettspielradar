@@ -43,3 +43,21 @@ def test_search_once_adds_category_filter():
         _, kwargs = mock_get.call_args
         assert "filter" in kwargs["params"]
         assert "categoryIds:180349" in kwargs["params"]["filter"]
+
+
+def test_fetch_for_game_fallback_to_other_sellers():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"]}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan",
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers and offers[0]["shop"] == "other"
