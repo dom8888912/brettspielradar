@@ -1,5 +1,5 @@
 
-// ui-version:2025-08-23-v11 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
+// ui-version:2025-08-23-v12 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
