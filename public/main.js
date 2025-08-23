@@ -37,18 +37,18 @@
 
     var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
     var pos = clamp((diffPct + 15) / 30, 0, 1);
-    document.getElementById('pi-marker').style.left = (pos * 100) + '%';
+    document.getElementById('pi-marker').style.left = 'calc(' + (pos*100) + '% - 1px)';
 
     var min = Math.min.apply(null, d.history);
     var max = Math.max.apply(null, d.history);
-    var points = d.history.map(function(v,i){
+    var pts = d.history.map(function(v,i){
       var x = (i / (d.history.length - 1)) * 100;
       var y = 24 - ((v - min) / (max - min || 1)) * 24;
-      return x + ',' + y;
-    }).join(' ');
-    document.getElementById('pi-line').setAttribute('d', 'M ' + points.replace(/ /g, ' L '));
-    var lastY = 24 - ((d.current - min) / (max - min || 1)) * 24;
-    document.getElementById('pi-dot').setAttribute('cy', lastY);
+      return {x:x, y:y};
+    });
+    var path = 'M ' + pts.map(function(p){ return p.x + ',' + p.y; }).join(' L ');
+    document.getElementById('pi-line').setAttribute('d', path);
+    document.getElementById('pi-dots').innerHTML = pts.map(function(p){ return '<circle cx="' + p.x + '" cy="' + p.y + '" r="1.6"></circle>'; }).join('');
   };
 
   // Suche & Filter
