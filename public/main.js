@@ -1,4 +1,5 @@
-// ui-version:2025-08-23-v10 – Menü-Overlay, Preisindikator, Suche & Cookie-Banner unten
+
+// ui-version:2025-08-23-v11 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -40,17 +41,6 @@
     var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
     var pos = clamp((diffPct + 15) / 30, 0, 1);
     marker.style.left = 'calc(' + (pos*100) + '% - 1px)';
-
-    var min = Math.min.apply(null, d.history);
-    var max = Math.max.apply(null, d.history);
-    var pts = d.history.map(function(v,i){
-      var x = (i / (d.history.length - 1)) * 100;
-      var y = 24 - ((v - min) / (max - min || 1)) * 24;
-      return {x:x, y:y};
-    });
-    var path = 'M ' + pts.map(function(p){ return p.x + ',' + p.y; }).join(' L ');
-    document.getElementById('pi-line').setAttribute('d', path);
-    document.getElementById('pi-dots').innerHTML = pts.map(function(p){ return '<circle cx="' + p.x + '" cy="' + p.y + '" r="1.6"></circle>'; }).join('');
   };
 
   // Suche & Filter

@@ -46,7 +46,7 @@ def load_offers(slug):
     return data
 
 def append_history(slug, offers):
-    """Append today's average price to the history file."""
+    """Append today's minimal price to the history file."""
     prices = []
     for o in offers:
         p = o.get("total_eur") or o.get("price_eur")
@@ -54,9 +54,9 @@ def append_history(slug, offers):
             prices.append(p)
     if not prices:
         return
-    avg = round(sum(prices) / len(prices), 2)
+    min_price = round(min(prices), 2)
     HIST_DIR.mkdir(parents=True, exist_ok=True)
-    entry = {"date": dt.date.today().isoformat(), "avg": avg}
+    entry = {"date": dt.date.today().isoformat(), "avg": min_price}
     with open(HIST_DIR / f"{slug}.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(entry) + "\n")
 
