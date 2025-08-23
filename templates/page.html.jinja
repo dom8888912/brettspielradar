@@ -33,7 +33,7 @@
 
       <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ hist_days }} Tage">
         <path id="pi-line" d=""></path>
-        <circle id="pi-dot" r="1.6" cx="99" cy="0"></circle>
+        <g id="pi-dots"></g>
       </svg>
 
       <dl class="pi-stats">
@@ -55,7 +55,7 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 30 Tage">i</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)</h2>
       {% if avg30 %}
         <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
       {% else %}
