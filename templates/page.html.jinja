@@ -31,7 +31,7 @@
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
 
-      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ avg_days }} Tage">
+      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ hist_days }} Tage">
         <path id="pi-line" d=""></path>
         <circle id="pi-dot" r="1.6" cx="99" cy="0"></circle>
       </svg>
@@ -39,8 +39,6 @@
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
         <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">i</span></dt><dd id="pi-avg">–</dd></div>
-        <div><dt>Tief/Hoch<span class="info-icon" title="Niedrigster und höchster Tagespreis in den letzten {{ avg_days }} Tagen">i</span></dt><dd id="pi-range">–</dd></div>
-        <div><dt>Abweichung<span class="info-icon" title="Aktuelle Differenz zum 30-Tage-Durchschnitt">i</span></dt><dd id="pi-diff">–</dd></div>
       </dl>
 
       <p class="pi-note">
@@ -57,9 +55,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 30 Tage">i</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten {{ hist_days }} Tage">i</span></h2>
       {% if avg30 %}
-        <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+        <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
       {% else %}
         <p class="muted">Noch keine Preisdaten.</p>
       {% endif %}
@@ -161,16 +159,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  const hist = {{ history_json | safe }};
-  if(hist.length){
-    const ctx = document.getElementById('priceHistoryChart');
-    const labels = hist.map(r=>r.date);
-    const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    {% if min_price and avg30 %}
-    renderPI({current: {{ '%.2f'|format(min_price) }}, avg30: {{ '%.2f'|format(avg30) }}, low30: Math.min(...data), high30: Math.max(...data), history: data});
-    {% endif %}
-  }
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = {{ history_json | safe }};
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.avg);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      {% if min_price and avg7 %}
+      if (typeof window.renderPI === 'function'){
+        window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}, history: data});
+      }
+      {% endif %}
+    }
+  });
   </script>
   <script type="application/ld+json">{{ schema_json | safe }}</script>
 
