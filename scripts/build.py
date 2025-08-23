@@ -56,9 +56,21 @@ def append_history(slug, offers):
         return
     min_price = round(min(prices), 2)
     HIST_DIR.mkdir(parents=True, exist_ok=True)
-    entry = {"date": dt.date.today().isoformat(), "avg": min_price}
-    with open(HIST_DIR / f"{slug}.jsonl", "a", encoding="utf-8") as f:
-        f.write(json.dumps(entry) + "\n")
+    path = HIST_DIR / f"{slug}.jsonl"
+    entry = {"date": dt.date.today().isoformat(), "min": min_price}
+    lines = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                x = json.loads(line)
+                if x.get("date") != entry["date"]:
+                    lines.append(x)
+            except Exception:
+                pass
+    lines.append(entry)
+    with open(path, "w", encoding="utf-8") as f:
+        for x in lines:
+            f.write(json.dumps(x) + "\n")
 
 def build_amazon_search_url(game):
     queries = game.get("search_queries") or game.get("search_terms") or []
@@ -77,13 +89,15 @@ def load_history(slug):
         try:
             x = json.loads(line)
             day = dt.date.fromisoformat(x["date"])
-            val = x.get("avg")
+            val = x.get("min")
+            if val is None:
+                val = x.get("avg")
             if isinstance(val, (int, float)):
                 day_values.setdefault(day, []).append(val)
         except Exception:
             pass
     rows = [
-        {"date": day, "avg": round(sum(vals)/len(vals), 2)}
+        {"date": day, "min": round(min(vals), 2)}
         for day, vals in sorted(day_values.items())
         if vals
     ]
@@ -92,7 +106,13 @@ def load_history(slug):
 def avg_window(rows, days):
     """Return average over the last ``days`` days (inclusive)."""
     cutoff = dt.date.today() - dt.timedelta(days=days - 1)
-    vals = [r["avg"] for r in rows if r.get("avg") and r["date"] >= cutoff]
+    vals = []
+    for r in rows:
+        v = r.get("min")
+        if v is None:
+            v = r.get("avg")
+        if isinstance(v, (int, float)) and r["date"] >= cutoff:
+            vals.append(v)
     if not vals:
         return (None, 0)
     return (round(sum(vals)/len(vals), 2), len(vals))
@@ -154,18 +174,18 @@ def render_game(yaml_path, site_url):
 
     cutoff = dt.date.today() - dt.timedelta(days=30)
     hist30 = [
-        {"date": r["date"].isoformat(), "avg": r["avg"]}
+        {"date": r["date"].isoformat(), "min": r["min"]}
         for r in hist
-        if isinstance(r.get("avg"), (int, float)) and r["avg"] > 0 and r["date"] >= cutoff
+        if isinstance(r.get("min"), (int, float)) and r["min"] > 0 and r["date"] >= cutoff
     ]
     hist_days = len(hist30)
 
     if min_price is not None:
         today = dt.date.today().isoformat()
         if hist30 and hist30[-1]["date"] == today:
-            hist30[-1]["avg"] = round(min_price, 2)
+            hist30[-1]["min"] = round(min_price, 2)
         else:
-            hist30.append({"date": today, "avg": round(min_price, 2)})
+            hist30.append({"date": today, "min": round(min_price, 2)})
         hist_days = len(hist30)
 
     price_trend = None
