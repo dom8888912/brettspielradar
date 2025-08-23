@@ -101,11 +101,6 @@
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
 
-      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte 2 Tage">
-        <path id="pi-line" d=""></path>
-        <g id="pi-dots"></g>
-      </svg>
-
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">i</span></dt><dd id="pi-current">–</dd></div>
         <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">i</span></dt><dd id="pi-avg">–</dd></div>
@@ -123,9 +118,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Durchschnittspreise der letzten 2 Tage">i</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">i</span></h2>
       
-        <p class="avg-price">Durchschnitt (2 Tage): 21.89&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 21.64&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -246,7 +241,7 @@
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
       
       if (typeof window.renderPI === 'function'){
-        window.renderPI({current: 18.28, avg7: 21.89, history: data});
+        window.renderPI({current: 18.28, avg7: 21.64});
       }
       
     }

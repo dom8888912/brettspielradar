@@ -1,4 +1,4 @@
-/* ui-version:2025-08-23-v10 – Neuer Preisindikator */
+/* ui-version:2025-08-23-v11 – Preisindikator ohne Graph */
 :root{
   --color-primary:#ff7f11;
   --color-secondary:#ff9f1c;
@@ -87,9 +87,6 @@ a:hover{text-decoration:underline}
 .pi-marker.orange{background:var(--pi-orange)}
 .pi-marker.red{background:var(--pi-red)}
 
-.pi-sparkline{width:100%;height:36px;margin:2px 0 8px}
-.pi-sparkline path{fill:none;stroke:currentColor;stroke-width:1.4}
-.pi-sparkline circle{fill:currentColor}
 
 .pi-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;margin:6px 0}
 .pi-stats dt{font-weight:600;color:var(--pi-muted)}
