@@ -120,7 +120,7 @@
     <section class="price-history">
       <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">i</span></h2>
       
-        <p class="avg-price">Durchschnitt (2 Tage): 30.95&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 29.13&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -233,15 +233,15 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "avg": 31.87}, {"date": "2025-08-23", "avg": 26.39}];
+    const hist = [{"date": "2025-08-22", "min": 31.87}, {"date": "2025-08-23", "min": 26.39}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>r.avg);
+      const data = hist.map(r=>r.min);
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
       
       if (typeof window.renderPI === 'function'){
-        window.renderPI({current: 26.39, avg7: 30.95});
+        window.renderPI({current: 26.39, avg7: 29.13});
       }
       
     }

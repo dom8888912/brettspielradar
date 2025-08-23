@@ -195,11 +195,11 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "avg": 5.99}, {"date": "2025-08-23", "avg": 5.99}];
+    const hist = [{"date": "2025-08-22", "min": 5.99}, {"date": "2025-08-23", "min": 5.99}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>r.avg);
+      const data = hist.map(r=>r.min);
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
       
       if (typeof window.renderPI === 'function'){
