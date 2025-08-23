@@ -9,7 +9,8 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
-- Limits results to a fixed whitelist of trusted business sellers
+- Prefers a whitelist of trusted business sellers, falls back to any business
+  seller if no whitelisted offer is found
 """
 
 import os, json, time, datetime as dt
@@ -207,8 +208,11 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     if not slug:
         return []
     category_id = str(game.get("ebay_category_id") or "").strip() or None
-    offers: List[Dict[str, Any]] = []
+
+    whitelisted: List[Dict[str, Any]] = []
+    fallback: List[Dict[str, Any]] = []
     seen = set()
+
     for q in queries_for(game):
         items = search_once(q, limit=50, category_id=category_id)
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
@@ -236,10 +240,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if acc_type != SELLER_ACCOUNT_TYPE:
                 continue
             shop = seller.get("username") or "eBay"
-            if shop.lower() not in ALLOWED_SELLERS:
-                continue
             img = (it.get("image") or {}).get("imageUrl")
-            offers.append({
+            offer = {
                 "id": iid,
                 "title": title[:140],
                 "price_eur": round(price, 2),
@@ -250,14 +252,20 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
                 "image_url": img,
                 "shop": shop,
                 "search_url": search_url,
-            })
+            }
             seen.add(iid)
-            if len(offers) >= max_keep:
-                break
-        if len(offers) >= max_keep:
+            if shop.lower() in ALLOWED_SELLERS:
+                whitelisted.append(offer)
+                if len(whitelisted) >= max_keep:
+                    break
+            else:
+                fallback.append(offer)
+        if len(whitelisted) >= max_keep:
             break
+
+    offers = whitelisted if whitelisted else fallback
     offers.sort(key=lambda x: (x.get("total_eur") if x.get("total_eur") is not None else 1e9))
-    return offers
+    return offers[:max_keep]
 
 def load_games() -> List[Dict[str, Any]]:
     games = []
