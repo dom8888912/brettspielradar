@@ -20,44 +20,52 @@
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
   {% endif %}
+  <div class="price-top">
+    <section class="price-indicator" role="group" aria-label="Preisindikator">
+      <div class="pi-header">
+        <span class="pi-title">Preisindikator</span>
+        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+      </div>
 
-  <section class="price-indicator" role="group" aria-label="Preisindikator">
-    <div class="pi-header">
-      <span class="pi-title">Preisindikator</span>
-      <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-    </div>
+      <div class="pi-bar" aria-hidden="true">
+        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+      </div>
 
-    <div class="pi-bar" aria-hidden="true">
-      <div class="pi-segment pi-green"></div>
-      <div class="pi-segment pi-orange"></div>
-      <div class="pi-segment pi-red"></div>
-      <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-    </div>
+      <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ avg_days }} Tage">
+        <path id="pi-line" d=""></path>
+        <g id="pi-dots"></g>
+      </svg>
 
-    <svg class="pi-sparkline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Preisverlauf letzte {{ avg_days }} Tage">
-      <path id="pi-line" d=""></path>
-      <circle id="pi-dot" r="1.6" cx="100" cy="0"></circle>
-    </svg>
+      <dl class="pi-stats">
+        <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø {{ avg_days }} Tage</dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
+        <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
+      </dl>
 
-    <dl class="pi-stats">
-      <div><dt>Aktuell</dt><dd id="pi-current">–</dd></div>
-      <div><dt>Ø {{ avg_days }} Tage</dt><dd id="pi-avg">–</dd></div>
-      <div><dt>Tief/Hoch</dt><dd id="pi-range">–</dd></div>
-      <div><dt>Abweichung</dt><dd id="pi-diff">–</dd></div>
-    </dl>
+      <p class="pi-note">
+        Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
+      </p>
 
-    <p class="pi-note">
-      Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5 % = grün, ±5 % = orange, ≥+5 % = rot.
-    </p>
+      <div class="cta-row">
+        {% if offers and offers|length > 0 %}
+        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+        {% else %}
+        <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        {% endif %}
+      </div>
+    </section>
 
-    <div class="cta-row">
-      {% if offers and offers|length > 0 %}
-      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+    <section class="price-history">
+      <h2 class="h2">Preisverlauf (30 Tage)</h2>
+      {% if avg30 %}
+        <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
       {% else %}
-      <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        <p class="muted">Noch keine Preisdaten.</p>
       {% endif %}
-    </div>
-  </section>
+      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+    </section>
+  </div>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -90,16 +98,6 @@
   </section>
   {% endif %}
 
-  <section class="content-section price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)</h2>
-    {% if avg30 %}
-      <p class="avg-price">Durchschnitt: {{ '%.2f'|format(avg30) }}&nbsp;€</p>
-    {% else %}
-      <p class="muted">Noch keine Preisdaten.</p>
-    {% endif %}
-    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-  </section>
-
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -115,7 +113,7 @@
             {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
             <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
             <div class="offer-meta">
-              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}</span>
+              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if o.shipping_eur is number %}<span class="shipping"> + {{ '%.2f'|format(o.shipping_eur) }}&nbsp;€ Versand</span>{% endif %}</span>
               {% if o.shop %}<span class="seller">{{ o.shop }}</span>{% endif %}
             </div>
             <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
@@ -125,26 +123,28 @@
           <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
             <div class="offer-meta"><span class="price">–</span></div>
-            <a class="btn btn-secondary offer-link" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+            <a class="btn btn-secondary offer-link" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
           </article>
         {% endif %}
       </div>
 
       <table class="offer-table">
-        <thead><tr><th>Händler</th><th>Preis</th><th></th></tr></thead>
+        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
         <tbody>
           {% for o in offers %}
           <tr class="{% if loop.first %}top{% endif %}">
             <td>{{ o.shop }}</td>
-            <td>{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
-            <td><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
+            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td><a class="btn btn-secondary btn-sm" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
           {% endfor %}
           {% if amazon_search_url %}
           <tr>
             <td>Amazon</td>
             <td>–</td>
-            <td><a href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a></td>
+            <td>–</td>
+            <td><a class="btn btn-secondary btn-sm" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a></td>
           </tr>
           {% endif %}
         </tbody>
@@ -153,7 +153,7 @@
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
       <div class="cta-row">
-        <a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis bei Amazon prüfen</a>
+        <a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
       </div>
       {% endif %}
     {% endif %}
@@ -166,7 +166,7 @@
     const ctx = document.getElementById('priceHistoryChart');
     const labels = hist.map(r=>r.date);
     const data = hist.map(r=>r.avg);
-    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+    new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false,tension:0,pointRadius:3}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
     {% if min_price and avg30 %}
     renderPI({current: {{ '%.2f'|format(min_price) }}, avg30: {{ '%.2f'|format(avg30) }}, low30: Math.min(...data), high30: Math.max(...data), history: data});
     {% endif %}

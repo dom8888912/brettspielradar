@@ -73,7 +73,7 @@ a:hover{text-decoration:underline}
 .content-section{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;margin:14px 0}
 
 /* Price Indicator */
-.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0;max-width:560px;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
+.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:0;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
 .pi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .pi-title{font-weight:600}
 .pi-badge{font-weight:700;padding:4px 8px;border-radius:999px;background:var(--pi-bg)}
@@ -81,12 +81,8 @@ a:hover{text-decoration:underline}
 .pi-badge.orange{background:color-mix(in srgb,var(--pi-orange) 14%,white);color:var(--pi-orange)}
 .pi-badge.red{background:color-mix(in srgb,var(--pi-red) 14%,white);color:var(--pi-red)}
 
-.pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr 1fr;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring)}
-.pi-segment{height:100%}
-.pi-green{background:color-mix(in srgb,var(--pi-green) 18%,white)}
-.pi-orange{background:color-mix(in srgb,var(--pi-orange) 18%,white)}
-.pi-red{background:color-mix(in srgb,var(--pi-red) 18%,white)}
-.pi-marker{position:absolute;top:-4px;width:0;height:18px;border-left:2px solid #111;left:50%}
+.pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring);background:linear-gradient(to right,color-mix(in srgb,var(--pi-green) 18%,white) 0%,color-mix(in srgb,var(--pi-green) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 100%)}
+.pi-marker{position:absolute;top:-4px;width:2px;height:18px;background:#111}
 
 .pi-sparkline{width:100%;height:36px;margin:2px 0 8px}
 .pi-sparkline path{fill:none;stroke:currentColor;stroke-width:1.4}
@@ -98,8 +94,15 @@ a:hover{text-decoration:underline}
 .pi-note{margin:6px 0 0;color:var(--pi-muted);font-size:12px}
 @media (max-width:420px){ .pi-stats{grid-template-columns:1fr} }
 
+.price-top{display:flex;flex-direction:column;gap:14px;margin:14px 0}
+@media (min-width:880px){.price-top{flex-direction:row}
+  .price-top .price-indicator,.price-top .price-history{flex:1}
+}
+.price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff}
+
 .cta-row{margin-top:8px}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid transparent;padding:12px 14px;font-weight:700;min-height:44px}
+.btn-sm{min-height:36px;padding:8px 10px;font-size:.9rem}
 .btn-primary{background:var(--color-primary);color:white;width:100%}
 .btn-primary:hover{opacity:.92;text-decoration:none}
 .btn-secondary{background:var(--color-secondary);color:white;width:100%}
@@ -151,6 +154,7 @@ a:hover{text-decoration:underline}
 }
 .offer-meta{display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px}
 .price{font-size:1.2rem;font-weight:800}
+.price .shipping{font-size:.8rem;font-weight:400;color:var(--muted)}
 .condition{font-size:.9rem;color:#0f172a;background:#f1f5f9;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
 .seller{font-size:.9rem;color:#0f172a;background:#f1f5f9;border:1px solid var(--border);border-radius:6px;padding:2px 8px}
 .offer-card .btn{margin-top:auto}
