@@ -9,14 +9,15 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
-- Limits results to a fixed whitelist of trusted business sellers
+- Prefers a whitelist of trusted business sellers, falls back to any business
+  seller if no whitelisted offer is found
 """
 
 import os, json, time, datetime as dt
 from pathlib import Path
 from typing import List, Dict, Any
 from urllib.parse import quote_plus
-import requests, yaml
+import requests, yaml, re
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT_DIR = ROOT / "content" / "games"
@@ -106,16 +107,53 @@ ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 
 # Required seller account type (e.g. BUSINESS) to exclude private listings.
 SELLER_ACCOUNT_TYPE = FILTER_CFG.get("seller_account_type", "BUSINESS").upper()
 
-def looks_like_accessory(title: str) -> bool:
-    t = (title or "").lower()
-    return any(term in t for term in EXCLUDE_TERMS)
+# Restrict item location to these countries (ISO codes) if configured.
+ITEM_LOCATION_COUNTRIES = [
+    c.upper() for c in FILTER_CFG.get("item_location_countries", []) if isinstance(c, str)
+]
 
-def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
+
+
+def looks_like_accessory(title: str, extra_terms: List[str] | None = None) -> bool:
+    """Return True if title contains any generic or game-specific exclude terms."""
+    t = (title or "").lower()
+    terms = EXCLUDE_TERMS + [e.lower() for e in (extra_terms or [])]
+    return any(term in t for term in terms)
+
+
+def build_aspect_filter(aspects: Dict[str, List[str]]) -> str:
+    """Return eBay aspect_filter string from mapping."""
+    parts: List[str] = []
+    for name, values in (aspects or {}).items():
+        if not isinstance(values, list):
+            continue
+        vals = [v.strip() for v in values if isinstance(v, str) and v.strip()]
+        if vals:
+            parts.append(f"{name}:{'|'.join(vals)}")
+    return ",".join(parts)
+
+
+def search_once(
+    query: str,
+    limit: int = 50,
+    category_id: str | None = None,
+    min_price: float | None = None,
+    aspect_filters: Dict[str, List[str]] | None = None,
+) -> List[Dict[str, Any]]:
     filters = [
         "priceCurrency:EUR",  # only EUR prices
         f"conditionIds:{{{','.join(sorted(ALLOWED_CONDITION_IDS))}}}",  # restrict to new-condition IDs
         f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
+        "buyingOptions:{FIXED_PRICE}",  # exclude auctions
     ]
+    if category_id:
+        filters.append(f"categoryIds:{category_id}")
+    if min_price is not None:
+        filters.append(f"price:[{min_price}..]")
+    if ITEM_LOCATION_COUNTRIES:
+        filters.append(
+            f"itemLocationCountry:{{{','.join(ITEM_LOCATION_COUNTRIES)}}}"
+        )
     params = {
         "q": query,
         "limit": str(limit),
@@ -123,6 +161,10 @@ def search_once(query: str, limit: int = 50) -> List[Dict[str, Any]]:
         "fieldgroups": "EXTENDED",
         "filter": ",".join(filters),
     }
+    if aspect_filters:
+        af = build_aspect_filter(aspect_filters)
+        if af:
+            params["aspect_filter"] = af
     r = requests.get(SEARCH_URL, params=params, headers=HEADERS, timeout=25)
     if r.status_code != 200:
         print(f"  ⚠ Suche '{query}' fehlgeschlagen:", r.status_code, r.text[:300])
@@ -147,13 +189,6 @@ def pick_price_eur(item) -> float:
                 return float(minp.get("value"))
             except (TypeError, ValueError):
                 pass
-    # 3) Auktionen
-    bid = item.get("currentBidPrice")
-    if isinstance(bid, dict) and bid.get("currency") == "EUR":
-        try:
-            return float(bid.get("value"))
-        except (TypeError, ValueError):
-            pass
     return None
 
 def pick_shipping_eur(item) -> float:
@@ -175,13 +210,27 @@ def build_url(item, slug: str) -> str:
         url += f"{sep}campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{slug}"
     return url
 
+def high_res_image(url: str | None) -> str | None:
+    """Return a higher resolution variant of an eBay image URL if possible."""
+    if not url:
+        return url
+    # eBay image URLs encode the size as `s-l###`. Replace with the largest
+    # commonly available size to avoid pixelated thumbnails.
+    return re.sub(r"s-l\d+", "s-l1600", url)
+
 def queries_for(game: Dict[str, Any]) -> List[str]:
     title = (game.get("title") or "").strip()
-    slug  = (game.get("slug") or "").strip()
-    q = []
+    slug = (game.get("slug") or "").strip()
+    q: List[str] = []
     terms = game.get("search_terms")
     if isinstance(terms, list):
         q.extend([s for s in terms if isinstance(s, str) and s.strip()])
+    alt_titles = game.get("alt_titles") or []
+    if isinstance(alt_titles, list):
+        q.extend([s for s in alt_titles if isinstance(s, str) and s.strip()])
+    synonyms = game.get("synonyms") or []
+    if isinstance(synonyms, list):
+        q.extend([s for s in synonyms if isinstance(s, str) and s.strip()])
     if title:
         q += [f"{title} Brettspiel", f"{title} Spiel"]
     if slug:
@@ -198,10 +247,27 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     slug = game.get("slug")
     if not slug:
         return []
-    offers = []
+    category_id = str(game.get("ebay_category_id") or "").strip() or None
+    price_filter = game.get("price_filter") or {}
+    aspect_filters = game.get("aspect_filters") or None
+    exclude_terms = [t.lower() for t in game.get("exclude_keywords", []) if isinstance(t, str)]
+    try:
+        min_price = float(price_filter.get("min"))
+    except (TypeError, ValueError):
+        min_price = None
+
+    whitelisted: List[Dict[str, Any]] = []
+    fallback: List[Dict[str, Any]] = []
     seen = set()
+
     for q in queries_for(game):
-        items = search_once(q, limit=50)
+        items = search_once(
+            q,
+            limit=50,
+            category_id=category_id,
+            min_price=min_price,
+            aspect_filters=aspect_filters,
+        )
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
         for it in items:
             iid = it.get("itemId")
@@ -216,7 +282,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if not url:
                 continue
             title = (it.get("title") or "").strip()
-            if looks_like_accessory(title):
+            if looks_like_accessory(title, exclude_terms):
                 continue
             cond_id = str(it.get("conditionId") or "")
             cond_txt = (it.get("condition") or "").lower()
@@ -227,10 +293,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if acc_type != SELLER_ACCOUNT_TYPE:
                 continue
             shop = seller.get("username") or "eBay"
-            if shop.lower() not in ALLOWED_SELLERS:
-                continue
-            img = (it.get("image") or {}).get("imageUrl")
-            offers.append({
+            img = high_res_image((it.get("image") or {}).get("imageUrl"))
+            offer = {
                 "id": iid,
                 "title": title[:140],
                 "price_eur": round(price, 2),
@@ -241,14 +305,20 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
                 "image_url": img,
                 "shop": shop,
                 "search_url": search_url,
-            })
+            }
             seen.add(iid)
-            if len(offers) >= max_keep:
-                break
-        if len(offers) >= max_keep:
+            if shop.lower() in ALLOWED_SELLERS:
+                whitelisted.append(offer)
+                if len(whitelisted) >= max_keep:
+                    break
+            else:
+                fallback.append(offer)
+        if len(whitelisted) >= max_keep:
             break
+
+    offers = whitelisted if whitelisted else fallback
     offers.sort(key=lambda x: (x.get("total_eur") if x.get("total_eur") is not None else 1e9))
-    return offers
+    return offers[:max_keep]
 
 def load_games() -> List[Dict[str, Any]]:
     games = []

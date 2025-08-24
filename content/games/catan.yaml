@@ -1,6 +1,10 @@
 slug: catan
 uuid: "201e8e9e-b2b4-51f4-a3f9-28c08373cf73"
 title: "CATAN – Preisradar & Angebote"
+alt_titles:
+  - "Die Siedler von Catan"
+  - "Settlers of Catan"
+ebay_category_id: 180349
 players: null
 playtime_minutes: null
 weight: null
@@ -90,10 +94,17 @@ search_queries:
   - "CATAN Brettspiel kaufen"
   - "CATAN Angebot Preis"
   - "CATAN gebraucht"
-include_keywords: ["deutsch", "Angebote", "Preisvergleich", "Brettspiel kaufen"]
-exclude_keywords: ["englisch", "english", "spanisch", "spanish", "italienisch", "französisch", "Insert", "Inlay", "Sleeves", "Kartenhüllen", "Organizer", "Ersatzteile", "Promo", "Erweiterung", "Exp.", "Holzbox", "Konvolut"]
+
+include_keywords: ["catan","siedler von catan","das spiel","basisspiel","grundspiel","base game","kosmos","ovp","neu","neuauflage 2024"]
+
+exclude_keywords: ["seefahrer","städte","ritter","städte & ritter","händler","barbaren","erweiterung","erweiterungs","expansion","5-6","5–6","5/6","5 to 6","5 bis 6","6er","spielererweiterung","spieler-erweiterung","big box","bigbox","bundle","konvolut","sammlung","paket","lot","set","collection","organizer","insert","inlay","einsatz","sortierbox","junior","duell","duel","kompakt","travel","reise","sleeve","sleeves","kartenhülle","kartenhuelle","hülle","huelle","ersatz","ersatzteil","ersatzkarten","ersatzfigur","token","meeple","figuren","holz","plastik","würfel","wuerfel","dice","board","spielplan","stl","3d","3-d","3d-druck","3d print","3d printed","promo","testexemplar","review copy","display","demo"]
+
 condition_whitelist: ["New","Used","Like New"]
-price_filter: { min: 5, max: 200 }
+
+aspect_filters:
+  Produktart: ["Eigenständiges Spiel"]
+
+price_filter: { min: 20, max: 50 }
 retailers_whitelist: ["Amazon","Thalia","Müller","Smyths","Spiele-Offensive","Milan-Spiele","Fantasywelt","ebay"]
 search_profiles:
   amazon:
