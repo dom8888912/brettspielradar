@@ -93,3 +93,21 @@ def test_fetch_for_game_passes_aspect_filters():
         mod.fetch_for_game(game)
         _, kwargs = mock_search.call_args
         assert kwargs["aspect_filters"] == {"Produktart": ["Eigenständiges Spiel"]}
+
+
+def test_fetch_for_game_filters_game_specific_keywords():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"], "exclude_keywords": ["seefahrer"]}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan Seefahrer Erweiterung",
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers == []

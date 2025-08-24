@@ -108,9 +108,11 @@ ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 
 SELLER_ACCOUNT_TYPE = FILTER_CFG.get("seller_account_type", "BUSINESS").upper()
 
 
-def looks_like_accessory(title: str) -> bool:
+def looks_like_accessory(title: str, extra_terms: List[str] | None = None) -> bool:
+    """Return True if title contains any generic or game-specific exclude terms."""
     t = (title or "").lower()
-    return any(term in t for term in EXCLUDE_TERMS)
+    terms = EXCLUDE_TERMS + [e.lower() for e in (extra_terms or [])]
+    return any(term in t for term in terms)
 
 
 def build_aspect_filter(aspects: Dict[str, List[str]]) -> str:
@@ -238,6 +240,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     category_id = str(game.get("ebay_category_id") or "").strip() or None
     price_filter = game.get("price_filter") or {}
     aspect_filters = game.get("aspect_filters") or None
+    exclude_terms = [t.lower() for t in game.get("exclude_keywords", []) if isinstance(t, str)]
     try:
         min_price = float(price_filter.get("min"))
     except (TypeError, ValueError):
@@ -269,7 +272,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if not url:
                 continue
             title = (it.get("title") or "").strip()
-            if looks_like_accessory(title):
+            if looks_like_accessory(title, exclude_terms):
                 continue
             cond_id = str(it.get("conditionId") or "")
             cond_txt = (it.get("condition") or "").lower()
