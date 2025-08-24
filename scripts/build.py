@@ -36,6 +36,7 @@ def load_yaml(path):
         return yaml.safe_load(f)
 
 def load_offers(slug):
+    """Return (offers, fetched_at) for ``slug``."""
     p = DATA / f"{slug}.json"
     if not p.exists():
         return [], None
@@ -160,6 +161,14 @@ def render_game(yaml_path, site_url):
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
     append_history(game["slug"], offers)
+
+    fetched_at_display = None
+    if fetched_at:
+        try:
+            ts = dt.datetime.fromisoformat(fetched_at.replace("Z", "+00:00"))
+            fetched_at_display = ts.strftime("%d.%m.%Y %H:%M")
+        except Exception:
+            fetched_at_display = fetched_at
 
     # minimaler Preis für Anzeige
     min_price = None
