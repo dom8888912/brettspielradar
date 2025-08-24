@@ -74,3 +74,9 @@ def test_fetch_for_game_passes_min_price():
         mod.fetch_for_game(game)
         _, kwargs = mock_search.call_args
         assert kwargs["min_price"] == 5
+
+
+def test_high_res_image_upgrades_thumbnail_url():
+    mod = load_module()
+    url = "https://i.ebayimg.com/images/g/abc/s-l225.jpg"
+    assert mod.high_res_image(url).endswith("s-l1600.jpg")
