@@ -103,11 +103,11 @@
 
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Ø 3 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 3 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
+        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 3 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
       </p>
 
       <div class="cta-row">
@@ -118,9 +118,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">ℹ</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 3 Tage">ℹ</span></h2>
       
-        <p class="avg-price">Durchschnitt (2 Tage): 34.51&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (3 Tage): 34.32&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -233,7 +233,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 35.08}, {"date": "2025-08-23", "min": 33.94}];
+    const hist = [{"date": "2025-08-22", "min": 35.08}, {"date": "2025-08-23", "min": 33.94}, {"date": "2025-08-24", "min": 33.94}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -242,7 +242,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 33.94, avg7: 34.51});
+      window.renderPI({current: 33.94, avg7: 34.32});
     }
     
   });

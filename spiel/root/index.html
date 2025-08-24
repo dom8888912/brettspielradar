@@ -103,11 +103,11 @@
 
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Ø 3 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 3 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
+        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 3 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
       </p>
 
       <div class="cta-row">
@@ -118,9 +118,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">ℹ</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 3 Tage">ℹ</span></h2>
       
-        <p class="avg-price">Durchschnitt (2 Tage): 21.64&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (3 Tage): 20.10&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -153,7 +153,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/tzkAAOSwTRdk1rWm/s-l225.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/404434912173?_skw=root+Brettspiel&hash=item5e2a3303ad%3Ag%3AtzkAAOSwTRdk1rWm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Root Exiles and Partisans Deck EN</a></h3>
             <div class="offer-meta">
-              <span class="price">12.66&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
+              <span class="price">12.03&nbsp;€<span class="shipping"> + 4.99&nbsp;€ Versand</span></span>
               <span class="seller">funtainment_muenchen</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404434912173?_skw=root+Brettspiel&hash=item5e2a3303ad%3Ag%3AtzkAAOSwTRdk1rWm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
@@ -198,7 +198,7 @@
           
           <tr class="top">
             <td>funtainment_muenchen</td>
-            <td>12.66&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
+            <td>12.03&nbsp;€<span class="badge-cheap">Bestpreis</span></td>
             <td>4.99&nbsp;€</td>
             <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/404434912173?_skw=root+Brettspiel&hash=item5e2a3303ad%3Ag%3AtzkAAOSwTRdk1rWm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
@@ -233,7 +233,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 25.63}, {"date": "2025-08-23", "min": 17.65}];
+    const hist = [{"date": "2025-08-22", "min": 25.63}, {"date": "2025-08-23", "min": 17.65}, {"date": "2025-08-24", "min": 17.02}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -242,7 +242,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 17.65, avg7: 21.64});
+      window.renderPI({current: 17.02, avg7: 20.10});
     }
     
   });
@@ -286,7 +286,7 @@
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "lowPrice": "12.66",
+      "lowPrice": "12.03",
       "highPrice": "28.80",
       "offerCount": "3"
     },

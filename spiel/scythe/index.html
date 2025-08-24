@@ -103,11 +103,11 @@
 
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 1 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 1 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Ø 2 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 2 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
 
       <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 1 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
+        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 2 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
       </p>
 
       <div class="cta-row">
@@ -118,9 +118,9 @@
     </section>
 
     <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 1 Tage">ℹ</span></h2>
+      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 2 Tage">ℹ</span></h2>
       
-        <p class="avg-price">Durchschnitt (1 Tage): 5.07&nbsp;€</p>
+        <p class="avg-price">Durchschnitt (2 Tage): 5.07&nbsp;€</p>
       
       <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
     </section>
@@ -165,7 +165,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/SyEAAeSwrRVonItf/s-l225.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/136311537750?_skw=scythe+Brettspiel&hash=item1fbccd0056%3Ag%3ASyEAAeSwrRVonItf&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Scythe – Die Hüter des Todes von Shusterman, Neal | Buch | Zustand wie neu</a></h3>
             <div class="offer-meta">
-              <span class="price">5.97&nbsp;€<span class="shipping"> + 0.00&nbsp;€ Versand</span></span>
+              <span class="price">5.96&nbsp;€<span class="shipping"> + 0.00&nbsp;€ Versand</span></span>
               <span class="seller">medimops</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/136311537750?_skw=scythe+Brettspiel&hash=item1fbccd0056%3Ag%3ASyEAAeSwrRVonItf&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
@@ -205,7 +205,7 @@
           
           <tr class="">
             <td>medimops</td>
-            <td>5.97&nbsp;€</td>
+            <td>5.96&nbsp;€</td>
             <td>0.00&nbsp;€</td>
             <td><a class="btn btn-secondary btn-sm" href="https://www.ebay.de/itm/136311537750?_skw=scythe+Brettspiel&hash=item1fbccd0056%3Ag%3ASyEAAeSwrRVonItf&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
           </tr>
@@ -233,7 +233,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-23", "min": 5.07}];
+    const hist = [{"date": "2025-08-23", "min": 5.07}, {"date": "2025-08-24", "min": 5.07}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
