@@ -79,6 +79,7 @@
   <header class="hero">
     <h1 class="title">Sherlock Holmes Criminal-Cabinet – Preisradar & Angebote</h1>
     
+    
     <ul class="chips">
       
       
@@ -97,18 +98,16 @@
         <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
       </div>
 
+      <p class="pi-note">≤−5&nbsp;% gut / ±5&nbsp;% ok / ≥+5&nbsp;% teuer</p>
+
       <div class="pi-bar" aria-hidden="true">
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
 
       <dl class="pi-stats">
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø 0 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 0 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+        <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
-
-      <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 0 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
-      </p>
 
       <div class="cta-row">
         
@@ -117,14 +116,13 @@
       </div>
     </section>
 
-    <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 0 Tage">ℹ</span></h2>
-      
-        <p class="muted">Noch keine Preisdaten.</p>
-      
-      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-    </section>
-  </div>
+  <section class="price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 0 Tage">ℹ</span></h2>
+    
+      <p class="muted">Noch keine Preisdaten.</p>
+    
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -144,6 +142,8 @@
       <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
     </div>
 
+    <p class="affiliate-note muted">Transparenz: Links mit „Zum Angebot“ sind Affiliate-Links. Kaufst du darüber, erhalten wir ggf. eine Provision – für dich bleibt der Preis gleich.</p>
+
     
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       
@@ -161,10 +161,10 @@
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>r.min);
-      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      const data = hist.map(r=>Number(Number(r.avg).toFixed(2)));
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:(ctx)=>ctx.parsed.y.toFixed(2)+' €'}}},scales:{y:{ticks:{callback:(v)=>v.toFixed(2)+' €'}}}}});
+      
     }
-    
   });
   </script>
   <script type="application/ld+json"></script>
