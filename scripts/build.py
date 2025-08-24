@@ -43,7 +43,14 @@ def load_offers(slug):
     with open(p, "r", encoding="utf-8") as f:
         data = json.load(f)
     if isinstance(data, dict):
-        return data.get("offers") or [], data.get("fetched_at")
+        offers = data.get("offers") or []
+        ts = data.get("fetched_at")
+        if isinstance(ts, str):
+            try:
+                ts = dt.datetime.fromisoformat(ts.replace("Z", ""))
+            except Exception:
+                ts = None
+        return offers, ts
     return data, None
 
 def append_history(slug, offers):
@@ -229,7 +236,7 @@ def render_game(yaml_path, site_url):
         history=hist30,
         history_json=json.dumps(hist30),
         missing_fields=missing_fields,
-        fetched_at=fetched_at_display,
+        last_checked=fetched_at,
     )
 
     layout_tpl = env.get_template("layout.html.jinja")

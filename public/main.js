@@ -20,29 +20,6 @@
     });
   }
 
-  // Preisindikator
-  window.renderPI = function(d){
-    var diffPct = ((d.current - d.avg7) / d.avg7) * 100;
-    var badge = document.getElementById('pi-badge');
-    if(!badge) return;
-    var marker = document.getElementById('pi-marker');
-    var badgeText = (diffPct>0?'+':'') + diffPct.toFixed(1) + '%';
-    var colorClass = diffPct <= -5 ? 'green' : Math.abs(diffPct) <= 5 ? 'orange' : 'red';
-    badge.textContent = badgeText;
-    badge.classList.remove('green','orange','red');
-    marker.classList.remove('green','orange','red');
-    badge.classList.add(colorClass);
-    marker.classList.add(colorClass);
-    badge.setAttribute('aria-label','Differenz zum Durchschnitt: ' + badgeText);
-
-    document.getElementById('pi-current').textContent = d.current.toFixed(2) + ' €';
-    document.getElementById('pi-avg').textContent = d.avg7.toFixed(2) + ' €';
-
-    var clamp = function(v,min,max){ return Math.min(Math.max(v,min),max); };
-    var pos = clamp((diffPct + 15) / 30, 0, 1);
-    marker.style.left = 'calc(' + (pos*100) + '% - 1px)';
-  };
-
   // Suche & Filter
   var q = document.getElementById('q');
   var list = document.querySelector('[data-list]');
