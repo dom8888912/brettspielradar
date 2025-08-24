@@ -97,6 +97,8 @@
       <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
     </div>
 
+    <p class="affiliate-note muted">Transparenz: Links mit „Zum Angebot“ sind Affiliate-Links. Kaufst du darüber, erhalten wir ggf. eine Provision – für dich bleibt der Preis gleich.</p>
+
     {% if offers and offers|length > 0 %}
       <div class="offer-grid">
         {% for o in offers %}
@@ -106,10 +108,10 @@
             {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
             <h3 class="offer-title"><a href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
             <div class="offer-meta">
-              <span class="price">{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if o.shipping_eur is number %}<span class="shipping"> + {{ '%.2f'|format(o.shipping_eur) }}&nbsp;€ Versand</span>{% endif %}</span>
+              <span class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</span>
               {% if o.shop %}<span class="seller">{{ o.shop }}</span>{% endif %}
             </div>
-            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot auf eBay</a>
+            <a class="btn btn-secondary offer-link" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
           </article>
         {% endfor %}
         {% if amazon_search_url %}
@@ -120,28 +122,6 @@
           </article>
         {% endif %}
       </div>
-
-      <table class="offer-table">
-        <thead><tr><th>Verkäufer</th><th>Preis</th><th>Versand</th><th></th></tr></thead>
-        <tbody>
-          {% for o in offers %}
-          <tr class="{% if loop.first %}top{% endif %}">
-            <td>{{ o.shop }}</td>
-            <td>{% if o.price_eur is number %}{{ '%.2f'|format(o.price_eur) }}&nbsp;€{% else %}–{% endif %}{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
-            <td>{% if o.shipping_eur is number %}{{ '%.2f'|format(o.shipping_eur) }}&nbsp;€{% else %}–{% endif %}</td>
-            <td><a class="btn btn-secondary btn-sm" href="{{ o.url }}" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
-          </tr>
-          {% endfor %}
-          {% if amazon_search_url %}
-          <tr>
-            <td>Amazon</td>
-            <td>–</td>
-            <td>–</td>
-            <td><a class="btn btn-secondary btn-sm" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a></td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
       {% if amazon_search_url %}
