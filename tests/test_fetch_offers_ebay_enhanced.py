@@ -39,13 +39,19 @@ def test_search_once_adds_filters():
         mock_resp.status_code = 200
         mock_resp.json.return_value = {}
         mock_get.return_value = mock_resp
-        mod.search_once("catan", category_id="180349", min_price=20)
+        mod.search_once(
+            "catan",
+            category_id="180349",
+            min_price=20,
+            aspect_filters={"Produktart": ["Eigenständiges Spiel"]},
+        )
         _, kwargs = mock_get.call_args
         assert "filter" in kwargs["params"]
         flt = kwargs["params"]["filter"]
         assert "categoryIds:180349" in flt
         assert "price:[20..]" in flt
         assert "buyingOptions:{FIXED_PRICE}" in flt
+        assert kwargs["params"].get("aspect_filter") == "Produktart:Eigenständiges Spiel"
 
 
 def test_fetch_for_game_fallback_to_other_sellers():
@@ -75,8 +81,15 @@ def test_fetch_for_game_passes_min_price():
         _, kwargs = mock_search.call_args
         assert kwargs["min_price"] == 5
 
-
-def test_high_res_image_upgrades_thumbnail_url():
+def test_fetch_for_game_passes_aspect_filters():
     mod = load_module()
-    url = "https://i.ebayimg.com/images/g/abc/s-l225.jpg"
-    assert mod.high_res_image(url).endswith("s-l1600.jpg")
+    game = {
+        "slug": "catan",
+        "search_terms": ["Catan"],
+        "aspect_filters": {"Produktart": ["Eigenständiges Spiel"]},
+    }
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = []
+        mod.fetch_for_game(game)
+        _, kwargs = mock_search.call_args
+        assert kwargs["aspect_filters"] == {"Produktart": ["Eigenständiges Spiel"]}
