@@ -17,7 +17,7 @@ import os, json, time, datetime as dt
 from pathlib import Path
 from typing import List, Dict, Any
 from urllib.parse import quote_plus
-import requests, yaml
+import requests, yaml, re
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT_DIR = ROOT / "content" / "games"
@@ -198,6 +198,14 @@ def build_url(item, slug: str) -> str:
         url += f"{sep}campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{slug}"
     return url
 
+def high_res_image(url: str | None) -> str | None:
+    """Return a higher resolution variant of an eBay image URL if possible."""
+    if not url:
+        return url
+    # eBay image URLs encode the size as `s-l###`. Replace with the largest
+    # commonly available size to avoid pixelated thumbnails.
+    return re.sub(r"s-l\d+", "s-l1600", url)
+
 def queries_for(game: Dict[str, Any]) -> List[str]:
     title = (game.get("title") or "").strip()
     slug = (game.get("slug") or "").strip()
@@ -272,7 +280,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
             if acc_type != SELLER_ACCOUNT_TYPE:
                 continue
             shop = seller.get("username") or "eBay"
-            img = (it.get("image") or {}).get("imageUrl")
+            img = high_res_image((it.get("image") or {}).get("imageUrl"))
             offer = {
                 "id": iid,
                 "title": title[:140],

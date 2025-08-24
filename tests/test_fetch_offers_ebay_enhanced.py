@@ -81,7 +81,6 @@ def test_fetch_for_game_passes_min_price():
         _, kwargs = mock_search.call_args
         assert kwargs["min_price"] == 5
 
-
 def test_fetch_for_game_passes_aspect_filters():
     mod = load_module()
     game = {
