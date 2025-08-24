@@ -49,6 +49,9 @@
   var pFilter = document.getElementById('filter-players');
   var aFilter = document.getElementById('filter-age');
   var tFilter = document.getElementById('filter-theme');
+  var fStatus = document.getElementById('filter-status');
+  var resetBtn = document.getElementById('filter-reset');
+  var metaRobots = null;
 
   function applyFilters(){
     if (!list) return;
@@ -84,6 +87,19 @@
       }
       li.style.display = (textMatch && pMatch && aMatch && tMatch) ? '' : 'none';
     });
+    var hasFilter = term || players !== null || age !== null || theme;
+    if (fStatus) fStatus.hidden = !hasFilter;
+    if (hasFilter){
+      if (!metaRobots){
+        metaRobots = document.createElement('meta');
+        metaRobots.name = 'robots';
+        metaRobots.content = 'noindex,follow';
+        document.head.appendChild(metaRobots);
+      }
+    }else if (metaRobots){
+      metaRobots.remove();
+      metaRobots = null;
+    }
   }
   [q, pFilter, aFilter, tFilter].forEach(function(el){
     if (el){
@@ -91,6 +107,15 @@
       el.addEventListener('change', applyFilters);
     }
   });
+  if (resetBtn){
+    resetBtn.addEventListener('click', function(){
+      if (q) q.value = '';
+      if (pFilter) pFilter.value = '';
+      if (aFilter) aFilter.value = '';
+      if (tFilter) tFilter.value = '';
+      applyFilters();
+    });
+  }
   applyFilters();
 
   // Cookie Banner

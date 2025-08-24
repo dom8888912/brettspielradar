@@ -1,9 +1,8 @@
 <h1>Alle Spiele</h1>
 <p>Aktuelle Angebote &amp; Preisindikator für Brettspiele. Nutze Suche oder Filter:</p>
-<div class="controls">
-  <div class="search"><input id="q" type="search" placeholder="Spiel suchen …" aria-label="Spiele durchsuchen"></div>
-  <details>
-    <summary>Filter</summary>
+<div class="games-layout">
+  <aside class="filter-panel">
+    <div class="search"><input id="q" type="search" placeholder="Spiel suchen …" aria-label="Spiele durchsuchen"></div>
     <div class="filters">
       <label>Spieler <input id="filter-players" type="number" min="1" placeholder="z. B. 4"></label>
       <label>Alter <input id="filter-age" type="number" min="0" placeholder="z. B. 10"></label>
@@ -18,10 +17,16 @@
       </label>
       {% endif %}
     </div>
-  </details>
+    <div id="filter-status" class="filter-status" hidden>
+      <span class="chip">Filter aktiv</span>
+      <button id="filter-reset" type="button">Reset</button>
+    </div>
+  </aside>
+  <div class="results">
+    <ul class="game-list" data-list>
+    {% for g in games %}
+      <li{% if g.min_players is not none %} data-min-players="{{ g.min_players }}"{% endif %}{% if g.max_players is not none %} data-max-players="{{ g.max_players }}"{% endif %}{% if g.age is not none %} data-age="{{ g.age }}"{% endif %}{% if g.themes %} data-themes="{{ g.themes|join(',') }}"{% endif %}><a href="/spiel/{{ g.slug }}/">{{ g.title_short }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
 </div>
-<ul class="game-list" data-list>
-{% for g in games %}
-  <li{% if g.min_players is not none %} data-min-players="{{ g.min_players }}"{% endif %}{% if g.max_players is not none %} data-max-players="{{ g.max_players }}"{% endif %}{% if g.age is not none %} data-age="{{ g.age }}"{% endif %}{% if g.themes %} data-themes="{{ g.themes|join(',') }}"{% endif %}><a href="/spiel/{{ g.slug }}/">{{ g.title_short }}</a></li>
-{% endfor %}
-</ul>
