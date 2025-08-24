@@ -113,6 +113,7 @@ ITEM_LOCATION_COUNTRIES = [
 ]
 
 
+
 def looks_like_accessory(title: str, extra_terms: List[str] | None = None) -> bool:
     """Return True if title contains any generic or game-specific exclude terms."""
     t = (title or "").lower()
