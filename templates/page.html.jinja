@@ -41,6 +41,32 @@
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
   {% endif %}
+  <div class="price-top">
+    <section class="price-indicator" role="group" aria-label="Preisindikator">
+      <div class="pi-header">
+        <span class="pi-title">Preisindikator</span>
+        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+      </div>
+
+      <p class="pi-note">≤−5&nbsp;% gut / ±5&nbsp;% ok / ≥+5&nbsp;% teuer</p>
+
+      <div class="pi-bar" aria-hidden="true">
+        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+      </div>
+
+      <dl class="pi-stats">
+        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
+        <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+      </dl>
+
+      <div class="cta-row">
+        {% if offers and offers|length > 0 %}
+        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+        {% else %}
+        <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+        {% endif %}
+      </div>
+    </section>
 
   <section class="price-history">
     <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>

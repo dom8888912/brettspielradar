@@ -14,6 +14,9 @@ EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
 AMAZON_PARTNER_ID = os.getenv("AMAZON_PARTNER_ID", "28310edf-21").strip()
 
+# Fenstergröße für Preisindikator (Tage)
+AVG_WINDOW_DAYS = 7
+
 env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
     autoescape=select_autoescape(["html"])
@@ -185,7 +188,7 @@ def render_game(yaml_path, site_url):
 
     # Preisverlauf laden und Fenster berechnen
     hist = load_history(game["slug"])
-    avg7, avg_days = avg_window(hist, 7)
+    avg7, _ = avg_window(hist, AVG_WINDOW_DAYS)
     avg30, _ = avg_window(hist, 30)
 
     cutoff = dt.date.today() - dt.timedelta(days=30)
@@ -227,7 +230,7 @@ def render_game(yaml_path, site_url):
         offers=offers[:3],
         avg30=avg30,
         avg7=avg7,
-        avg_days=avg_days,
+        avg_days=AVG_WINDOW_DAYS,
         hist_days=hist_days,
         min_price=min_price,
         price_trend=price_trend,
