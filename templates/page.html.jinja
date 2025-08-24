@@ -27,6 +27,8 @@
         <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
       </div>
 
+      <p class="pi-note">≤−5&nbsp;% gut / ±5&nbsp;% ok / ≥+5&nbsp;% teuer</p>
+
       <div class="pi-bar" aria-hidden="true">
         <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
       </div>
@@ -35,10 +37,6 @@
         <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
         <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
       </dl>
-
-      <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
-      </p>
 
       <div class="cta-row">
         {% if offers and offers|length > 0 %}
