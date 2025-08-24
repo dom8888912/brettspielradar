@@ -15,6 +15,9 @@ EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
 AMAZON_PARTNER_ID = os.getenv("AMAZON_PARTNER_ID", "28310edf-21").strip()
 
+# Fenstergröße für Preisindikator (Tage)
+AVG_WINDOW_DAYS = 7
+
 env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
     autoescape=select_autoescape(["html"])
@@ -51,14 +54,22 @@ if HUBS_CFG.exists():
             HUB_MAP[s] = {"title": title, "slug": hslug}
 
 def load_offers(slug):
+    """Return (offers, fetched_at) for ``slug``."""
     p = DATA / f"{slug}.json"
     if not p.exists():
-        return []
+        return [], None
     with open(p, "r", encoding="utf-8") as f:
         data = json.load(f)
     if isinstance(data, dict):
-        return data.get("offers") or []
-    return data
+        offers = data.get("offers") or []
+        ts = data.get("fetched_at")
+        if isinstance(ts, str):
+            try:
+                ts = dt.datetime.fromisoformat(ts.replace("Z", ""))
+            except Exception:
+                ts = None
+        return offers, ts
+    return data, None
 
 def append_history(slug, offers):
     """Append today's minimal price to the history file."""
@@ -162,12 +173,20 @@ def render_game(yaml_path, site_url):
     required_fields = ["players", "playtime", "playtime_minutes", "complexity", "weight", "year"]
     missing_fields = [f for f in required_fields if not game.get(f)]
 
-    offers_raw = load_offers(game["slug"])
+    offers_raw, fetched_at = load_offers(game["slug"])
     offers = sorted(
         offers_raw,
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
     append_history(game["slug"], offers)
+
+    fetched_at_display = None
+    if fetched_at:
+        try:
+            ts = dt.datetime.fromisoformat(fetched_at.replace("Z", "+00:00"))
+            fetched_at_display = ts.strftime("%d.%m.%Y %H:%M")
+        except Exception:
+            fetched_at_display = fetched_at
 
     # minimaler Preis für Anzeige
     min_price = None
@@ -184,7 +203,7 @@ def render_game(yaml_path, site_url):
 
     # Preisverlauf laden und Fenster berechnen
     hist = load_history(game["slug"])
-    avg7, avg_days = avg_window(hist, 7)
+    avg7, _ = avg_window(hist, AVG_WINDOW_DAYS)
     avg30, _ = avg_window(hist, 30)
 
     cutoff = dt.date.today() - dt.timedelta(days=30)
@@ -242,7 +261,7 @@ def render_game(yaml_path, site_url):
         offers=offers[:3],
         avg30=avg30,
         avg7=avg7,
-        avg_days=avg_days,
+        avg_days=AVG_WINDOW_DAYS,
         hist_days=hist_days,
         min_price=min_price,
         price_trend=price_trend,
