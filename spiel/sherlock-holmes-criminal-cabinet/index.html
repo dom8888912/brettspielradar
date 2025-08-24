@@ -71,8 +71,8 @@
     
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="https://brettspielpreisradar.de/alle-spiele.html">Alle Spiele</a> <span aria-hidden="true">›</span>
-    <a href="https://brettspielpreisradar.de/hubs.html">Brettspiele</a> <span aria-hidden="true">›</span>
+    <a href="https://brettspielpreisradar.de/">Start</a> <span aria-hidden="true">›</span>
+    <a href="https://brettspielpreisradar.de/hubs.html">Hubs</a> <span aria-hidden="true">›</span>
     <span aria-current="page">Sherlock Holmes Criminal-Cabinet – Preisradar & Angebote</span>
   </nav>
 
@@ -135,7 +135,6 @@
 
   
   
-
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -154,20 +153,48 @@
     
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  window.addEventListener('DOMContentLoaded', function(){
-    const hist = [];
-    if(hist.length){
-      const ctx = document.getElementById('priceHistoryChart');
-      const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>Number(Number(r.avg).toFixed(2)));
-      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:(ctx)=>ctx.parsed.y.toFixed(2)+' €'}}},scales:{y:{ticks:{callback:(v)=>v.toFixed(2)+' €'}}}}});
+  <section class="price-indicator" role="group" aria-label="Preisindikator">
+    <h2 class="h2">Preisindikator</h2>
+    <div class="pi-header">
+      <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+    </div>
+
+    <div class="pi-bar" aria-hidden="true">
+      <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+    </div>
+
+    <dl class="pi-stats">
+      <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
+      <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+    </dl>
+
+    <p class="pi-note">
+      Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten 7 Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
+    </p>
+
+    <div class="cta-row">
       
-    }
-  });
-  </script>
-  <script type="application/ld+json"></script>
+      <a class="btn btn-primary" href="https://www.ebay.de/sch/i.html?_nkw=Sherlock+Holmes+Criminal-Cabinet+deutsch" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+      
+    </div>
+
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 0 Tage">ℹ</span></h3>
+    
+      <p class="muted">Noch keine Preisdaten.</p>
+    
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="h2">Kaufberatung</h2>
+    
+    
+    <p>Sherlock Holmes Criminal-Cabinet kombiniert zugängliche Regeln mit genug strategischer Tiefe, um sowohl Gelegenheitsspieler als auch Vielspieler abzuholen. Auf dieser Preisradar-Seite findest du eine spielnahe Beschreibung, Hinweise zu Komponenten und Editionen sowie konkrete Tipps für den Kauf im Neu- und Gebrauchtmarkt. Wir erklären, worauf du bei <strong>Sprache (deutsch)</strong>, <strong>Vollständigkeit</strong> und <strong>Zustand</strong> achten solltest und wie du typische Stolperfallen (fehlende Marker, falsche Edition, Zubehör statt Grundspiel) vermeidest. Zusätzlich zeigen wir dir, wie sich das Spiel anfühlt: Interaktion, Glücksanteil, Lernkurve und Partielänge. Unsere Texte sind auf <strong>deutsche Suchbegriffe</strong> wie „Brettspiel kaufen“, „Preisvergleich“, „Angebote“ und „gebraucht“ optimiert, bleiben aber natürlich lesbar und praxisnah. So bekommst du schnell ein Gefühl, ob das Spiel in deine Runde passt – und zu welchem Preis sich ein Kauf wirklich lohnt. Für Vielspieler nennen wir sinnvolle Erweiterungen, für Familien verraten wir, ob und wie das Spiel zu zweit/zu viert funktioniert.</p>
+    
+    
+    
+    
+  </section>
 
   
   <section class="content-section">
@@ -191,6 +218,21 @@
   <section class="content-section">
     <a class="btn btn-link" href="https://brettspielpreisradar.de/alle-spiele.html">← Alle Spiele</a>
   </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = [];
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.min);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+    }
+    
+  });
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://brettspielpreisradar.de//"}, {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://brettspielpreisradar.de//hubs.html"}, {"@type": "ListItem", "position": 3, "name": "Sherlock Holmes Criminal-Cabinet – Preisradar & Angebote", "item": "https://brettspielpreisradar.de//spiel/sherlock-holmes-criminal-cabinet/"}]}</script>
 
   
   
