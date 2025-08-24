@@ -46,3 +46,7 @@ condition_ids:
 # Require offers to come from this seller account type to filter out private
 # listings.
 seller_account_type: BUSINESS
+
+# Limit offers to items located in these countries (ISO codes)
+item_location_countries:
+  - DE

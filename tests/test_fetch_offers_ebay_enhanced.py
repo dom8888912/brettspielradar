@@ -34,6 +34,8 @@ def test_queries_for_includes_alt_titles_and_synonyms():
 
 def test_search_once_adds_filters():
     mod = load_module()
+    # ensure location filter can be injected
+    mod.FILTER_CFG["item_location_countries"] = ["DE"]
     with patch("scripts.fetch_offers_ebay_enhanced.requests.get") as mock_get:
         mock_resp = MagicMock()
         mock_resp.status_code = 200
@@ -51,6 +53,7 @@ def test_search_once_adds_filters():
         assert "categoryIds:180349" in flt
         assert "price:[20..]" in flt
         assert "buyingOptions:{FIXED_PRICE}" in flt
+        assert "itemLocationCountry:{DE}" in flt
         assert kwargs["params"].get("aspect_filter") == "Produktart:Eigenständiges Spiel"
 
 
@@ -93,3 +96,21 @@ def test_fetch_for_game_passes_aspect_filters():
         mod.fetch_for_game(game)
         _, kwargs = mock_search.call_args
         assert kwargs["aspect_filters"] == {"Produktart": ["Eigenständiges Spiel"]}
+
+
+def test_fetch_for_game_filters_game_specific_keywords():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"], "exclude_keywords": ["seefahrer"]}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan Seefahrer Erweiterung",
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers == []
