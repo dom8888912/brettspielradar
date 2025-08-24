@@ -39,14 +39,22 @@ def load_yaml(path):
         return yaml.safe_load(f)
 
 def load_offers(slug):
+    """Return (offers, fetched_at) for ``slug``."""
     p = DATA / f"{slug}.json"
     if not p.exists():
-        return []
+        return [], None
     with open(p, "r", encoding="utf-8") as f:
         data = json.load(f)
     if isinstance(data, dict):
-        return data.get("offers") or []
-    return data
+        offers = data.get("offers") or []
+        ts = data.get("fetched_at")
+        if isinstance(ts, str):
+            try:
+                ts = dt.datetime.fromisoformat(ts.replace("Z", ""))
+            except Exception:
+                ts = None
+        return offers, ts
+    return data, None
 
 def append_history(slug, offers):
     """Append today's minimal price to the history file."""
@@ -150,12 +158,20 @@ def render_game(yaml_path, site_url):
     required_fields = ["players", "playtime", "playtime_minutes", "complexity", "weight", "year"]
     missing_fields = [f for f in required_fields if not game.get(f)]
 
-    offers_raw = load_offers(game["slug"])
+    offers_raw, fetched_at = load_offers(game["slug"])
     offers = sorted(
         offers_raw,
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
     append_history(game["slug"], offers)
+
+    fetched_at_display = None
+    if fetched_at:
+        try:
+            ts = dt.datetime.fromisoformat(fetched_at.replace("Z", "+00:00"))
+            fetched_at_display = ts.strftime("%d.%m.%Y %H:%M")
+        except Exception:
+            fetched_at_display = fetched_at
 
     # minimaler Preis für Anzeige
     min_price = None
@@ -222,7 +238,8 @@ def render_game(yaml_path, site_url):
         amazon_search_url=amazon_search_url,
         history=hist30,
         history_json=json.dumps(hist30),
-        missing_fields=missing_fields
+        missing_fields=missing_fields,
+        last_checked=fetched_at,
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
