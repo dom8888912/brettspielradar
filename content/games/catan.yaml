@@ -95,7 +95,7 @@ search_queries:
   - "CATAN Angebot Preis"
   - "CATAN gebraucht"
 include_keywords: ["deutsch", "Angebote", "Preisvergleich", "Brettspiel kaufen"]
-exclude_keywords: ["englisch", "english", "spanisch", "spanish", "italienisch", "französisch", "Insert", "Inlay", "Sleeves", "Kartenhüllen", "Organizer", "Ersatzteile", "Promo", "Erweiterung", "Exp.", "Holzbox", "Konvolut", "Karten", "Hexfelder", "Zubehör",]
+exclude_keywords: ["englisch", "Ergänzung", "1/6", "2,6", "3/6", "4/6", "5/6", "6/6", "english", "spanisch", "spanish", "italienisch", "französisch", "Insert", "Inlay", "Sleeves", "Kartenhüllen", "Organizer", "Ersatzteile", "Promo", "Erweiterung", "Exp.", "Holzbox", "Konvolut", "Karten", "Hexfelder", "Zubehör",]
 condition_whitelist: ["New","Used","Like New"]
 price_filter: { min: 20, max: 50 }
 retailers_whitelist: ["Amazon","Thalia","Müller","Smyths","Spiele-Offensive","Milan-Spiele","Fantasywelt","ebay"]
