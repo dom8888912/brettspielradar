@@ -97,6 +97,10 @@
       <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
     </div>
 
+    {% if game.disclosure %}
+      <p class="muted affiliate-note">{{ game.disclosure }}</p>
+    {% endif %}
+
     {% if offers and offers|length > 0 %}
       <div class="offer-grid">
         {% for o in offers %}
