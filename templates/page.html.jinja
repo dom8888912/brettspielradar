@@ -9,6 +9,27 @@
   <header class="hero">
     <h1 class="title">{{ game.title }}</h1>
     {% if game.subtitle %}<p class="subtitle">{{ game.subtitle }}</p>{% endif %}
+    {% if offers and offers|length > 0 %}
+    {% set best = offers[0] %}
+    <section class="best-price" aria-label="Bestpreis">
+      <div class="bp-main">
+        <span class="bp-price">{{ '%.2f'|format(best.total_eur or best.price_eur) }}&nbsp;€</span>
+        {% if best.shop %}<span class="bp-shop">{{ best.shop }}</span>{% endif %}
+        {% if last_checked %}<span class="bp-time">Zuletzt geprüft: {{ last_checked.strftime('%d.%m.%Y %H:%M') }} Uhr</span>{% endif %}
+      </div>
+      <a class="btn btn-primary" href="{{ best.url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal</a>
+      {% if min_price and avg7 %}
+        {% set diff = ((min_price - avg7) / avg7 * 100) %}
+        {% if diff <= -5 %}
+          <p class="bp-indicator">🟢 {{ diff|abs|round(0) }}% unter 7‑Tage-Ø</p>
+        {% elif diff < 5 %}
+          <p class="bp-indicator">🟠 etwa auf 7‑Tage-Ø</p>
+        {% else %}
+          <p class="bp-indicator">🔴 {{ diff|abs|round(0) }}% über 7‑Tage-Ø</p>
+        {% endif %}
+      {% endif %}
+    </section>
+    {% endif %}
     <ul class="chips">
       {% if game.players %}<li class="chip">👥 {{ game.players.min }}–{{ game.players.max }} Spieler</li>{% endif %}
       {% if game.playtime %}<li class="chip">⏱️ {{ game.playtime.min }}–{{ game.playtime.max }} Min</li>{% endif %}
@@ -20,45 +41,16 @@
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
   {% endif %}
-  <div class="price-top">
-    <section class="price-indicator" role="group" aria-label="Preisindikator">
-      <div class="pi-header">
-        <span class="pi-title">Preisindikator</span>
-        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-      </div>
 
-      <div class="pi-bar" aria-hidden="true">
-        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-      </div>
-
-      <dl class="pi-stats">
-        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
-      </dl>
-
-      <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
-      </p>
-
-      <div class="cta-row">
-        {% if offers and offers|length > 0 %}
-        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
-        {% else %}
-        <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
-        {% endif %}
-      </div>
-    </section>
-
-    <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
-      {% if avg30 %}
-        <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
-      {% else %}
-        <p class="muted">Noch keine Preisdaten.</p>
-      {% endif %}
-      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-    </section>
-  </div>
+  <section class="price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
+    {% if avg30 %}
+      <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+    {% else %}
+      <p class="muted">Noch keine Preisdaten.</p>
+    {% endif %}
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -162,11 +154,6 @@
       const data = hist.map(r=>r.min);
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
     }
-    {% if min_price and avg7 %}
-    if (typeof window.renderPI === 'function'){
-      window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}});
-    }
-    {% endif %}
   });
   </script>
   <script type="application/ld+json">{{ schema_json | safe }}</script>
