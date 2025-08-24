@@ -107,6 +107,12 @@ ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 
 # Required seller account type (e.g. BUSINESS) to exclude private listings.
 SELLER_ACCOUNT_TYPE = FILTER_CFG.get("seller_account_type", "BUSINESS").upper()
 
+# Restrict item location to these countries (ISO codes) if configured.
+ITEM_LOCATION_COUNTRIES = [
+    c.upper() for c in FILTER_CFG.get("item_location_countries", []) if isinstance(c, str)
+]
+
+
 
 def looks_like_accessory(title: str, extra_terms: List[str] | None = None) -> bool:
     """Return True if title contains any generic or game-specific exclude terms."""
@@ -144,6 +150,10 @@ def search_once(
         filters.append(f"categoryIds:{category_id}")
     if min_price is not None:
         filters.append(f"price:[{min_price}..]")
+    if ITEM_LOCATION_COUNTRIES:
+        filters.append(
+            f"itemLocationCountry:{{{','.join(ITEM_LOCATION_COUNTRIES)}}}"
+        )
     params = {
         "q": query,
         "limit": str(limit),

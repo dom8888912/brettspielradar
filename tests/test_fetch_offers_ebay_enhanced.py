@@ -34,6 +34,8 @@ def test_queries_for_includes_alt_titles_and_synonyms():
 
 def test_search_once_adds_filters():
     mod = load_module()
+    # ensure location filter can be injected
+    mod.FILTER_CFG["item_location_countries"] = ["DE"]
     with patch("scripts.fetch_offers_ebay_enhanced.requests.get") as mock_get:
         mock_resp = MagicMock()
         mock_resp.status_code = 200
@@ -51,6 +53,7 @@ def test_search_once_adds_filters():
         assert "categoryIds:180349" in flt
         assert "price:[20..]" in flt
         assert "buyingOptions:{FIXED_PRICE}" in flt
+        assert "itemLocationCountry:{DE}" in flt
         assert kwargs["params"].get("aspect_filter") == "Produktart:Eigenständiges Spiel"
 
 
