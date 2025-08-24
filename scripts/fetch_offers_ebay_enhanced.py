@@ -107,15 +107,30 @@ ALLOWED_CONDITION_IDS = {str(c) for c in FILTER_CFG.get("condition_ids", [1000, 
 # Required seller account type (e.g. BUSINESS) to exclude private listings.
 SELLER_ACCOUNT_TYPE = FILTER_CFG.get("seller_account_type", "BUSINESS").upper()
 
+
 def looks_like_accessory(title: str) -> bool:
     t = (title or "").lower()
     return any(term in t for term in EXCLUDE_TERMS)
+
+
+def build_aspect_filter(aspects: Dict[str, List[str]]) -> str:
+    """Return eBay aspect_filter string from mapping."""
+    parts: List[str] = []
+    for name, values in (aspects or {}).items():
+        if not isinstance(values, list):
+            continue
+        vals = [v.strip() for v in values if isinstance(v, str) and v.strip()]
+        if vals:
+            parts.append(f"{name}:{'|'.join(vals)}")
+    return ",".join(parts)
+
 
 def search_once(
     query: str,
     limit: int = 50,
     category_id: str | None = None,
     min_price: float | None = None,
+    aspect_filters: Dict[str, List[str]] | None = None,
 ) -> List[Dict[str, Any]]:
     filters = [
         "priceCurrency:EUR",  # only EUR prices
@@ -134,6 +149,10 @@ def search_once(
         "fieldgroups": "EXTENDED",
         "filter": ",".join(filters),
     }
+    if aspect_filters:
+        af = build_aspect_filter(aspect_filters)
+        if af:
+            params["aspect_filter"] = af
     r = requests.get(SEARCH_URL, params=params, headers=HEADERS, timeout=25)
     if r.status_code != 200:
         print(f"  ⚠ Suche '{query}' fehlgeschlagen:", r.status_code, r.text[:300])
@@ -210,6 +229,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
         return []
     category_id = str(game.get("ebay_category_id") or "").strip() or None
     price_filter = game.get("price_filter") or {}
+    aspect_filters = game.get("aspect_filters") or None
     try:
         min_price = float(price_filter.get("min"))
     except (TypeError, ValueError):
@@ -220,7 +240,13 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     seen = set()
 
     for q in queries_for(game):
-        items = search_once(q, limit=50, category_id=category_id, min_price=min_price)
+        items = search_once(
+            q,
+            limit=50,
+            category_id=category_id,
+            min_price=min_price,
+            aspect_filters=aspect_filters,
+        )
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
         for it in items:
             iid = it.get("itemId")
