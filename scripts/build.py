@@ -9,6 +9,7 @@ HIST_DIR = ROOT / "data" / "history"
 TEMPLATES = ROOT / "templates"
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
+HUBS_CFG = ROOT / "content" / "hubs.yaml"
 
 EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
@@ -37,6 +38,20 @@ env.filters["md"] = simple_md
 def load_yaml(path):
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+def slugify(text):
+    text = re.sub(r"[^\w\s-]", "", str(text).lower())
+    return re.sub(r"\s+", "-", text).strip("-")
+
+# Map each game slug to its hub (title and slug)
+HUB_MAP = {}
+if HUBS_CFG.exists():
+    data = load_yaml(HUBS_CFG).get("hubs", [])
+    for h in data:
+        title = h.get("title", "")
+        hslug = slugify(title)
+        for s in h.get("slugs", []):
+            HUB_MAP[s] = {"title": title, "slug": hslug}
 
 def load_offers(slug):
     """Return (offers, fetched_at) for ``slug``."""
@@ -224,6 +239,22 @@ def render_game(yaml_path, site_url):
     ebay_search_url = build_epn_search_url(game)
     amazon_search_url = build_amazon_search_url(game)
 
+    hub_info = HUB_MAP.get(game["slug"])
+    if hub_info:
+        hub = {"title": hub_info["title"], "url": f"/hubs.html#{hub_info['slug']}"}
+    else:
+        hub = {"title": "Hubs", "url": "/hubs.html"}
+
+    breadcrumb = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Start", "item": f"{site_url}/"},
+            {"@type": "ListItem", "position": 2, "name": hub["title"], "item": f"{site_url}{hub['url']}"},
+            {"@type": "ListItem", "position": 3, "name": game["title"], "item": f"{site_url}/spiel/{game['slug']}/"},
+        ],
+    }
+
     page_tpl = env.get_template("page.html.jinja")
     page_html = page_tpl.render(
         game=game,
@@ -239,7 +270,8 @@ def render_game(yaml_path, site_url):
         history=hist30,
         history_json=json.dumps(hist30),
         missing_fields=missing_fields,
-        last_checked=fetched_at,
+        hub=hub,
+        breadcrumb_json=json.dumps(breadcrumb, ensure_ascii=False)
     )
 
     layout_tpl = env.get_template("layout.html.jinja")
@@ -333,8 +365,9 @@ def build_hubs(site_url):
     # simple hubs page
     html = ["<h1>Themen-Hubs</h1><div class='grid two'>"]
     for h in hubs:
+        hslug = slugify(h.get('title',''))
         html.append("<div class='card'>")
-        html.append(f"<h2>{h.get('title','')}</h2>")
+        html.append(f"<h2 id='{hslug}'>{h.get('title','')}</h2>")
         if h.get("description"):
             html.append(f"<p>{h['description']}</p>")
         html.append("<ul>")
