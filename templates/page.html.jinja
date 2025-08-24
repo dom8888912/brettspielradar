@@ -94,7 +94,7 @@
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
-      <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.</small>
+      <small class="muted">Sortierung nach Gesamtpreis (aufsteigend), nur Angebote in EUR.{% if fetched_at %} – aktualisiert {{ fetched_at }}{% endif %}</small>
     </div>
 
     {% if offers and offers|length > 0 %}
@@ -159,8 +159,13 @@
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>r.min);
-      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+      const data = hist.map(r=>Number(Number(r.avg).toFixed(2)));
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:(ctx)=>ctx.parsed.y.toFixed(2)+' €'}}},scales:{y:{ticks:{callback:(v)=>v.toFixed(2)+' €'}}}}});
+      {% if min_price and avg7 %}
+      if (typeof window.renderPI === 'function'){
+        window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}});
+      }
+      {% endif %}
     }
     {% if min_price and avg7 %}
     if (typeof window.renderPI === 'function'){
