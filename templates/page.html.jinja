@@ -1,8 +1,8 @@
 {# ui-version:2025-08-11-v7 #}
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/alle-spiele.html">Alle Spiele</a> <span aria-hidden="true">›</span>
-    <a href="/hubs.html">Brettspiele</a> <span aria-hidden="true">›</span>
+    <a href="/">Start</a> <span aria-hidden="true">›</span>
+    {% if hub %}<a href="{{ hub.url }}">{{ hub.title }}</a> <span aria-hidden="true">›</span>{% endif %}
     <span aria-current="page">{{ game.title }}</span>
   </nav>
 
@@ -20,77 +20,6 @@
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
   {% endif %}
-  <div class="price-top">
-    <section class="price-indicator" role="group" aria-label="Preisindikator">
-      <div class="pi-header">
-        <span class="pi-title">Preisindikator</span>
-        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-      </div>
-
-      <div class="pi-bar" aria-hidden="true">
-        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-      </div>
-
-      <dl class="pi-stats">
-        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
-      </dl>
-
-      <p class="pi-note">
-        Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
-      </p>
-
-      <div class="cta-row">
-        {% if offers and offers|length > 0 %}
-        <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
-        {% else %}
-        <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
-        {% endif %}
-      </div>
-    </section>
-
-    <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
-      {% if avg30 %}
-        <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
-      {% else %}
-        <p class="muted">Noch keine Preisdaten.</p>
-      {% endif %}
-      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-    </section>
-  </div>
-
-  <section class="content-section">
-    <h2 class="h2">Kaufberatung</h2>
-    {% set primary_text = game.summary or game.description or game.about or game.intro or game.overview or game.text %}
-    {% set paragraphs = game.kaufberatung or game.paragraphs or game.extra_paragraphs %}
-    {% if primary_text %}{{ primary_text | md | safe }}{% endif %}
-    {% if paragraphs %}{% for p in paragraphs %}{{ p | md | safe }}{% endfor %}{% endif %}
-    {% if not primary_text and not paragraphs %}
-      <p class="muted">Keine Details hinterlegt – wir ergänzen diese Seite bald.</p>
-    {% endif %}
-  </section>
-
-  {% set cl = game.get('checklist') or game.get('checklist_buy') %}
-  {% if cl %}
-  <section class="content-section">
-    <h2 class="h2">Gebrauchtkauf – Checkliste</h2>
-    <ul class="checklist">
-      {% if cl is mapping %}
-        {% for k,v in cl.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
-      {% else %}
-        {% for item in cl %}
-          {% if item is mapping %}
-            {% for k,v in item.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
-          {% else %}
-            <li>{{ item }}</li>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </ul>
-  </section>
-  {% endif %}
-
   <section class="offers" id="angebote">
     <div class="offers-head">
       <h2 class="h2">Angebote</h2>
@@ -152,24 +81,69 @@
     {% endif %}
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  window.addEventListener('DOMContentLoaded', function(){
-    const hist = {{ history_json | safe }};
-    if(hist.length){
-      const ctx = document.getElementById('priceHistoryChart');
-      const labels = hist.map(r=>r.date);
-      const data = hist.map(r=>r.min);
-      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
-    }
-    {% if min_price and avg7 %}
-    if (typeof window.renderPI === 'function'){
-      window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}});
-    }
+  <section class="price-indicator" role="group" aria-label="Preisindikator">
+    <h2 class="h2">Preisindikator</h2>
+    <div class="pi-header">
+      <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
+    </div>
+
+    <div class="pi-bar" aria-hidden="true">
+      <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
+    </div>
+
+    <dl class="pi-stats">
+      <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
+      <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
+    </dl>
+
+    <p class="pi-note">
+      Basis ist der tägliche Gesamtpreis (Preis&nbsp;+&nbsp;Versand). Wir vergleichen den aktuellen Bestpreis mit dem Durchschnitt der letzten {{ avg_days }} Tage. ≤−5&nbsp;% = grün, ±5&nbsp;% = orange, ≥+5&nbsp;% = rot.
+    </p>
+
+    <div class="cta-row">
+      {% if offers and offers|length > 0 %}
+      <a class="btn btn-primary" href="#angebote" onclick="document.getElementById('angebote').scrollIntoView({behavior:'smooth'});return false;">Jetzt Angebote ansehen</a>
+      {% else %}
+      <a class="btn btn-primary" href="{{ ebay_search_url }}" target="_blank" rel="nofollow sponsored noopener">Jetzt Angebote ansehen</a>
+      {% endif %}
+    </div>
+
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h3>
+    {% if avg30 %}
+      <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+    {% else %}
+      <p class="muted">Noch keine Preisdaten.</p>
     {% endif %}
-  });
-  </script>
-  <script type="application/ld+json">{{ schema_json | safe }}</script>
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="h2">Kaufberatung</h2>
+    {% set primary_text = game.summary or game.description or game.about or game.intro or game.overview or game.text %}
+    {% set paragraphs = game.kaufberatung or game.paragraphs or game.extra_paragraphs %}
+    {% if primary_text %}{{ primary_text | md | safe }}{% endif %}
+    {% if paragraphs %}{% for p in paragraphs %}{{ p | md | safe }}{% endfor %}{% endif %}
+    {% if not primary_text and not paragraphs %}
+      <p class="muted">Keine Details hinterlegt – wir ergänzen diese Seite bald.</p>
+    {% endif %}
+    {% set cl = game.get('checklist') or game.get('checklist_buy') %}
+    {% if cl %}
+      <h3>Gebrauchtkauf – Checkliste</h3>
+      <ul class="checklist">
+        {% if cl is mapping %}
+          {% for k,v in cl.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
+        {% else %}
+          {% for item in cl %}
+            {% if item is mapping %}
+              {% for k,v in item.items() %}<li><strong>{{ k }}:</strong> {{ v }}</li>{% endfor %}
+            {% else %}
+              <li>{{ item }}</li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    {% endif %}
+  </section>
 
   {% if game.alternatives %}
   <section class="content-section">
@@ -197,6 +171,25 @@
   <section class="content-section">
     <a class="btn btn-link" href="/alle-spiele.html">← Alle Spiele</a>
   </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  window.addEventListener('DOMContentLoaded', function(){
+    const hist = {{ history_json | safe }};
+    if(hist.length){
+      const ctx = document.getElementById('priceHistoryChart');
+      const labels = hist.map(r=>r.date);
+      const data = hist.map(r=>r.min);
+      new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
+    }
+    {% if min_price and avg7 %}
+    if (typeof window.renderPI === 'function'){
+      window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}});
+    }
+    {% endif %}
+  });
+  </script>
+  <script type="application/ld+json">{{ breadcrumb_json | safe }}</script>
 
   {% set prices = (offers | map(attribute='price_eur') | reject('equalto', None) | list) if offers else [] %}
   {% set low = (prices|min) if prices else 0 %}
