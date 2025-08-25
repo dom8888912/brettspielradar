@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 3 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (3 Tage): 13.54&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (4 Tage): 13.54&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -174,18 +174,6 @@
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404929430930?_skw=parks+Brettspiel&hash=item5e47acc592%3Ag%3ArJEAAOSw%7EHxmICG3&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
           </article>
         
-          
-          <article class="offer-card" data-offer>
-            
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/TX8AAeSw7xBoqTpb/s-l1600.jpg" alt="" loading="lazy">
-            <h3 class="offer-title"><a href="https://www.ebay.de/itm/388870926551?_skw=parks+Brettspiel&hash=item5a8a8370d7%3Ag%3ATX8AAeSw7xBoqTpb&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spiel Caldera Park (Deep Print Games) NEU/OVP</a></h3>
-            <div class="offer-meta">
-              <span class="price">15.39&nbsp;€</span>
-              <span class="seller">spiele-offensive</span>
-            </div>
-            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/388870926551?_skw=parks+Brettspiel&hash=item5a8a8370d7%3Ag%3ATX8AAeSw7xBoqTpb&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
-          </article>
-        
         
           <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="https://www.amazon.de/s?k=PARKS+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
@@ -222,9 +210,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 3 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (3 Tage): 13.54&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (4 Tage): 13.54&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -266,7 +254,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 13.54}, {"date": "2025-08-23", "min": 13.54}, {"date": "2025-08-24", "min": 13.54}];
+    const hist = [{"date": "2025-08-22", "min": 13.54}, {"date": "2025-08-23", "min": 13.54}, {"date": "2025-08-24", "min": 13.54}, {"date": "2025-08-25", "min": 13.54}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -297,8 +285,8 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "8.55",
-      "highPrice": "15.39",
-      "offerCount": "2"
+      "highPrice": "8.55",
+      "offerCount": "1"
     },
     
     "url": "/spiel/parks/"
