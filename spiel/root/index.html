@@ -83,7 +83,7 @@
     
     <section class="best-price" aria-label="Bestpreis">
       <div class="bp-main">
-        <span class="bp-price">17.62&nbsp;€</span>
+        <span class="bp-price">18.25&nbsp;€</span>
         <span class="bp-shop">funtainment_muenchen</span>
         
       </div>
@@ -91,7 +91,7 @@
       
         
         
-          <p class="bp-indicator">🟢 10.0% unter 7‑Tage-Ø</p>
+          <p class="bp-indicator">🟢 5.0% unter 7‑Tage-Ø</p>
         
       
     </section>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 19.48&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 19.23&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -168,7 +168,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/tzkAAOSwTRdk1rWm/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/404434912173?_skw=root+Brettspiel&hash=item5e2a3303ad%3Ag%3AtzkAAOSwTRdk1rWm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Root Exiles and Partisans Deck EN</a></h3>
             <div class="offer-meta">
-              <span class="price">17.62&nbsp;€</span>
+              <span class="price">18.25&nbsp;€</span>
               <span class="seller">funtainment_muenchen</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404434912173?_skw=root+Brettspiel&hash=item5e2a3303ad%3Ag%3AtzkAAOSwTRdk1rWm&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -234,9 +234,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 19.48&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 19.23&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +278,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 25.63}, {"date": "2025-08-23", "min": 17.65}, {"date": "2025-08-24", "min": 17.02}, {"date": "2025-08-25", "min": 17.62}];
+    const hist = [{"date": "2025-08-22", "min": 25.63}, {"date": "2025-08-23", "min": 17.65}, {"date": "2025-08-24", "min": 17.02}, {"date": "2025-08-25", "min": 17.62}, {"date": "2025-08-26", "min": 18.25}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +287,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 17.62, avg7: 19.48});
+      window.renderPI({current: 18.25, avg7: 19.23});
     }
     
   });
@@ -308,7 +308,7 @@
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "lowPrice": "12.63",
+      "lowPrice": "13.26",
       "highPrice": "28.80",
       "offerCount": "3"
     },

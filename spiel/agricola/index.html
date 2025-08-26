@@ -91,7 +91,7 @@
       
         
         
-          <p class="bp-indicator">🟢 6.0% unter 7‑Tage-Ø</p>
+          <p class="bp-indicator">🟠 etwa auf 7‑Tage-Ø</p>
         
       
     </section>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 11.99&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 11.85&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -234,9 +234,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 11.99&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 11.85&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +278,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 14.09}, {"date": "2025-08-23", "min": 11.29}, {"date": "2025-08-24", "min": 11.29}, {"date": "2025-08-25", "min": 11.29}];
+    const hist = [{"date": "2025-08-22", "min": 14.09}, {"date": "2025-08-23", "min": 11.29}, {"date": "2025-08-24", "min": 11.29}, {"date": "2025-08-25", "min": 11.29}, {"date": "2025-08-26", "min": 11.29}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +287,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 11.29, avg7: 11.99});
+      window.renderPI({current: 11.29, avg7: 11.85});
     }
     
   });
