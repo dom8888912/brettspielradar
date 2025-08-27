@@ -143,7 +143,6 @@ def label_page(slug: str):
         return str(o.get("itemId") or o.get("id") or o.get("url"))
 
     offers = [o for o in offers if _oid(o) not in labels]
-
     html = """
 <!doctype html>
 <title>Label offers – {{ slug }}</title>

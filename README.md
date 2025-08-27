@@ -59,6 +59,7 @@ kleinen Trainingsworkflow:
      angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Seite zeigt
      bis zu 100 unlabeled Treffer inklusive Bild und Kurzbeschreibung; bereits
      bewertete Angebote werden ausgeblendet. Die Labels
+
    werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
    der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
    - Unter `http://localhost:8000/__version__` gibt der Server den aktuell
