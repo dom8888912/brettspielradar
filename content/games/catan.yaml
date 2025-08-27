@@ -97,7 +97,7 @@ search_queries:
 
 include_keywords: ["catan","siedler von catan","das spiel","basisspiel","grundspiel","base game","kosmos","ovp","neu","neuauflage 2024"]
 
-exclude_keywords: ["seefahrer","städte","ritter","städte & ritter","händler","barbaren","erweiterung","erweiterungs","expansion","5-6","5–6","5/6","5 to 6","5 bis 6","6er","spielererweiterung","spieler-erweiterung","big box","bigbox","bundle","konvolut","sammlung","paket","lot","set","collection","organizer","insert","inlay","einsatz","sortierbox","junior","duell","duel","kompakt","travel","reise","sleeve","sleeves","kartenhülle","kartenhuelle","hülle","huelle","ersatz","ersatzteil","ersatzkarten","ersatzfigur","token","meeple","figuren","holz","plastik","würfel","wuerfel","dice","board","spielplan","stl","3d","3-d","3d-druck","3d print","3d printed","promo","testexemplar","review copy","display","demo"]
+exclude_keywords: ["seefahrer", "mini", "rätsel", "exit", "Karten", "städte","ritter","städte & ritter","händler","barbaren","erweiterung","erweiterungs","expansion","5-6","5–6","5/6","5 to 6","5 bis 6","6er","spielererweiterung","spieler-erweiterung","big box","bigbox","bundle","konvolut","sammlung","paket","lot","set","collection","organizer","insert","inlay","einsatz","sortierbox","junior","duell","duel","kompakt","travel","reise","sleeve","sleeves","kartenhülle","kartenhuelle","hülle","huelle","ersatz","ersatzteil","ersatzkarten","ersatzfigur","token","meeple","figuren","holz","plastik","würfel","wuerfel","dice","board","spielplan","stl","3d","3-d","3d-druck","3d print","3d printed","promo","testexemplar","review copy","display","demo"]
 
 condition_whitelist: ["New","Used","Like New"]
 
