@@ -31,6 +31,7 @@
   {% if best %}
   {% set diff = ((min_price - avg7) / avg7 * 100) if (min_price and avg7) else None %}
   <section class="best-price" aria-label="Bestpreis">
+    {% if best.image_url %}<img class="offer-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     <div class="bp-main">
       <span class="bp-price">{{ '%.2f'|format(best.total_eur or best.price_eur) }}&nbsp;€</span>
       {% if best.shop %}<span class="bp-shop">{{ best.shop }}</span>{% endif %}

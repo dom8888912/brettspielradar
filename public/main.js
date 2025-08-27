@@ -1,5 +1,5 @@
 
-// ui-version:2025-08-23-v12 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
+// ui-version:2025-08-23-v13 – Menü-Overlay, Preisindikator ohne Graph, Suche & Cookie-Banner unten
 (function(){
   // Menü
   var btn = document.getElementById('nav-toggle');
@@ -117,3 +117,25 @@ function click_offer(merchant, slug, price){
     gtag('event','click_offer',{merchant:merchant,slug:slug,price:price});
   }
 }
+
+window.renderPI = function(opts){
+  if(!opts) return;
+  var current=parseFloat(opts.current);
+  var avg=parseFloat(opts.avg7);
+  var badge=document.getElementById('pi-badge');
+  var marker=document.getElementById('pi-marker');
+  var curEl=document.getElementById('pi-current');
+  var avgEl=document.getElementById('pi-avg');
+  if(isNaN(current)||isNaN(avg)||!badge||!marker||!curEl||!avgEl) return;
+  curEl.textContent=current.toFixed(2)+'\u00a0€';
+  avgEl.textContent=avg.toFixed(2)+'\u00a0€';
+  var diff=(current-avg)/avg*100;
+  var left=Math.max(0,Math.min(100,50+diff));
+  marker.style.left=left+'%';
+  var cls='orange';
+  if(diff<=-5){cls='green';}
+  else if(diff>=5){cls='red';}
+  badge.classList.add(cls);
+  marker.classList.add(cls);
+  badge.textContent=(diff>0?'+':'')+diff.toFixed(0)+'%';
+};
