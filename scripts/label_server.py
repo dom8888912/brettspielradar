@@ -60,10 +60,23 @@ def label_page(slug: str):
     if not offers_file.exists():
         abort(404)
     data = json.loads(offers_file.read_text("utf-8"))
+    # ``fetch_offers_ebay_enhanced.py`` stores either a plain list of offers
+    # or a dictionary with an ``offers`` key.  Older files might still use the
+    # eBay API's ``searchResult.item`` structure.  Instead of slicing the raw
+    # JSON (which would raise ``KeyError: slice(None, 100, None)`` when the
+    # root object is a dictionary) we normalise the structure here and always
+    # operate on a list.
     if isinstance(data, dict):
-        offers = data.get("offers", [])
+        # Prefer the plain ``offers`` list if present
+        offers = data.get("offers")
+        if offers is None:
+            # Fall back to the eBay API format: {"searchResult": {"item": [...]}}
+            offers = data.get("searchResult", {}).get("item", [])
     else:
         offers = data
+    # ``offers`` might be ``None`` if the JSON doesn't contain any results.
+    if not isinstance(offers, list):
+        offers = []
     offers = offers[:100]
     label_file = LABEL_DIR / f"{slug}.json"
     labels = {}
