@@ -83,7 +83,7 @@ a:hover{text-decoration:underline}
 .bp-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 
 /* Price Indicator */
-.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:0;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
+.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
 .pi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .pi-title{font-weight:600}
 .pi-badge{font-weight:700;padding:4px 8px;border-radius:999px;background:var(--pi-bg)}
@@ -104,11 +104,7 @@ a:hover{text-decoration:underline}
 .pi-note{margin:6px 0 0;color:var(--pi-muted);font-size:12px}
 @media (max-width:420px){ .pi-stats{grid-template-columns:1fr} }
 
-.price-top{display:flex;flex-direction:column;gap:14px;margin:14px 0}
-@media (min-width:880px){.price-top{flex-direction:row}
-  .price-top .price-indicator,.price-top .price-history{flex:1}
-}
-.price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff}
+.price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0}
 .info-icon{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--info);color:var(--text);font-size:.7rem;line-height:14px;text-align:center;margin-left:4px;cursor:help;font-style:normal;font-weight:700}
 
 .cta-row{margin-top:8px}

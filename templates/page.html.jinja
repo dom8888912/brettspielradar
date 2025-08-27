@@ -37,19 +37,39 @@
       {% if last_checked %}<span class="bp-time">Zuletzt geprüft: {{ last_checked.strftime('%d.%m.%Y %H:%M') }} Uhr</span>{% endif %}
     </div>
     {% if best.image_url %}<img class="bp-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
+    {% if best.url %}
     {% set sep = '?' if '?' not in best.url else '&' %}
-    {% if best.shop and best.shop|lower == 'ebay' %}
     {% set bp = '%.2f'|format(best.total_eur or best.price_eur) %}
-    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ bp }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt für {{ bp }}€ bei eBay kaufen</a>
+    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ bp }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt für {{ bp }}€{% if best.shop %} bei {{ best.shop }}{% endif %} kaufen</a>
     {% endif %}
     {% if diff is not none %}
     <div class="bp-badges">
-      <span class="badge-grey">−{{ diff|abs|round(0) }}% vs. 7‑Tage‑Ø</span>
+      <span class="badge-grey">{% if diff >= 0 %}+{{ diff|round(0) }}%{% else %}{{ diff|round(0) }}%{% endif %} vs. 7‑Tage‑Ø</span>
       {% if is_best_90 %}<span class="badge-grey">Bestpreis (90 Tage)</span>{% endif %}
     </div>
     {% endif %}
   </section>
   {% endif %}
+
+  <section class="price-indicator" role="group" aria-label="Preisindikator">
+    <div class="pi-header">
+      <span class="pi-title">Preisindikator</span>
+      {% set badge_map = {'good':'Gut','ok':'Ok','high':'Teuer'} %}
+      <span class="pi-badge{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-badge" aria-live="polite">{{ badge_map.get(price_trend, '–') }}</span>
+    </div>
+
+    {% set marker_pos = {'good':'16%','ok':'50%','high':'84%'} %}
+    <div class="pi-bar" aria-hidden="true">
+      <div class="pi-marker{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-marker" title="Aktueller Preis" style="left: {{ marker_pos.get(price_trend, '50%') }};"></div>
+    </div>
+
+    <dl class="pi-stats">
+      <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">{% if min_price is not none %}{{ '%.2f'|format(min_price) }}&nbsp;€{% else %}–{% endif %}</dd></div>
+      <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">{% if avg7 %}{{ '%.2f'|format(avg7) }}&nbsp;€{% else %}–{% endif %}</dd></div>
+    </dl>
+
+    <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
+  </section>
 
   {% if missing_fields %}
   <p class="muted">⚠️ Fehlende YAML-Werte: {{ missing_fields|join(', ') }}</p>
@@ -101,45 +121,23 @@
     {% endif %}
     {% else %}
       <p class="muted">Gerade keine passenden Angebote. Schau später wieder vorbei – die Seite aktualisiert sich regelmäßig.</p>
-      {% if amazon_search_url %}
-      <div class="cta-row">
-        <a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
-      </div>
-      {% endif %}
+    {% endif %}
+    {% if amazon_search_url %}
+    <div class="cta-row">
+      <a class="btn btn-secondary" href="{{ amazon_search_url }}" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
+    </div>
     {% endif %}
   </section>
 
-    <div class="price-top">
-      <section class="price-indicator" role="group" aria-label="Preisindikator">
-        <div class="pi-header">
-          <span class="pi-title">Preisindikator</span>
-          {% set badge_map = {'good':'Gut','ok':'Ok','high':'Teuer'} %}
-          <span class="pi-badge{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-badge" aria-live="polite">{{ badge_map.get(price_trend, '–') }}</span>
-        </div>
-
-        {% set marker_pos = {'good':'16%','ok':'50%','high':'84%'} %}
-        <div class="pi-bar" aria-hidden="true">
-          <div class="pi-marker{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-marker" title="Aktueller Preis" style="left: {{ marker_pos.get(price_trend, '50%') }};"></div>
-        </div>
-
-        <dl class="pi-stats">
-          <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">{% if min_price is not none %}{{ '%.2f'|format(min_price) }}&nbsp;€{% else %}–{% endif %}</dd></div>
-          <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">{% if avg7 %}{{ '%.2f'|format(avg7) }}&nbsp;€{% else %}–{% endif %}</dd></div>
-        </dl>
-
-        <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
-      </section>
-
-    <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
-      {% if avg30 %}
-        <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
-      {% else %}
-        <p class="muted">Noch keine Preisdaten.</p>
-      {% endif %}
-      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-    </section>
-  </div>
+  <section class="price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
+    {% if avg30 %}
+      <p class="avg-price">Durchschnitt ({{ hist_days }} Tage): {{ '%.2f'|format(avg30) }}&nbsp;€</p>
+    {% else %}
+      <p class="muted">Noch keine Preisdaten.</p>
+    {% endif %}
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -213,7 +211,7 @@
     <a class="btn btn-link" href="/alle-spiele.html">← Alle Spiele</a>
   </section>
 
-  {% if best and best.shop and best.shop|lower == 'ebay' %}
+  {% if best and best.url %}
   <div class="sticky-buy-bar" id="stickyBuyBar"></div>
   {% endif %}
 
