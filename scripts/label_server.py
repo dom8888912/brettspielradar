@@ -59,7 +59,12 @@ def label_page(slug: str):
     offers_file = OFFERS_DIR / f"{slug}.json"
     if not offers_file.exists():
         abort(404)
-    offers = json.loads(offers_file.read_text("utf-8"))[:100]
+    data = json.loads(offers_file.read_text("utf-8"))
+    if isinstance(data, dict):
+        offers = data.get("offers", [])
+    else:
+        offers = data
+    offers = offers[:100]
     label_file = LABEL_DIR / f"{slug}.json"
     labels = {}
     if label_file.exists():
