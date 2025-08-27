@@ -37,6 +37,7 @@
       {% if best.shop %}<span class="bp-shop">{{ best.shop }}</span>{% endif %}
       {% if last_checked %}<span class="bp-time">Zuletzt geprüft: {{ last_checked.strftime('%d.%m.%Y %H:%M') }} Uhr</span>{% endif %}
     </div>
+    {% if best.image_url %}<img class="bp-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     {% set sep = '?' if '?' not in best.url else '&' %}
     <a class="btn btn-primary" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ '%.2f'|format(best.total_eur or best.price_eur) }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei {{ best.shop }}</a>
     {% if diff is not none %}
@@ -88,24 +89,26 @@
     {% endif %}
   </section>
 
-  <div class="price-top">
-    <section class="price-indicator" role="group" aria-label="Preisindikator">
-      <div class="pi-header">
-        <span class="pi-title">Preisindikator</span>
-        <span class="pi-badge" id="pi-badge" aria-live="polite">–</span>
-      </div>
+    <div class="price-top">
+      <section class="price-indicator" role="group" aria-label="Preisindikator">
+        <div class="pi-header">
+          <span class="pi-title">Preisindikator</span>
+          {% set badge_map = {'good':'Gut','ok':'Ok','high':'Teuer'} %}
+          <span class="pi-badge{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-badge" aria-live="polite">{{ badge_map.get(price_trend, '–') }}</span>
+        </div>
 
-      <div class="pi-bar" aria-hidden="true">
-        <div class="pi-marker" id="pi-marker" title="Aktueller Preis"></div>
-      </div>
+        {% set marker_pos = {'good':'16%','ok':'50%','high':'84%'} %}
+        <div class="pi-bar" aria-hidden="true">
+          <div class="pi-marker{% if price_trend %} {{ price_trend }}{% endif %}" id="pi-marker" title="Aktueller Preis" style="left: {{ marker_pos.get(price_trend, '50%') }};"></div>
+        </div>
 
-      <dl class="pi-stats">
-        <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">–</dd></div>
-        <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">–</dd></div>
-      </dl>
+        <dl class="pi-stats">
+          <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">{% if min_price is not none %}{{ '%.2f'|format(min_price) }}&nbsp;€{% else %}–{% endif %}</dd></div>
+          <div><dt>Ø {{ avg_days }} Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten {{ avg_days }} Tage">ℹ</span></dt><dd id="pi-avg">{% if avg7 %}{{ '%.2f'|format(avg7) }}&nbsp;€{% else %}–{% endif %}</dd></div>
+        </dl>
 
-      <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
-    </section>
+        <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
+      </section>
 
     <section class="price-history">
       <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten {{ hist_days }} Tage">ℹ</span></h2>
