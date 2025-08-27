@@ -43,7 +43,6 @@ def test_label_page_handles_searchresult_dict(tmp_path, monkeypatch):
     assert resp.status_code == 200
     assert b"Label offers for" in resp.data
 
-
 def test_label_page_handles_root_dict(tmp_path, monkeypatch):
     offers_dir = tmp_path / "data" / "offers"
     labels_dir = tmp_path / "data" / "labels"
