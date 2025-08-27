@@ -111,3 +111,9 @@
     showStatus('Einstellungen gespeichert.');
   });
 })();
+
+function click_offer(merchant, slug, price){
+  if(window.gtag){
+    gtag('event','click_offer',{merchant:merchant,slug:slug,price:price});
+  }
+}
