@@ -75,6 +75,24 @@
         </article>
       {% endfor %}
     </div>
+    <table class="offers-table">
+      <thead>
+        <tr><th>Angebot</th><th>Preis</th><th>Zustand</th><th>Shop</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for o in offers %}
+          {% set extra = loop.index > 4 %}
+          {% set sep = '?' if '?' not in o.url else '&' %}
+          <tr class="offer-row{% if loop.first %} best{% endif %}{% if extra %} extra{% endif %}" {% if extra %}style="display:none"{% endif %} data-offer>
+            <td class="offer-title"><a href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a>{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
+            <td class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</td>
+            <td class="condition">{% if o.condition %}{{ o.condition }}{% endif %}</td>
+            <td class="seller">{% if o.shop %}{{ o.shop }}{% endif %}</td>
+            <td class="action"><a class="btn btn-secondary offer-link" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ o.shop }}','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     {% if offers|length > 4 %}
     <div class="cta-row"><button id="moreOffersBtn" class="btn btn-link">Weitere Angebote anzeigen</button></div>
     {% endif %}
@@ -215,7 +233,13 @@
     var moreBtn=document.getElementById('moreOffersBtn');
     if(moreBtn){
       moreBtn.addEventListener('click',function(){
-        document.querySelectorAll('.offer-card.extra').forEach(function(el){ el.style.display='flex'; });
+        document.querySelectorAll('.offer-card.extra, .offer-row.extra').forEach(function(el){
+          if(el.tagName === 'TR'){
+            el.style.display='table-row';
+          } else {
+            el.style.display='flex';
+          }
+        });
         moreBtn.remove();
       });
     }
