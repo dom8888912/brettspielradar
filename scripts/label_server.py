@@ -84,18 +84,22 @@ def label_page(slug: str):
             offers = data.get("offers")
             if offers is None:
                 # Fall back to the eBay API format: {"searchResult": {"item": [...]}}
-                offers = data.get("searchResult", {}).get("item", [])
+                offers = data.get("searchResult", {}).get("item")
+            if offers is None:
+                # Some legacy dumps were a plain dict keyed by numbers
+                offers = data
         else:
             offers = data
-        # ``offers`` might be ``None`` if the JSON doesn't contain any results.
+        # eBay's ``searchResult.item`` or legacy dumps may still be dictionaries
+        # keyed by numbers.  Convert them to a list before slicing.
+        if isinstance(offers, dict):
+            offers = list(offers.values())
         if not isinstance(offers, list):
             offers = []
         offers = offers[:100]
     except Exception:  # pragma: no cover - logging full stack for debugging
         app.logger.exception("failed to load offers for %s", slug)
         abort(500)
-
-
     label_file = LABEL_DIR / f"{slug}.json"
     labels = {}
     if label_file.exists():
