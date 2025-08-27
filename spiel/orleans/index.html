@@ -197,7 +197,13 @@
     var moreBtn=document.getElementById('moreOffersBtn');
     if(moreBtn){
       moreBtn.addEventListener('click',function(){
-        document.querySelectorAll('.offer-card.extra').forEach(function(el){ el.style.display='flex'; });
+        document.querySelectorAll('.offer-card.extra, .offer-row.extra').forEach(function(el){
+          if(el.tagName === 'TR'){
+            el.style.display='table-row';
+          } else {
+            el.style.display='flex';
+          }
+        });
         moreBtn.remove();
       });
     }

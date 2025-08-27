@@ -173,6 +173,44 @@
         </article>
       
     </div>
+    <table class="offers-table">
+      <thead>
+        <tr><th>Angebot</th><th>Preis</th><th>Zustand</th><th>Shop</th><th></th></tr>
+      </thead>
+      <tbody>
+        
+          
+          
+          <tr class="offer-row best"  data-offer>
+            <td class="offer-title"><a href="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" target="_blank" rel="nofollow sponsored noopener">Kosmos Catan - Entdecker & Piraten Ergänzun, Brettspiel</a><span class="badge-cheap">Bestpreis</span></td>
+            <td class="price">23.34&nbsp;€</td>
+            <td class="condition">Neu</td>
+            <td class="seller">alternate.gmbh</td>
+            <td class="action"><a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('alternate.gmbh','catan','23.34')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        
+          
+          
+          <tr class="offer-row"  data-offer>
+            <td class="offer-title"><a href="https://www.ebay.de/itm/196027966189?_skw=Catan+Kosmos&hash=item2da42d62ed%3Ag%3ALEcAAeSwE2pn227Y&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" target="_blank" rel="nofollow sponsored noopener">CATAN - Geheimbund der Raben (Band 2) | Klaus Teuber | 2023 | deutsch</a></td>
+            <td class="price">26.00&nbsp;€</td>
+            <td class="condition">Neu</td>
+            <td class="seller">hugendubel-digital</td>
+            <td class="action"><a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/196027966189?_skw=Catan+Kosmos&hash=item2da42d62ed%3Ag%3ALEcAAeSwE2pn227Y&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('hugendubel-digital','catan','26.0')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        
+          
+          
+          <tr class="offer-row"  data-offer>
+            <td class="offer-title"><a href="https://www.ebay.de/itm/195416248644?_skw=Catan+Kosmos&hash=item2d7fb75144%3Ag%3ATrMAAOSwOYFlji4a&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" target="_blank" rel="nofollow sponsored noopener">CATAN - Der Roman (Band 1) | Klaus Teuber | 2022 | deutsch</a></td>
+            <td class="price">26.00&nbsp;€</td>
+            <td class="condition">Neu</td>
+            <td class="seller">hugendubel-digital</td>
+            <td class="action"><a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/195416248644?_skw=Catan+Kosmos&hash=item2d7fb75144%3Ag%3ATrMAAOSwOYFlji4a&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('hugendubel-digital','catan','26.0')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          </tr>
+        
+      </tbody>
+    </table>
     
     
   </section>
@@ -314,7 +352,13 @@
     var moreBtn=document.getElementById('moreOffersBtn');
     if(moreBtn){
       moreBtn.addEventListener('click',function(){
-        document.querySelectorAll('.offer-card.extra').forEach(function(el){ el.style.display='flex'; });
+        document.querySelectorAll('.offer-card.extra, .offer-row.extra').forEach(function(el){
+          if(el.tagName === 'TR'){
+            el.style.display='table-row';
+          } else {
+            el.style.display='flex';
+          }
+        });
         moreBtn.remove();
       });
     }

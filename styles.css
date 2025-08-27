@@ -142,6 +142,11 @@ a:hover{text-decoration:underline}
 /* NEWER offer layout (Grid/Card) with responsive table fallback */
 .offer-grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media (min-width:640px){ .offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.offers-table{width:100%;border-collapse:collapse;margin-top:12px;display:none}
+.offers-table th,.offers-table td{padding:8px;text-align:left;border-bottom:1px solid var(--border)}
+.offers-table tr.best{background:color-mix(in srgb,var(--good) 16%, white)}
+.offers-table tr.best .price{color:var(--good);font-weight:700}
+@media (min-width:720px){ .offer-grid{display:none} .offers-table{display:table} }
 .offer-card{
   position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);
   display:flex;flex-direction:column;min-height:320px;
