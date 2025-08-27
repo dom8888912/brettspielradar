@@ -55,9 +55,10 @@ kleinen Trainingsworkflow:
      ```bash
      python scripts/label_server.py
      ```
-   - Rufe im Browser `http://localhost:8000/spiel/<slug>/training` auf und markiere die
-     angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Seite zeigt
-     bis zu 100 unlabeled Treffer inklusive Bild und Kurzbeschreibung; bereits
+   - Rufe im Browser `http://localhost:8000/training` auf und wähle ein Spiel.
+     Auf der jeweiligen Spielseite kannst du die angezeigten Angebote als
+     „relevant“ oder „nicht relevant“ markieren. Die Seite zeigt bis zu 100
+     unlabeled Treffer inklusive Bild und Kurzbeschreibung; bereits
      bewertete Angebote werden ausgeblendet. Die Labels
 
    werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen

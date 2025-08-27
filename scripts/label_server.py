@@ -98,55 +98,87 @@ def version():
     return resp
 
 
+def _load_offers(slug: str) -> list[dict]:
+    """Return normalised offers for *slug*."""
+    offers_file = OFFERS_DIR / f"{slug}.json"
+    if not offers_file.exists():
+        return []
+    data = json.loads(offers_file.read_text("utf-8"))
+    if isinstance(data, dict):
+        offers = data.get("offers")
+        if offers is None:
+            offers = data.get("searchResult", {}).get("item")
+        if offers is None:
+            offers = data
+    else:
+        offers = data
+    if isinstance(offers, dict):
+        offers = list(offers.values())
+    if not isinstance(offers, list):
+        offers = []
+    return offers[:100]
+
+
+def _offer_id(o: dict) -> str:
+    return str(o.get("itemId") or o.get("id") or o.get("url"))
+
+
+@app.route("/training", methods=["GET"])
+@requires_auth
+def training_index():
+    games = []
+    for path in sorted(OFFERS_DIR.glob("*.json")):
+        slug = path.stem
+        offers = _load_offers(slug)
+        label_file = LABEL_DIR / f"{slug}.json"
+        labels = {}
+        if label_file.exists():
+            labels = json.loads(label_file.read_text("utf-8"))
+        unlabeled = [o for o in offers if _offer_id(o) not in labels]
+        games.append({"slug": slug, "count": len(unlabeled)})
+    html = """
+<!doctype html>
+<title>Training Übersicht</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+body{font-family:sans-serif;}
+ul{list-style:none;padding:0;}
+li{margin:5px 0;}
+</style>
+<h1>Training Übersicht</h1>
+<ul>
+{% for g in games %}
+  <li><a href="/spiel/{{ g.slug }}/training">{{ g.slug }}</a> ({{ g.count }})</li>
+{% endfor %}
+</ul>
+"""
+    response = make_response(render_template_string(html, games=games))
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response
+
+
 @app.route("/spiel/<slug>/training", methods=["GET"])
 @requires_auth
 def label_page(slug: str):
-    offers_file = OFFERS_DIR / f"{slug}.json"
-    if not offers_file.exists():
+    offers = _load_offers(slug)
+    if not offers:
         abort(404)
-    try:
-        data = json.loads(offers_file.read_text("utf-8"))
-        app.logger.info("loaded %s with root type %s", offers_file, type(data).__name__)
-        # ``fetch_offers_ebay_enhanced.py`` stores either a plain list of offers
-        # or a dictionary with an ``offers`` key.  Older files might still use the
-        # eBay API's ``searchResult.item`` structure.  Instead of slicing the raw
-        # JSON (which would raise ``KeyError: slice(None, 100, None)`` when the
-        # root object is a dictionary) we normalise the structure here and always
-        # operate on a list.
-        if isinstance(data, dict):
-            # Prefer the plain ``offers`` list if present
-            offers = data.get("offers")
-            if offers is None:
-                # Fall back to the eBay API format: {"searchResult": {"item": [...]}}
-                offers = data.get("searchResult", {}).get("item")
-            if offers is None:
-                # Some legacy dumps were a plain dict keyed by numbers
-                offers = data
-        else:
-            offers = data
-        # eBay's ``searchResult.item`` or legacy dumps may still be dictionaries
-        # keyed by numbers.  Convert them to a list before slicing.
-        if isinstance(offers, dict):
-            offers = list(offers.values())
-        if not isinstance(offers, list):
-            offers = []
-        offers = offers[:100]
-    except Exception:  # pragma: no cover - logging full stack for debugging
-        app.logger.exception("failed to load offers for %s", slug)
-        abort(500)
     label_file = LABEL_DIR / f"{slug}.json"
     labels: dict[str, bool] = {}
     if label_file.exists():
         labels = json.loads(label_file.read_text("utf-8"))
-
-    def _oid(o: dict) -> str:
-        return str(o.get("itemId") or o.get("id") or o.get("url"))
-
-    offers = [o for o in offers if _oid(o) not in labels]
+    offers = [o for o in offers if _offer_id(o) not in labels]
     html = """
 <!doctype html>
 <title>Label offers – {{ slug }}</title>
 <meta name="robots" content="noindex, nofollow">
+<style>
+body{font-family:sans-serif;}
+.offer{border:1px solid #ccc;padding:10px;margin-bottom:10px;}
+.offer img{max-width:150px;display:block;margin-bottom:5px;}
+.offer button{margin-right:5px;}
+</style>
+<p><a href="/training">&larr; zurück zur Übersicht</a></p>
 <h1>Label offers for {{ slug }}</h1>
 <div id="offers"></div>
 <script>
@@ -161,7 +193,8 @@ function render(){
   offers.forEach(o=>{
     const id=o.itemId || o.id || o.url;
     const div=document.createElement('div');
-    const img = o.image_url ? `<img src="${o.image_url}" alt="" style="max-width:150px"><br>` : '';
+    div.className='offer';
+    const img = o.image_url ? `<img src="${o.image_url}" alt="">` : '';
     const desc = o.description ? `<p>${o.description}</p>` : '';
     div.innerHTML = `${img}<p><a href="${o.url}" target="_blank">${o.title||id}</a> – ${o.total_eur||o.price_eur||''} €</p>${desc}`;
     const rel=document.createElement('button');
