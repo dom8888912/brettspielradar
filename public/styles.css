@@ -176,10 +176,10 @@ a:hover{text-decoration:underline}
 .muted{color:var(--muted)}
 .affiliate-note{font-size:.8rem;margin:8px 0}
 
-.sticky-buy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:10px;display:none;z-index:60}
-.sticky-buy-bar.show{display:flex}
+.sticky-buy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:10px;transform:translateY(100%);opacity:0;transition:transform .3s ease,opacity .3s ease;z-index:60;display:flex;pointer-events:none}
+.sticky-buy-bar.show{transform:translateY(0);opacity:1;pointer-events:auto}
 .sticky-buy-bar .btn{width:100%}
-@media(min-width:720px){.sticky-buy-bar{display:none!important}}
+@media(min-width:720px){.sticky-buy-bar{display:none}}
 
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;color:var(--text);border-top:1px solid var(--border);box-shadow:var(--shadow);padding:16px 20px;display:none;flex-direction:column;align-items:center;gap:16px;font-size:.9rem;text-align:center;border-radius:12px 12px 0 0}
 .cookie-banner .cookie-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
