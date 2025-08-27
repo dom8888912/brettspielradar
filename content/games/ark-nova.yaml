@@ -1,112 +1,92 @@
 slug: ark-nova
-uuid: "6447f9ea-707c-5513-8a54-b07d336f71ca"
-title: "Ark Nova – Preisradar & Angebote"
-players: "1–4"
-playtime_minutes: "90–150"
+title: Ark Nova – Preisradar & Angebote
+players: 1–4
+playtime_minutes: 90–150
 weight: 3.7
 year: 2021
-external_ids:
-  bgg_id: null
-  ean: null
-  upc: null
-db:
-  last_synced_at: null
-  price_stats:
-    median_30d_eur: null
-    min_30d_eur: null
-    min_alltime_eur: null
-    availability_score: null
-price_rules:
-  good_threshold_eur: 55
-  ok_threshold_eur: 70
-intro: |
-  *Ark Nova* ist ein beliebtes Brettspiel mit klarer Zielgruppe und hohem Wiederspielwert. Diese Seite bündelt **Preisradar, Angebote, Gebrauchtkauf-Tipps** und eine kompakte **Einstiegshilfe** – deutsch, fokussiert und aktuell.
-description: |
-  Ark Nova kombiniert zugängliche Regeln mit genug strategischer Tiefe, um sowohl
-  Gelegenheitsspieler als auch Vielspieler abzuholen. Auf dieser Preisradar-Seite findest du
-  eine spielnahe Beschreibung, Hinweise zu Komponenten und Editionen sowie konkrete Tipps für den
-  Kauf im Neu- und Gebrauchtmarkt. Wir erklären, worauf du bei **Sprache (deutsch)**, **Vollständigkeit**
-  und **Zustand** achten solltest und wie du typische Stolperfallen (fehlende Marker, falsche Edition,
-  Zubehör statt Grundspiel) vermeidest. Zusätzlich zeigen wir dir, wie sich das Spiel anfühlt:
-  Interaktion, Glücksanteil, Lernkurve und Partielänge. Unsere Texte sind auf **deutsche Suchbegriffe**
-  wie „Brettspiel kaufen“, „Preisvergleich“, „Angebote“ und „gebraucht“ optimiert, bleiben aber
-  natürlich lesbar und praxisnah. So bekommst du schnell ein Gefühl, ob das Spiel in deine Runde passt –
-  und zu welchem Preis sich ein Kauf wirklich lohnt. Für Vielspieler nennen wir sinnvolle Erweiterungen,
+description: 'Ark Nova kombiniert zugängliche Regeln mit genug strategischer Tiefe,
+  um sowohl
+
+  Gelegenheitsspieler als auch Vielspieler abzuholen. Auf dieser Preisradar-Seite
+  findest du
+
+  eine spielnahe Beschreibung, Hinweise zu Komponenten und Editionen sowie konkrete
+  Tipps für den
+
+  Kauf im Neu- und Gebrauchtmarkt. Wir erklären, worauf du bei **Sprache (deutsch)**,
+  **Vollständigkeit**
+
+  und **Zustand** achten solltest und wie du typische Stolperfallen (fehlende Marker,
+  falsche Edition,
+
+  Zubehör statt Grundspiel) vermeidest. Zusätzlich zeigen wir dir, wie sich das Spiel
+  anfühlt:
+
+  Interaktion, Glücksanteil, Lernkurve und Partielänge. Unsere Texte sind auf **deutsche
+  Suchbegriffe**
+
+  wie „Brettspiel kaufen“, „Preisvergleich“, „Angebote“ und „gebraucht“ optimiert,
+  bleiben aber
+
+  natürlich lesbar und praxisnah. So bekommst du schnell ein Gefühl, ob das Spiel
+  in deine Runde passt –
+
+  und zu welchem Preis sich ein Kauf wirklich lohnt. Für Vielspieler nennen wir sinnvolle
+  Erweiterungen,
+
   für Familien verraten wir, ob und wie das Spiel zu zweit/zu viert funktioniert.
-buying_advice: |
-  **Kurzberatung zu Ark Nova:** Nutze unseren Preisbereich unten als Orientierung;
-  echte Marktpreise schwanken nach Verfügbarkeit und Saison. Für **Neuware** lohnt sich ein Alarm
-  knapp unterhalb der „guter Deal“-Schwelle. **Gebraucht** solltest du Fotos von Kartenkanten,
-  Spielertableaus und Markern prüfen; vollständige deutsche Komponenten sind ein Plus. Vermeide
-  Listings mit vagem Text („Konvolut“, „Zubehör“, „Insert“) und prüfe bei eBay die Kategorie
-  *Brettspiele* sowie negative Keywords (siehe Felder unten). Bei Amazon (Affiliate) empfehlen wir,
-  auf **Prime-Versand**, **seriöse Händler** und **Rückgaberegeln** zu achten. Historisch gute
-  Dealfenster sind große Sales (Sommer/Black Friday) und Nachdrucke. Für Einsteiger gilt: erst das
-  Grundspiel sicher spielen, Erweiterungen später gezielt nachrüsten.
-how_to_play_60s: |
-  Kurzanleitung in 60 Sekunden: Ziel verstehen, Startaufbau prüfen, Züge abwechselnd ausführen, 
-  Effekte/Ikonografie beachten und am Ende nach Vorgaben werten. Für Details siehe Regeln der deutschen Ausgabe.
-used_checklist:
-  - "Vollständigkeit: alle Kernkomponenten vorhanden"
-  - "Sprache: deutsche Regeln/Komponenten bevorzugt"
-  - "Zustand: keine stark abgenutzten Kanten oder Knicke"
-  - "Pappmarker plan, nicht verzogen"
-  - "Keine fehlenden Marker/Schlüsselkomponenten"
-editions:
-  note: "Mehrere Auflagen/Sprachen möglich – deutsch bevorzugen."
-  recommended: "Grundspiel (deutsch)"
-  avoid: "Unvollständige Sets oder unklare Sprach-/Editionsangaben"
-expansions:
-  - name: null
-    verdict: "Optional – erst nach mehreren Partien erwägen."
-faqs:
-  - q: "Für wen eignet sich das Spiel?"
-    a: "Für Familien und Gelegenheitsspieler mit Lust auf einfache Regeln – zugleich genug Tiefe für Vielspieler."
-  - q: "Wie lange dauert eine Partie wirklich?"
-    a: "Realistisch 30–90 Minuten je nach Titel und Spieleranzahl; die angegebene Spieldauer ist ein Richtwert."
-  - q: "Wie hoch ist der Glücksanteil?"
-    a: "Moderater Zufall durch Kartenziehen/Würfel ist üblich, wird aber durch Planung und Erfahrung relativiert."
-  - q: "Braucht man Erweiterungen sofort?"
-    a: "Nein. Erst das Grundspiel beherrschen, danach gezielt eine gut bewertete Erweiterung ergänzen."
-  - q: "Worauf beim Gebrauchtkauf achten?"
-    a: "Vollständigkeit, deutsche Sprache, Zustand der Karten/Marker, keine fehlenden Promo-/Kernteile."
-  - q: "Ab welchem Preis lohnt sich der Kauf?"
-    a: "Unterhalb der guten Schwelle gilt als starker Deal; gebraucht ca. 20–30% darunter – abhängig vom Zustand."
-  - q: "Ist die deutsche Ausgabe wichtig?"
-    a: "Für flüssiges Spielen ja. Bei sprachneutralen Komponenten sind deutsche Regeln ausreichend."
-  - q: "Wie pflege ich das Material?"
-    a: "Karten ggf. sleeven, Box trocken lagern, Pappteile nicht quetschen; Inserts sind nice-to-have, nicht nötig."
+
+  '
 alternatives:
-  - title: null
-    slug: null
-    why: "Ähnliches Spielgefühl/Komplexität – Platzhalter."
-search_queries:
-  - "Ark Nova deutsch"
-  - "Ark Nova Brettspiel kaufen"
-  - "Ark Nova Angebot Preis"
-  - "Ark Nova gebraucht"
-include_keywords: ["deutsch", "Angebote", "Preisvergleich", "Brettspiel kaufen"]
-exclude_keywords: ["englisch", "english", "spanisch", "spanish", "italienisch", "französisch", "Insert", "Inlay", "Sleeves", "Kartenhüllen", "Organizer", "Ersatzteile", "Promo", "Erweiterung", "Exp.", "Holzbox", "Konvolut"]
-condition_whitelist: ["New","Used","Like New"]
-price_filter: { min: 40, max: 90 }
-retailers_whitelist: ["Amazon","Thalia","Müller","Smyths","Spiele-Offensive","Milan-Spiele","Fantasywelt","ebay"]
-search_profiles:
-  amazon:
-    country: "DE"
-    marketplaceIds: ["A1PA6795UKMFR9"]
-    associate_tag: "DEIN-AFFILIATE-TAG-21"
-    keywords:
-      - "Ark Nova"
-      - "Ark Nova Brettspiel"
-      - "Ark Nova deutsch"
-    filters:
-      include_prime: true
-      min_rating: 0
-      conditions: ["New","Used"]
-    price_range_eur: { min: 40, max: 90 }
-    asin_whitelist: []
-image_url: ""
-disclosure: "Hinweis: Auf dieser Seite verwenden wir Affiliate-Links."
-data_sync:
-  schedule_cron: "0 6,12,18 * * *"
-  sources: ["ebay","amazon","shops"]
+- title: null
+  slug: null
+  why: Ähnliches Spielgefühl/Komplexität – Platzhalter.
+faqs:
+- q: Für wen eignet sich das Spiel?
+  a: Für Familien und Gelegenheitsspieler mit Lust auf einfache Regeln – zugleich
+    genug Tiefe für Vielspieler.
+- q: Wie lange dauert eine Partie wirklich?
+  a: Realistisch 30–90 Minuten je nach Titel und Spieleranzahl; die angegebene Spieldauer
+    ist ein Richtwert.
+- q: Wie hoch ist der Glücksanteil?
+  a: Moderater Zufall durch Kartenziehen/Würfel ist üblich, wird aber durch Planung
+    und Erfahrung relativiert.
+- q: Braucht man Erweiterungen sofort?
+  a: Nein. Erst das Grundspiel beherrschen, danach gezielt eine gut bewertete Erweiterung
+    ergänzen.
+- q: Worauf beim Gebrauchtkauf achten?
+  a: Vollständigkeit, deutsche Sprache, Zustand der Karten/Marker, keine fehlenden
+    Promo-/Kernteile.
+- q: Ab welchem Preis lohnt sich der Kauf?
+  a: Unterhalb der guten Schwelle gilt als starker Deal; gebraucht ca. 20–30% darunter
+    – abhängig vom Zustand.
+- q: Ist die deutsche Ausgabe wichtig?
+  a: Für flüssiges Spielen ja. Bei sprachneutralen Komponenten sind deutsche Regeln
+    ausreichend.
+- q: Wie pflege ich das Material?
+  a: Karten ggf. sleeven, Box trocken lagern, Pappteile nicht quetschen; Inserts sind
+    nice-to-have, nicht nötig.
+search_terms:
+- Ark Nova
+exclude_keywords:
+- englisch
+- english
+- spanisch
+- spanish
+- italienisch
+- französisch
+- Insert
+- Inlay
+- Sleeves
+- Kartenhüllen
+- Organizer
+- Ersatzteile
+- Promo
+- Erweiterung
+- Exp.
+- Holzbox
+- Konvolut
+price_filter:
+  min: 40
+  max: 90
+disclosure: 'Hinweis: Auf dieser Seite verwenden wir Affiliate-Links.'
