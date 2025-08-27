@@ -12,6 +12,7 @@ secrets for deployments.
 from __future__ import annotations
 
 import json
+import logging
 import os
 import pathlib
 from functools import wraps
@@ -22,12 +23,22 @@ from flask import Flask, abort, jsonify, render_template_string, request, make_r
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OFFERS_DIR = ROOT / "data" / "offers"
 LABEL_DIR = ROOT / "data" / "labels"
-LABEL_DIR.mkdir(parents=True, exist_ok=True)
+LOG_DIR = ROOT / "data" / "logs"
+for d in (LABEL_DIR, LOG_DIR):
+    d.mkdir(parents=True, exist_ok=True)
+
+LOG_FILE = LOG_DIR / "label_server.log"
+
+file_handler = logging.FileHandler(LOG_FILE)
+file_handler.setFormatter(
+    logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+)
+app = Flask(__name__)
+app.logger.setLevel(logging.INFO)
+app.logger.addHandler(file_handler)
 
 USER = os.getenv("TRAINING_USER", "")
 PASSWORD = os.getenv("TRAINING_PASS", "")
-
-app = Flask(__name__)
 
 
 def check_auth(username: str, password: str) -> bool:
@@ -59,25 +70,33 @@ def label_page(slug: str):
     offers_file = OFFERS_DIR / f"{slug}.json"
     if not offers_file.exists():
         abort(404)
-    data = json.loads(offers_file.read_text("utf-8"))
-    # ``fetch_offers_ebay_enhanced.py`` stores either a plain list of offers
-    # or a dictionary with an ``offers`` key.  Older files might still use the
-    # eBay API's ``searchResult.item`` structure.  Instead of slicing the raw
-    # JSON (which would raise ``KeyError: slice(None, 100, None)`` when the
-    # root object is a dictionary) we normalise the structure here and always
-    # operate on a list.
-    if isinstance(data, dict):
-        # Prefer the plain ``offers`` list if present
-        offers = data.get("offers")
-        if offers is None:
-            # Fall back to the eBay API format: {"searchResult": {"item": [...]}}
-            offers = data.get("searchResult", {}).get("item", [])
-    else:
-        offers = data
-    # ``offers`` might be ``None`` if the JSON doesn't contain any results.
-    if not isinstance(offers, list):
-        offers = []
-    offers = offers[:100]
+    try:
+        data = json.loads(offers_file.read_text("utf-8"))
+        app.logger.info("loaded %s with root type %s", offers_file, type(data).__name__)
+        # ``fetch_offers_ebay_enhanced.py`` stores either a plain list of offers
+        # or a dictionary with an ``offers`` key.  Older files might still use the
+        # eBay API's ``searchResult.item`` structure.  Instead of slicing the raw
+        # JSON (which would raise ``KeyError: slice(None, 100, None)`` when the
+        # root object is a dictionary) we normalise the structure here and always
+        # operate on a list.
+        if isinstance(data, dict):
+            # Prefer the plain ``offers`` list if present
+            offers = data.get("offers")
+            if offers is None:
+                # Fall back to the eBay API format: {"searchResult": {"item": [...]}}
+                offers = data.get("searchResult", {}).get("item", [])
+        else:
+            offers = data
+        # eBay's ``searchResult.item`` or legacy dumps may still be dictionaries
+        # keyed by numbers.  Convert them to a list before slicing.
+        if isinstance(offers, dict):
+            offers = list(offers.values())
+        if not isinstance(offers, list):
+            offers = []
+        offers = offers[:100]
+    except Exception:  # pragma: no cover - logging full stack for debugging
+        app.logger.exception("failed to load offers for %s", slug)
+        abort(500)
     label_file = LABEL_DIR / f"{slug}.json"
     labels = {}
     if label_file.exists():
@@ -126,18 +145,24 @@ render();
 @app.route("/spiel/<slug>/training", methods=["POST"])
 @requires_auth
 def save_label(slug: str):
-    data = request.get_json(force=True) or {}
-    item_id = str(data.get("id"))
-    label = bool(data.get("label"))
-    label_file = LABEL_DIR / f"{slug}.json"
-    labels = {}
-    if label_file.exists():
-        labels = json.loads(label_file.read_text("utf-8"))
-    labels[item_id] = label
-    label_file.write_text(json.dumps(labels, ensure_ascii=False, indent=2), "utf-8")
-    resp = jsonify({"status": "ok"})
-    resp.headers["X-Robots-Tag"] = "noindex, nofollow"
-    return resp
+    try:
+        data = request.get_json(force=True) or {}
+        item_id = str(data.get("id"))
+        label = bool(data.get("label"))
+        label_file = LABEL_DIR / f"{slug}.json"
+        labels = {}
+        if label_file.exists():
+            labels = json.loads(label_file.read_text("utf-8"))
+        labels[item_id] = label
+        label_file.write_text(
+            json.dumps(labels, ensure_ascii=False, indent=2), "utf-8"
+        )
+        resp = jsonify({"status": "ok"})
+        resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+        return resp
+    except Exception:  # pragma: no cover - debugging write errors
+        app.logger.exception("failed to save label for %s", slug)
+        abort(500)
 
 
 if __name__ == "__main__":

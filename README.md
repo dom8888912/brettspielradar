@@ -50,7 +50,8 @@ kleinen Trainingsworkflow:
      ```
    - Rufe im Browser `http://localhost:8000/spiel/<slug>/training` auf und markiere die
      angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Labels
-     werden in `data/labels/<slug>.json` gespeichert.
+    werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
+    der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
 
 2. **Modell trainieren**
 
