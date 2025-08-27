@@ -71,13 +71,11 @@ def build_headers() -> Dict[str, str]:
         "Authorization": f"Bearer {TOKEN}",
         "Accept-Language": "de-DE",
         "Content-Type": "application/json",
-        "X-EBAY-C-MARKETPLACE-ID": "EBAY_DE",
+        "X-EBAY-C-MARKETPLACE-ID": MARKETPLACE_ID,
     }
     if EPN_CAMPAIGN_ID:
         h["X-EBAY-C-ENDUSERCTX"] = f"affiliateCampaignId={EPN_CAMPAIGN_ID},affiliateReferenceId={EPN_REFERENCE_ID}"
     return h
-
-HEADERS = build_headers()
 
 # Load external filter configuration so that the fetcher can be reused for
 # other projects without touching the code.
@@ -112,6 +110,12 @@ ITEM_LOCATION_COUNTRIES = [
     c.upper() for c in FILTER_CFG.get("item_location_countries", []) if isinstance(c, str)
 ]
 
+# Marketplace and currency can be customized via config
+MARKETPLACE_ID = FILTER_CFG.get("marketplace_id", "EBAY_DE")
+PRICE_CURRENCY = FILTER_CFG.get("price_currency", "EUR")
+
+HEADERS = build_headers()
+
 
 
 def looks_like_accessory(title: str, extra_terms: List[str] | None = None) -> bool:
@@ -135,13 +139,13 @@ def build_aspect_filter(aspects: Dict[str, List[str]]) -> str:
 
 def search_once(
     query: str,
-    limit: int = 50,
+    limit: int = 200,
     category_id: str | None = None,
     min_price: float | None = None,
     aspect_filters: Dict[str, List[str]] | None = None,
 ) -> List[Dict[str, Any]]:
     filters = [
-        "priceCurrency:EUR",  # only EUR prices
+        f"priceCurrency:{PRICE_CURRENCY}",  # enforce currency
         f"conditionIds:{{{','.join(sorted(ALLOWED_CONDITION_IDS))}}}",  # restrict to new-condition IDs
         f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
         "buyingOptions:{FIXED_PRICE}",  # exclude auctions
@@ -219,22 +223,18 @@ def high_res_image(url: str | None) -> str | None:
     return re.sub(r"s-l\d+", "s-l1600", url)
 
 def queries_for(game: Dict[str, Any]) -> List[str]:
-    title = (game.get("title") or "").strip()
-    slug = (game.get("slug") or "").strip()
     q: List[str] = []
     terms = game.get("search_terms")
     if isinstance(terms, list):
-        q.extend([s for s in terms if isinstance(s, str) and s.strip()])
-    alt_titles = game.get("alt_titles") or []
-    if isinstance(alt_titles, list):
-        q.extend([s for s in alt_titles if isinstance(s, str) and s.strip()])
-    synonyms = game.get("synonyms") or []
-    if isinstance(synonyms, list):
-        q.extend([s for s in synonyms if isinstance(s, str) and s.strip()])
-    if title:
-        q += [f"{title} Brettspiel", f"{title} Spiel"]
-    if slug:
-        q.append(f"{slug.replace('-', ' ')} Brettspiel")
+        q.extend([s.strip() for s in terms if isinstance(s, str) and s.strip()])
+    if not q:
+        # fallback to title or slug if no explicit terms are provided
+        title = (game.get("title") or "").strip()
+        slug = (game.get("slug") or "").strip()
+        if title:
+            q.append(title)
+        elif slug:
+            q.append(slug.replace("-", " "))
     seen, out = set(), []
     for s in q:
         s2 = s.strip()
@@ -243,7 +243,7 @@ def queries_for(game: Dict[str, Any]) -> List[str]:
             out.append(s2)
     return out[:6]
 
-def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, Any]]:
+def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, Any]]:
     slug = game.get("slug")
     if not slug:
         return []
@@ -263,7 +263,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
     for q in queries_for(game):
         items = search_once(
             q,
-            limit=50,
+            limit=200,
             category_id=category_id,
             min_price=min_price,
             aspect_filters=aspect_filters,
@@ -294,6 +294,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
                 continue
             shop = seller.get("username") or "eBay"
             img = high_res_image((it.get("image") or {}).get("imageUrl"))
+            desc = (it.get("shortDescription") or it.get("subtitle") or "").strip()
             offer = {
                 "id": iid,
                 "title": title[:140],
@@ -303,6 +304,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 10) -> List[Dict[str, A
                 "condition": it.get("condition"),
                 "url": url,
                 "image_url": img,
+                "description": desc,
                 "shop": shop,
                 "search_url": search_url,
             }
@@ -338,7 +340,7 @@ def main():
     updated = 0
     for g in games:
         slug = g["slug"]
-        offers = fetch_for_game(g, max_keep=10)
+        offers = fetch_for_game(g, max_keep=100)
         outp = DATA_DIR / f"{slug}.json"
         outp.parent.mkdir(parents=True, exist_ok=True)
         meta = {

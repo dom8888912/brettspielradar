@@ -28,6 +28,13 @@ py scripts\fetch_offers_ebay_enhanced.py
 py scripts\build.py
 ```
 
+In `config/filters.yaml` kannst du den Marktplatz und die Währung anpassen
+(`marketplace_id`, `price_currency`). Standard ist `EBAY_DE` mit `EUR` und
+`item_location_countries: [DE]` für Angebote aus Deutschland. Pro Spiel lässt
+ sich in `content/games/<slug>.yaml` über `search_terms` festlegen, welche
+ Schlüsselwörter an die eBay‑API übergeben werden. Ein optionales
+`price_filter: {min: 20}` setzt einen Mindestpreis.
+
 **Amazon Affiliate**
 
 Setze optional die Umgebungsvariable `AMAZON_PARTNER_ID` (Standard `28310edf-21`), um einen "Preis bei Amazon prüfen"-Button mit Affiliate-Link auf jeder Spieleseite auszugeben.
@@ -49,7 +56,10 @@ kleinen Trainingsworkflow:
      python scripts/label_server.py
      ```
    - Rufe im Browser `http://localhost:8000/spiel/<slug>/training` auf und markiere die
-     angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Labels
+     angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Seite zeigt
+     bis zu 100 unlabeled Treffer inklusive Bild und Kurzbeschreibung; bereits
+     bewertete Angebote werden ausgeblendet. Die Labels
+
    werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
    der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
    - Unter `http://localhost:8000/__version__` gibt der Server den aktuell

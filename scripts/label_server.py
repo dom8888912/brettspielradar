@@ -135,10 +135,14 @@ def label_page(slug: str):
         app.logger.exception("failed to load offers for %s", slug)
         abort(500)
     label_file = LABEL_DIR / f"{slug}.json"
-    labels = {}
+    labels: dict[str, bool] = {}
     if label_file.exists():
         labels = json.loads(label_file.read_text("utf-8"))
 
+    def _oid(o: dict) -> str:
+        return str(o.get("itemId") or o.get("id") or o.get("url"))
+
+    offers = [o for o in offers if _oid(o) not in labels]
     html = """
 <!doctype html>
 <title>Label offers – {{ slug }}</title>
@@ -157,8 +161,9 @@ function render(){
   offers.forEach(o=>{
     const id=o.itemId || o.id || o.url;
     const div=document.createElement('div');
-    div.innerHTML = `<p><a href="${o.url}" target="_blank">${o.title||id}</a>` +
-      ` – ${o.total_eur||o.price_eur||''} € – <strong>${labels[id]}</strong></p>`;
+    const img = o.image_url ? `<img src="${o.image_url}" alt="" style="max-width:150px"><br>` : '';
+    const desc = o.description ? `<p>${o.description}</p>` : '';
+    div.innerHTML = `${img}<p><a href="${o.url}" target="_blank">${o.title||id}</a> – ${o.total_eur||o.price_eur||''} €</p>${desc}`;
     const rel=document.createElement('button');
     rel.textContent='relevant';
     rel.onclick=()=>{labels[id]=true; sendLabel(id,true); render();};
