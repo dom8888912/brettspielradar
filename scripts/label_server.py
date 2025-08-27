@@ -94,6 +94,7 @@ def label_page(slug: str):
     except Exception:  # pragma: no cover - logging full stack for debugging
         app.logger.exception("failed to load offers for %s", slug)
         abort(500)
+
     label_file = LABEL_DIR / f"{slug}.json"
     labels = {}
     if label_file.exists():
