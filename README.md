@@ -50,8 +50,11 @@ kleinen Trainingsworkflow:
      ```
    - Rufe im Browser `http://localhost:8000/spiel/<slug>/training` auf und markiere die
      angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Labels
-    werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
-    der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
+   werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
+   der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
+   - Unter `http://localhost:8000/__version__` gibt der Server den aktuell
+     ausgeführten Git-Commit zurück – hilfreich zum Überprüfen eines
+     Neustarts oder Deployments.
 
 2. **Modell trainieren**
 

@@ -15,9 +15,17 @@ import json
 import logging
 import os
 import pathlib
+import subprocess
 from functools import wraps
 
-from flask import Flask, abort, jsonify, render_template_string, request, make_response
+from flask import (
+    Flask,
+    abort,
+    jsonify,
+    render_template_string,
+    request,
+    make_response,
+)
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -36,6 +44,24 @@ file_handler.setFormatter(
 app = Flask(__name__)
 app.logger.setLevel(logging.INFO)
 app.logger.addHandler(file_handler)
+
+
+def _git_rev() -> str:
+    """Return the current git commit hash for troubleshooting."""
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            check=True,
+            text=True,
+        )
+        return out.stdout.strip()
+    except Exception:  # pragma: no cover - best effort only
+        return "unknown"
+
+
+REVISION = _git_rev()
+app.logger.info("running commit %s", REVISION)
 
 USER = os.getenv("TRAINING_USER", "")
 PASSWORD = os.getenv("TRAINING_PASS", "")
@@ -62,6 +88,14 @@ def requires_auth(f):
         return f(*args, **kwargs)
 
     return decorated
+
+
+@app.route("/__version__")
+def version():
+    """Expose the currently running git commit hash."""
+    resp = jsonify({"commit": REVISION})
+    resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
 
 
 @app.route("/spiel/<slug>/training", methods=["GET"])
