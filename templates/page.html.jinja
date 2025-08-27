@@ -31,7 +31,6 @@
   {% if best %}
   {% set diff = ((min_price - avg7) / avg7 * 100) if (min_price and avg7) else None %}
   <section class="best-price" aria-label="Bestpreis">
-    {% if best.image_url %}<img class="offer-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     <div class="bp-main">
       <span class="bp-price">{{ '%.2f'|format(best.total_eur or best.price_eur) }}&nbsp;€</span>
       {% if best.shop %}<span class="bp-shop">{{ best.shop }}</span>{% endif %}
@@ -39,7 +38,7 @@
     </div>
     {% if best.image_url %}<img class="bp-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     {% set sep = '?' if '?' not in best.url else '&' %}
-    <a class="btn btn-primary" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ '%.2f'|format(best.total_eur or best.price_eur) }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei {{ best.shop }}</a>
+    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ '%.2f'|format(best.total_eur or best.price_eur) }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei {{ best.shop }}</a>
     {% if diff is not none %}
     <div class="bp-badges">
       <span class="badge-grey">−{{ diff|abs|round(0) }}% vs. 7‑Tage‑Ø</span>
@@ -195,9 +194,7 @@
 
   {% if best %}
   {% set sep = '?' if '?' not in best.url else '&' %}
-  <div class="sticky-buy-bar" id="stickyBuyBar">
-    <a class="btn btn-primary" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ '%.2f'|format(best.total_eur or best.price_eur) }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei {{ best.shop }}</a>
-  </div>
+  <div class="sticky-buy-bar" id="stickyBuyBar"></div>
   {% endif %}
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -223,14 +220,30 @@
       });
     }
     var sticky=document.getElementById('stickyBuyBar');
-    var hero=document.querySelector('.hero');
-    if(sticky && hero){
+    var dealBtn=document.getElementById('dealBtn');
+    if(sticky && dealBtn && window.matchMedia('(max-width:719px)').matches){
+      var placeholder=document.createElement('div');
+      placeholder.style.height='0px';
+      dealBtn.parentNode.insertBefore(placeholder, dealBtn);
+      var btnHeight=dealBtn.offsetHeight;
       var observer=new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
-          if(entry.isIntersecting){ sticky.classList.remove('show'); } else { sticky.classList.add('show'); }
+          if(entry.isIntersecting){
+            placeholder.style.height='0px';
+            if(sticky.contains(dealBtn)){
+              placeholder.parentNode.insertBefore(dealBtn, placeholder.nextSibling);
+            }
+            sticky.classList.remove('show');
+          } else {
+            placeholder.style.height=btnHeight+'px';
+            if(!sticky.contains(dealBtn)){
+              sticky.appendChild(dealBtn);
+            }
+            sticky.classList.add('show');
+          }
         });
       });
-      observer.observe(hero);
+      observer.observe(placeholder);
     }
   });
   </script>

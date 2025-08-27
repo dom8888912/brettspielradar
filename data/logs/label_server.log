@@ -4,3 +4,5 @@ Traceback (most recent call last):
     offers = json.loads(offers_file.read_text("utf-8"))[:100]
 KeyError: slice(None, 100, None)
 2025-08-27 09:05:45,897 INFO loaded /workspace/brettspielradar/data/offers/sample.json with root type dict
+2025-08-27 10:51:52,831 INFO running commit 72e2b707d91f170b50995c9fdb309c7b95e438fc
+2025-08-27 10:52:01,957 INFO running commit 72e2b707d91f170b50995c9fdb309c7b95e438fc
