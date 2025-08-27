@@ -48,7 +48,7 @@ kleinen Trainingsworkflow:
      ```bash
      python scripts/label_server.py
      ```
-   - Rufe im Browser `http://localhost:8000/label/<slug>` auf und markiere die
+   - Rufe im Browser `http://localhost:8000/spiel/<slug>/training` auf und markiere die
      angezeigten Angebote als „relevant“ oder „nicht relevant“. Die Labels
      werden in `data/labels/<slug>.json` gespeichert.
 

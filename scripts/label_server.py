@@ -16,7 +16,7 @@ import os
 import pathlib
 from functools import wraps
 
-from flask import Flask, abort, jsonify, render_template_string, request
+from flask import Flask, abort, jsonify, render_template_string, request, make_response
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -53,7 +53,7 @@ def requires_auth(f):
     return decorated
 
 
-@app.route("/label/<slug>", methods=["GET"])
+@app.route("/spiel/<slug>/training", methods=["GET"])
 @requires_auth
 def label_page(slug: str):
     offers_file = OFFERS_DIR / f"{slug}.json"
@@ -68,6 +68,7 @@ def label_page(slug: str):
     html = """
 <!doctype html>
 <title>Label offers – {{ slug }}</title>
+<meta name="robots" content="noindex, nofollow">
 <h1>Label offers for {{ slug }}</h1>
 <div id="offers"></div>
 <script>
@@ -97,10 +98,14 @@ function render(){
 render();
 </script>
 """
-    return render_template_string(html, slug=slug, offers=offers, labels=labels)
+    response = make_response(
+        render_template_string(html, slug=slug, offers=offers, labels=labels)
+    )
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response
 
 
-@app.route("/label/<slug>", methods=["POST"])
+@app.route("/spiel/<slug>/training", methods=["POST"])
 @requires_auth
 def save_label(slug: str):
     data = request.get_json(force=True) or {}
@@ -112,7 +117,9 @@ def save_label(slug: str):
         labels = json.loads(label_file.read_text("utf-8"))
     labels[item_id] = label
     label_file.write_text(json.dumps(labels, ensure_ascii=False, indent=2), "utf-8")
-    return jsonify({"status": "ok"})
+    resp = jsonify({"status": "ok"})
+    resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
 
 
 if __name__ == "__main__":
