@@ -100,13 +100,36 @@
     
     
     
+    <a class="btn btn-primary" id="dealBtn" href="https://www.ebay.de/itm/204559682156?_skw=Pandemic+Legacy%3A+Season+1&hash=item2fa0b50a6c%3Ag%3ADpoAAOSwtOxlZxRK&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=pandemic-legacy-season-1" onclick="click_offer('gadgetsville','pandemic-legacy-season-1','31.94')" target="_blank" rel="nofollow sponsored noopener">Jetzt für 31.94€ bei gadgetsville kaufen</a>
+    
+    
     <div class="bp-badges">
-      <span class="badge-grey">−55.0% vs. 7‑Tage‑Ø</span>
+      <span class="badge-grey">-55.0% vs. 7‑Tage‑Ø</span>
       
     </div>
     
   </section>
   
+
+  <section class="price-indicator" role="group" aria-label="Preisindikator">
+    <div class="pi-header">
+      <span class="pi-title">Preisindikator</span>
+      
+      <span class="pi-badge good" id="pi-badge" aria-live="polite">Gut</span>
+    </div>
+
+    
+    <div class="pi-bar" aria-hidden="true">
+      <div class="pi-marker good" id="pi-marker" title="Aktueller Preis" style="left: 16%;"></div>
+    </div>
+
+    <dl class="pi-stats">
+      <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">31.94&nbsp;€</dd></div>
+      <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">70.46&nbsp;€</dd></div>
+    </dl>
+
+    <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
+  </section>
 
   
   <p class="muted">⚠️ Fehlende YAML-Werte: players, playtime, playtime_minutes, complexity, weight, year</p>
@@ -203,37 +226,20 @@
     </table>
     
     
+    
+    <div class="cta-row">
+      <a class="btn btn-secondary" href="https://www.amazon.de/s?k=Pandemic+Legacy%3A+Season+1&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Preis auf Amazon prüfen</a>
+    </div>
+    
   </section>
 
-    <div class="price-top">
-      <section class="price-indicator" role="group" aria-label="Preisindikator">
-        <div class="pi-header">
-          <span class="pi-title">Preisindikator</span>
-          
-          <span class="pi-badge good" id="pi-badge" aria-live="polite">Gut</span>
-        </div>
-
-        
-        <div class="pi-bar" aria-hidden="true">
-          <div class="pi-marker good" id="pi-marker" title="Aktueller Preis" style="left: 16%;"></div>
-        </div>
-
-        <dl class="pi-stats">
-          <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">31.94&nbsp;€</dd></div>
-          <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">70.46&nbsp;€</dd></div>
-        </dl>
-
-        <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
-      </section>
-
-    <section class="price-history">
-      <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
-      
-        <p class="avg-price">Durchschnitt (5 Tage): 70.46&nbsp;€</p>
-      
-      <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
-    </section>
-  </div>
+  <section class="price-history">
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    
+      <p class="avg-price">Durchschnitt (5 Tage): 70.46&nbsp;€</p>
+    
+    <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
+  </section>
 
   <section class="content-section">
     <h2 class="h2">Kaufberatung</h2>
@@ -319,6 +325,8 @@
     <a class="btn btn-link" href="https://brettspielpreisradar.de/alle-spiele.html">← Alle Spiele</a>
   </section>
 
+  
+  <div class="sticky-buy-bar" id="stickyBuyBar"></div>
   
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
