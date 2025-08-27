@@ -207,7 +207,7 @@
       const data = hist.map(r=>r.min);
       new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Preis',data:data,borderColor:'#3e95cd',fill:false}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:(v)=>v+' €'}}}}});
     }
-    {% if min_price and avg7 %}
+    {% if min_price is not none and avg7 is not none %}
     if (typeof window.renderPI === 'function'){
       window.renderPI({current: {{ '%.2f'|format(min_price) }}, avg7: {{ '%.2f'|format(avg7) }}} );
     }
