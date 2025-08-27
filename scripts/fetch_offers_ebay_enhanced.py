@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Fetch eBay offers for each game and save to data/offers/<slug>.json
+"""Fetch eBay offers for each game and save to data/offers/<slug>.json
 
 - Application Access Token (client_credentials) with base scope
 - Marketplace via header (X-EBAY-C-MARKETPLACE-ID=EBAY_DE)
@@ -9,8 +8,6 @@ Fetch eBay offers for each game and save to data/offers/<slug>.json
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
-- Prefers a whitelist of trusted business sellers, falls back to any business
-  seller if no whitelisted offer is found
 """
 
 import os, json, time, datetime as dt
@@ -93,10 +90,6 @@ FILTER_CFG = load_filter_config(FILTER_PATH)
 # Keywords that typically indicate accessories or upgrades. Offers whose title
 # contains any of these substrings will be skipped to keep only the base game.
 EXCLUDE_TERMS = [t.lower() for t in FILTER_CFG.get("exclude_terms", [])]
-
-# Whitelisted seller usernames considered trustworthy for price comparison.
-# Only offers from these sellers will be saved.
-ALLOWED_SELLERS = {s.lower() for s in FILTER_CFG.get("allowed_sellers", [])}
 
 # eBay condition IDs that are treated as "new". Items outside this list are
 # ignored unless the textual condition explicitly mentions "neu" oder "new".
@@ -256,8 +249,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
     except (TypeError, ValueError):
         min_price = None
 
-    whitelisted: List[Dict[str, Any]] = []
-    fallback: List[Dict[str, Any]] = []
+    offers: List[Dict[str, Any]] = []
     seen = set()
 
     for q in queries_for(game):
@@ -309,16 +301,12 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
                 "search_url": search_url,
             }
             seen.add(iid)
-            if shop.lower() in ALLOWED_SELLERS:
-                whitelisted.append(offer)
-                if len(whitelisted) >= max_keep:
-                    break
-            else:
-                fallback.append(offer)
-        if len(whitelisted) >= max_keep:
+            offers.append(offer)
+            if len(offers) >= max_keep:
+                break
+        if len(offers) >= max_keep:
             break
 
-    offers = whitelisted if whitelisted else fallback
     offers.sort(key=lambda x: (x.get("total_eur") if x.get("total_eur") is not None else 1e9))
     return offers[:max_keep]
 
