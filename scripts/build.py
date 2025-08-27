@@ -1,4 +1,4 @@
-import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re
+import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re, joblib
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -6,10 +6,12 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content" / "games"
 DATA = ROOT / "data" / "offers"
 HIST_DIR = ROOT / "data" / "history"
+LABEL_DIR = ROOT / "data" / "labels"
 TEMPLATES = ROOT / "templates"
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 HUBS_CFG = ROOT / "content" / "hubs.yaml"
+MODEL_PATH = ROOT / "data" / "relevance_model.pkl"
 
 EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
@@ -22,6 +24,13 @@ env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
     autoescape=select_autoescape(["html"])
 )
+
+MODEL = None
+if MODEL_PATH.exists():
+    try:
+        MODEL = joblib.load(MODEL_PATH)
+    except Exception:
+        MODEL = None
 
 def simple_md(text):
     """Convert a tiny subset of Markdown to HTML."""
@@ -70,6 +79,32 @@ def load_offers(slug):
                 ts = None
         return offers, ts
     return data, None
+
+def load_labels(slug):
+    path = LABEL_DIR / f"{slug}.json"
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text("utf-8"))
+    except Exception:
+        return {}
+
+def is_relevant(offer, labels):
+    item_id = str(offer.get("itemId") or offer.get("id") or offer.get("url") or "")
+    if item_id in labels:
+        return bool(labels[item_id])
+    if MODEL:
+        text = " ".join(
+            str(offer.get(k, ""))
+            for k in ["title", "subtitle", "condition", "shop", "description"]
+        )
+        try:
+            vec = MODEL["vectorizer"].transform([text])
+            pred = MODEL["model"].predict(vec)[0]
+            return bool(pred)
+        except Exception:
+            return True
+    return True
 
 def append_history(slug, offers):
     """Append today's minimal price to the history file."""
@@ -174,8 +209,10 @@ def render_game(yaml_path, site_url):
     missing_fields = [f for f in required_fields if not game.get(f)]
 
     offers_raw, fetched_at = load_offers(game["slug"])
+    labels = load_labels(game["slug"])
+    offers_filtered = [o for o in offers_raw if is_relevant(o, labels)]
     offers = sorted(
-        offers_raw,
+        offers_filtered,
         key=lambda o: o.get("total_eur") or o.get("price_eur") or 1e9,
     )
     append_history(game["slug"], offers)
