@@ -38,7 +38,10 @@
     </div>
     {% if best.image_url %}<img class="bp-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     {% set sep = '?' if '?' not in best.url else '&' %}
-    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ '%.2f'|format(best.total_eur or best.price_eur) }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei {{ best.shop }}</a>
+    {% if best.shop and best.shop|lower == 'ebay' %}
+    {% set bp = '%.2f'|format(best.total_eur or best.price_eur) %}
+    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ bp }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt für {{ bp }}€ bei eBay kaufen</a>
+    {% endif %}
     {% if diff is not none %}
     <div class="bp-badges">
       <span class="badge-grey">−{{ diff|abs|round(0) }}% vs. 7‑Tage‑Ø</span>
@@ -192,8 +195,7 @@
     <a class="btn btn-link" href="/alle-spiele.html">← Alle Spiele</a>
   </section>
 
-  {% if best %}
-  {% set sep = '?' if '?' not in best.url else '&' %}
+  {% if best and best.shop and best.shop|lower == 'ebay' %}
   <div class="sticky-buy-bar" id="stickyBuyBar"></div>
   {% endif %}
 

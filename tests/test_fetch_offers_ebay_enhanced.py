@@ -56,7 +56,7 @@ def test_search_once_adds_filters():
         assert kwargs["params"].get("aspect_filter") == "Produktart:Eigenständiges Spiel"
 
 
-def test_fetch_for_game_fallback_to_other_sellers():
+def test_fetch_for_game_returns_business_sellers():
     mod = load_module()
     game = {"slug": "catan", "search_terms": ["Catan"]}
     with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
