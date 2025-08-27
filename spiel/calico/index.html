@@ -254,14 +254,30 @@
       });
     }
     var sticky=document.getElementById('stickyBuyBar');
-    var hero=document.querySelector('.hero');
-    if(sticky && hero){
+    var dealBtn=document.getElementById('dealBtn');
+    if(sticky && dealBtn && window.matchMedia('(max-width:719px)').matches){
+      var placeholder=document.createElement('div');
+      placeholder.style.height='0px';
+      dealBtn.parentNode.insertBefore(placeholder, dealBtn);
+      var btnHeight=dealBtn.offsetHeight;
       var observer=new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
-          if(entry.isIntersecting){ sticky.classList.remove('show'); } else { sticky.classList.add('show'); }
+          if(entry.isIntersecting){
+            placeholder.style.height='0px';
+            if(sticky.contains(dealBtn)){
+              placeholder.parentNode.insertBefore(dealBtn, placeholder.nextSibling);
+            }
+            sticky.classList.remove('show');
+          } else {
+            placeholder.style.height=btnHeight+'px';
+            if(!sticky.contains(dealBtn)){
+              sticky.appendChild(dealBtn);
+            }
+            sticky.classList.add('show');
+          }
         });
       });
-      observer.observe(hero);
+      observer.observe(placeholder);
     }
   });
   </script>

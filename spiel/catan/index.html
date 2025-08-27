@@ -101,7 +101,6 @@
   
   
   <section class="best-price" aria-label="Bestpreis">
-    <img class="offer-img" src="https://i.ebayimg.com/images/g/CrIAAOSw2~VlTV~L/s-l1600.jpg" alt="" loading="lazy">
     <div class="bp-main">
       <span class="bp-price">23.34&nbsp;€</span>
       <span class="bp-shop">alternate.gmbh</span>
@@ -109,7 +108,7 @@
     </div>
     <img class="bp-img" src="https://i.ebayimg.com/images/g/CrIAAOSw2~VlTV~L/s-l1600.jpg" alt="" loading="lazy">
     
-    <a class="btn btn-primary" href="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('alternate.gmbh','catan','23.34')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei alternate.gmbh</a>
+    <a class="btn btn-primary" id="dealBtn" href="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('alternate.gmbh','catan','23.34')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei alternate.gmbh</a>
     
     <div class="bp-badges">
       <span class="badge-grey">−26.0% vs. 7‑Tage‑Ø</span>
@@ -294,9 +293,7 @@
 
   
   
-  <div class="sticky-buy-bar" id="stickyBuyBar">
-    <a class="btn btn-primary" href="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=catan" onclick="click_offer('alternate.gmbh','catan','23.34')" target="_blank" rel="nofollow sponsored noopener">Jetzt zum Deal bei alternate.gmbh</a>
-  </div>
+  <div class="sticky-buy-bar" id="stickyBuyBar"></div>
   
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -322,14 +319,30 @@
       });
     }
     var sticky=document.getElementById('stickyBuyBar');
-    var hero=document.querySelector('.hero');
-    if(sticky && hero){
+    var dealBtn=document.getElementById('dealBtn');
+    if(sticky && dealBtn && window.matchMedia('(max-width:719px)').matches){
+      var placeholder=document.createElement('div');
+      placeholder.style.height='0px';
+      dealBtn.parentNode.insertBefore(placeholder, dealBtn);
+      var btnHeight=dealBtn.offsetHeight;
       var observer=new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
-          if(entry.isIntersecting){ sticky.classList.remove('show'); } else { sticky.classList.add('show'); }
+          if(entry.isIntersecting){
+            placeholder.style.height='0px';
+            if(sticky.contains(dealBtn)){
+              placeholder.parentNode.insertBefore(dealBtn, placeholder.nextSibling);
+            }
+            sticky.classList.remove('show');
+          } else {
+            placeholder.style.height=btnHeight+'px';
+            if(!sticky.contains(dealBtn)){
+              sticky.appendChild(dealBtn);
+            }
+            sticky.classList.add('show');
+          }
         });
       });
-      observer.observe(hero);
+      observer.observe(placeholder);
     }
   });
   </script>
