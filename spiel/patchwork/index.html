@@ -83,7 +83,7 @@
     
     <section class="best-price" aria-label="Bestpreis">
       <div class="bp-main">
-        <span class="bp-price">30.24&nbsp;€</span>
+        <span class="bp-price">28.98&nbsp;€</span>
         <span class="bp-shop">funtainment_muenchen</span>
         
       </div>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 30.75&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 30.46&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -168,7 +168,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/KskAAOSwQBpnH4xD/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/405313029830?_skw=patchwork+Brettspiel&hash=item5e5e8a06c6%3Ag%3AKskAAOSwQBpnH4xD&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Patchwork: 10 Jahre Jubiläumsedition</a></h3>
             <div class="offer-meta">
-              <span class="price">30.24&nbsp;€</span>
+              <span class="price">28.98&nbsp;€</span>
               <span class="seller">funtainment_muenchen</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/405313029830?_skw=patchwork+Brettspiel&hash=item5e5e8a06c6%3Ag%3AKskAAOSwQBpnH4xD&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -210,9 +210,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 30.75&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 30.46&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -254,7 +254,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 31.27}, {"date": "2025-08-23", "min": 31.01}, {"date": "2025-08-24", "min": 30.75}, {"date": "2025-08-25", "min": 30.49}, {"date": "2025-08-26", "min": 30.24}];
+    const hist = [{"date": "2025-08-22", "min": 31.27}, {"date": "2025-08-23", "min": 31.01}, {"date": "2025-08-24", "min": 30.75}, {"date": "2025-08-25", "min": 30.49}, {"date": "2025-08-26", "min": 30.24}, {"date": "2025-08-27", "min": 28.98}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -263,7 +263,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 30.24, avg7: 30.75});
+      window.renderPI({current: 28.98, avg7: 30.46});
     }
     
   });
@@ -284,8 +284,8 @@
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "lowPrice": "25.25",
-      "highPrice": "25.25",
+      "lowPrice": "23.99",
+      "highPrice": "23.99",
       "offerCount": "1"
     },
     

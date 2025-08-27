@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 11.19&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 11.19&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -222,9 +222,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 11.19&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 11.19&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -266,7 +266,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 11.19}, {"date": "2025-08-23", "min": 11.19}, {"date": "2025-08-24", "min": 11.19}, {"date": "2025-08-25", "min": 11.19}, {"date": "2025-08-26", "min": 11.19}];
+    const hist = [{"date": "2025-08-22", "min": 11.19}, {"date": "2025-08-23", "min": 11.19}, {"date": "2025-08-24", "min": 11.19}, {"date": "2025-08-25", "min": 11.19}, {"date": "2025-08-26", "min": 11.19}, {"date": "2025-08-27", "min": 11.19}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);

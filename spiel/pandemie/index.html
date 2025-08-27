@@ -83,7 +83,7 @@
     
     <section class="best-price" aria-label="Bestpreis">
       <div class="bp-main">
-        <span class="bp-price">18.43&nbsp;€</span>
+        <span class="bp-price">18.42&nbsp;€</span>
         <span class="bp-shop">bookcorneruk</span>
         
       </div>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 17.62&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 17.78&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -168,7 +168,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/4AYAAeSw35BonxnV/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/286693673781?_skw=pandemie+Brettspiel&hash=item42c0464b35%3Ag%3A4AYAAeSw35BonxnV&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Pandemic - The Escape-Room Puzzle Book by Asmodee Group (Paperback Book)</a></h3>
             <div class="offer-meta">
-              <span class="price">18.43&nbsp;€</span>
+              <span class="price">18.42&nbsp;€</span>
               <span class="seller">bookcorneruk</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/286693673781?_skw=pandemie+Brettspiel&hash=item42c0464b35%3Ag%3A4AYAAeSw35BonxnV&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -180,7 +180,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/KyoAAeSwyL9onbem/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/286765189834?_skw=pandemie+Brettspiel&hash=item42c4898aca%3Ag%3AKyoAAeSwyL9onbem&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spielen mit der Realität: Gaming in der Pandemie</a></h3>
             <div class="offer-meta">
-              <span class="price">20.52&nbsp;€</span>
+              <span class="price">20.14&nbsp;€</span>
               <span class="seller">chalkys_uk</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/286765189834?_skw=pandemie+Brettspiel&hash=item42c4898aca%3Ag%3AKyoAAeSwyL9onbem&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -234,9 +234,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (4 Tage): 17.62&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (5 Tage): 17.78&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +278,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-23", "min": 16.83}, {"date": "2025-08-24", "min": 16.83}, {"date": "2025-08-25", "min": 18.37}, {"date": "2025-08-26", "min": 18.43}];
+    const hist = [{"date": "2025-08-23", "min": 16.83}, {"date": "2025-08-24", "min": 16.83}, {"date": "2025-08-25", "min": 18.37}, {"date": "2025-08-26", "min": 18.43}, {"date": "2025-08-27", "min": 18.42}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +287,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 18.43, avg7: 17.62});
+      window.renderPI({current: 18.42, avg7: 17.78});
     }
     
   });
@@ -308,8 +308,8 @@
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "lowPrice": "15.06",
-      "highPrice": "16.80",
+      "lowPrice": "15.05",
+      "highPrice": "16.42",
       "offerCount": "3"
     },
     

@@ -83,7 +83,7 @@
     
     <section class="best-price" aria-label="Bestpreis">
       <div class="bp-main">
-        <span class="bp-price">39.80&nbsp;€</span>
+        <span class="bp-price">39.89&nbsp;€</span>
         <span class="bp-shop">spiele-offensive</span>
         
       </div>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 40.37&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 40.29&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -168,7 +168,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/jLoAAeSwM5VoVa2k/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/388878249191?_skw=puerto+rico+Brettspiel&hash=item5a8af32ce7%3Ag%3AjLoAAeSwM5VoVa2k&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spiel Puerto Rico 1897 (Alea) NEU/OVP</a></h3>
             <div class="offer-meta">
-              <span class="price">39.80&nbsp;€</span>
+              <span class="price">39.89&nbsp;€</span>
               <span class="seller">spiele-offensive</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/388878249191?_skw=puerto+rico+Brettspiel&hash=item5a8af32ce7%3Ag%3AjLoAAeSwM5VoVa2k&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -222,9 +222,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 40.37&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 40.29&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -266,7 +266,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 42.64}, {"date": "2025-08-23", "min": 39.8}, {"date": "2025-08-24", "min": 39.8}, {"date": "2025-08-25", "min": 39.8}, {"date": "2025-08-26", "min": 39.8}];
+    const hist = [{"date": "2025-08-22", "min": 42.64}, {"date": "2025-08-23", "min": 39.8}, {"date": "2025-08-24", "min": 39.8}, {"date": "2025-08-25", "min": 39.8}, {"date": "2025-08-26", "min": 39.8}, {"date": "2025-08-27", "min": 39.89}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -275,7 +275,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 39.80, avg7: 40.37});
+      window.renderPI({current: 39.89, avg7: 40.29});
     }
     
   });
@@ -296,7 +296,7 @@
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
-      "lowPrice": "39.80",
+      "lowPrice": "39.89",
       "highPrice": "40.50",
       "offerCount": "2"
     },

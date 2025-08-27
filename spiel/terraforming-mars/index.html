@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 23.71&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 23.59&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -186,18 +186,6 @@
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404432444324?_skw=terraforming+mars+Brettspiel&hash=item5e2a0d5ba4%3Ag%3A6hAAAOSw-Bxk1RuT&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
           </article>
         
-          
-          <article class="offer-card" data-offer>
-            
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/mWYAAOSwpUdlKAey/s-l1600.jpg" alt="" loading="lazy">
-            <h3 class="offer-title"><a href="https://www.ebay.de/itm/404545597105?_skw=terraforming+mars+Brettspiel&hash=item5e30cbeeb1%3Ag%3AmWYAAOSwpUdlKAey&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Terraforming Mars - Hellas & Elysium DE</a></h3>
-            <div class="offer-meta">
-              <span class="price">28.96&nbsp;€</span>
-              <span class="seller">funtainment_muenchen</span>
-            </div>
-            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/404545597105?_skw=terraforming+mars+Brettspiel&hash=item5e30cbeeb1%3Ag%3AmWYAAOSwpUdlKAey&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
-          </article>
-        
         
           <article class="offer-card" data-offer>
             <h3 class="offer-title"><a href="https://www.amazon.de/s?k=Terraforming+Mars+deutsch&tag=28310edf-21" target="_blank" rel="nofollow sponsored noopener">Amazon</a></h3>
@@ -234,9 +222,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 23.71&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 23.59&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +266,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 26.6}, {"date": "2025-08-23", "min": 22.99}, {"date": "2025-08-24", "min": 22.99}, {"date": "2025-08-25", "min": 22.99}, {"date": "2025-08-26", "min": 22.99}];
+    const hist = [{"date": "2025-08-22", "min": 26.6}, {"date": "2025-08-23", "min": 22.99}, {"date": "2025-08-24", "min": 22.99}, {"date": "2025-08-25", "min": 22.99}, {"date": "2025-08-26", "min": 22.99}, {"date": "2025-08-27", "min": 22.99}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +275,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 22.99, avg7: 23.71});
+      window.renderPI({current: 22.99, avg7: 23.59});
     }
     
   });
@@ -309,8 +297,8 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "18.00",
-      "highPrice": "23.97",
-      "offerCount": "3"
+      "highPrice": "19.80",
+      "offerCount": "2"
     },
     
     "url": "/spiel/terraforming-mars/"

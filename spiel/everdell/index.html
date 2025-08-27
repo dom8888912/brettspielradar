@@ -91,7 +91,7 @@
       
         
         
-          <p class="bp-indicator">🟢 32.0% unter 7‑Tage-Ø</p>
+          <p class="bp-indicator">🟢 28.0% unter 7‑Tage-Ø</p>
         
       
     </section>
@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 15.06&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 14.25&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -189,13 +189,13 @@
           
           <article class="offer-card" data-offer>
             
-            <img class="offer-img" src="https://i.ebayimg.com/images/g/OqgAAeSw8ZNoqJ4a/s-l1600.jpg" alt="" loading="lazy">
-            <h3 class="offer-title"><a href="https://www.ebay.de/itm/388869002902?_skw=everdell+Brettspiel&hash=item5a8a661696%3Ag%3AOqgAAeSw8ZNoqJ4a&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spiel Everdell Duo (Pegasusspiele) NEU/OVP</a></h3>
+            <img class="offer-img" src="https://i.ebayimg.com/images/g/pAsAAOSwq9NkOQKy/s-l1600.jpg" alt="" loading="lazy">
+            <h3 class="offer-title"><a href="https://www.ebay.de/itm/226585266713?_skw=everdell+Brettspiel&hash=item34c188ca19%3Ag%3ApAsAAOSwq9NkOQKy&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Pegasus Spiele|My Lil´ Everdell|ab 8 Jahren</a></h3>
             <div class="offer-meta">
-              <span class="price">37.89&nbsp;€</span>
-              <span class="seller">spiele-offensive</span>
+              <span class="price">36.94&nbsp;€</span>
+              <span class="seller">buecher-de</span>
             </div>
-            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/388869002902?_skw=everdell+Brettspiel&hash=item5a8a661696%3Ag%3AOqgAAeSw8ZNoqJ4a&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+            <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/226585266713?_skw=everdell+Brettspiel&hash=item34c188ca19%3Ag%3ApAsAAOSwq9NkOQKy&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
           </article>
         
         
@@ -234,9 +234,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 15.06&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 14.25&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +278,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 34.55}, {"date": "2025-08-23", "min": 10.19}, {"date": "2025-08-24", "min": 10.19}, {"date": "2025-08-25", "min": 10.19}, {"date": "2025-08-26", "min": 10.19}];
+    const hist = [{"date": "2025-08-22", "min": 34.55}, {"date": "2025-08-23", "min": 10.19}, {"date": "2025-08-24", "min": 10.19}, {"date": "2025-08-25", "min": 10.19}, {"date": "2025-08-26", "min": 10.19}, {"date": "2025-08-27", "min": 10.19}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +287,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 10.19, avg7: 15.06});
+      window.renderPI({current: 10.19, avg7: 14.25});
     }
     
   });
@@ -309,7 +309,7 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "10.19",
-      "highPrice": "37.89",
+      "highPrice": "32.99",
       "offerCount": "3"
     },
     

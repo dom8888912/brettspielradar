@@ -133,9 +133,9 @@
     </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 19.02&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 18.90&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -180,7 +180,7 @@
             <img class="offer-img" src="https://i.ebayimg.com/images/g/7R8AAeSw-ihoqJ6U/s-l1600.jpg" alt="" loading="lazy">
             <h3 class="offer-title"><a href="https://www.ebay.de/itm/388869002893?_skw=gloomhaven+Brettspiel&hash=item5a8a66168d%3Ag%3A7R8AAeSw-ihoqJ6U&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Spiel Gloomhaven: Knöpfe & Krabbler (Feuerland Spiele) NEU/OVP</a></h3>
             <div class="offer-meta">
-              <span class="price">20.89&nbsp;€</span>
+              <span class="price">20.57&nbsp;€</span>
               <span class="seller">spiele-offensive</span>
             </div>
             <a class="btn btn-secondary offer-link" href="https://www.ebay.de/itm/388869002893?_skw=gloomhaven+Brettspiel&hash=item5a8a66168d%3Ag%3A7R8AAeSw-ihoqJ6U&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
@@ -234,9 +234,9 @@
       
     </div>
 
-    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 5 Tage">ℹ</span></h3>
+    <h3>Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 6 Tage">ℹ</span></h3>
     
-      <p class="avg-price">Durchschnitt (5 Tage): 19.02&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (6 Tage): 18.90&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -278,7 +278,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 22.0}, {"date": "2025-08-23", "min": 18.28}, {"date": "2025-08-24", "min": 18.28}, {"date": "2025-08-25", "min": 18.28}, {"date": "2025-08-26", "min": 18.28}];
+    const hist = [{"date": "2025-08-22", "min": 22.0}, {"date": "2025-08-23", "min": 18.28}, {"date": "2025-08-24", "min": 18.28}, {"date": "2025-08-25", "min": 18.28}, {"date": "2025-08-26", "min": 18.28}, {"date": "2025-08-27", "min": 18.28}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -287,7 +287,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 18.28, avg7: 19.02});
+      window.renderPI({current: 18.28, avg7: 18.90});
     }
     
   });
@@ -309,7 +309,7 @@
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
       "lowPrice": "18.00",
-      "highPrice": "20.89",
+      "highPrice": "20.57",
       "offerCount": "3"
     },
     
