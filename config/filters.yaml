@@ -50,3 +50,7 @@ seller_account_type: BUSINESS
 # Limit offers to items located in these countries (ISO codes)
 item_location_countries:
   - DE
+
+# eBay marketplace and currency settings
+marketplace_id: EBAY_DE
+price_currency: EUR

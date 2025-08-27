@@ -19,17 +19,16 @@ def load_module():
         return importlib.import_module("scripts.fetch_offers_ebay_enhanced")
 
 
-def test_queries_for_includes_alt_titles_and_synonyms():
+def test_queries_for_uses_explicit_search_terms_only():
     mod = load_module()
     game = {
         "title": "Catan",
         "slug": "catan",
-        "alt_titles": ["Die Siedler von Catan"],
-        "synonyms": ["Settlers of Catan"],
+        "search_terms": ["Catan Brettspiel", "Siedler von Catan"],
+        "alt_titles": ["ignored"],
     }
     queries = mod.queries_for(game)
-    assert "Die Siedler von Catan" in queries
-    assert "Settlers of Catan" in queries
+    assert queries == ["Catan Brettspiel", "Siedler von Catan"]
 
 
 def test_search_once_adds_filters():
