@@ -234,9 +234,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 3 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 4 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (3 Tage): 5.50&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (4 Tage): 5.50&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -332,7 +332,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}];
+    const hist = [{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}, {"date": "2025-08-30", "min": 5.5}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
