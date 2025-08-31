@@ -83,6 +83,16 @@ def test_fetch_for_game_passes_min_price():
         _, kwargs = mock_search.call_args
         assert kwargs["min_price"] == 5
 
+
+def test_fetch_for_game_uses_default_category_id():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"]}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = []
+        mod.fetch_for_game(game)
+        _, kwargs = mock_search.call_args
+        assert kwargs["category_id"] == "180349"
+
 def test_fetch_for_game_passes_aspect_filters():
     mod = load_module()
     game = {
