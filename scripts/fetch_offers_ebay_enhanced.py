@@ -240,7 +240,10 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
     slug = game.get("slug")
     if not slug:
         return []
-    category_id = str(game.get("ebay_category_id") or "").strip() or None
+    category_id = game.get("ebay_category_id")
+    category_id = str(category_id).strip() if category_id is not None else ""
+    if not category_id:
+        category_id = "180349"
     price_filter = game.get("price_filter") or {}
     aspect_filters = game.get("aspect_filters") or None
     exclude_terms = [t.lower() for t in game.get("exclude_keywords", []) if isinstance(t, str)]
