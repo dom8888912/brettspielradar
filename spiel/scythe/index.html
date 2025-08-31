@@ -125,7 +125,7 @@
 
     <dl class="pi-stats">
       <div><dt>Aktuell<span class="info-icon" title="Niedrigster Gesamtpreis heute inkl. Versand">ℹ</span></dt><dd id="pi-current">4.99&nbsp;€</dd></div>
-      <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">5.03&nbsp;€</dd></div>
+      <div><dt>Ø 7 Tage<span class="info-icon" title="Durchschnittlicher Gesamtpreis der letzten 7 Tage">ℹ</span></dt><dd id="pi-avg">5.02&nbsp;€</dd></div>
     </dl>
 
     <p class="pi-note">Basis: Tages-Bestpreis inkl. Versand vs. Ø der letzten 7 Tage.</p>
@@ -234,9 +234,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 8 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 9 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (8 Tage): 5.04&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (9 Tage): 5.03&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -332,7 +332,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-23", "min": 5.07}, {"date": "2025-08-24", "min": 5.07}, {"date": "2025-08-25", "min": 5.07}, {"date": "2025-08-26", "min": 5.08}, {"date": "2025-08-27", "min": 5.01}, {"date": "2025-08-28", "min": 5.01}, {"date": "2025-08-29", "min": 5.01}, {"date": "2025-08-30", "min": 4.99}];
+    const hist = [{"date": "2025-08-23", "min": 5.07}, {"date": "2025-08-24", "min": 5.07}, {"date": "2025-08-25", "min": 5.07}, {"date": "2025-08-26", "min": 5.08}, {"date": "2025-08-27", "min": 5.01}, {"date": "2025-08-28", "min": 5.01}, {"date": "2025-08-29", "min": 5.01}, {"date": "2025-08-30", "min": 4.99}, {"date": "2025-08-31", "min": 4.99}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
@@ -341,7 +341,7 @@
     }
     
     if (typeof window.renderPI === 'function'){
-      window.renderPI({current: 4.99, avg7: 5.03} );
+      window.renderPI({current: 4.99, avg7: 5.02} );
     }
     
     var moreBtn=document.getElementById('moreOffersBtn');
