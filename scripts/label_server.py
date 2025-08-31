@@ -192,6 +192,9 @@ function render(){
   container.innerHTML='';
   offers.forEach(o=>{
     const id=o.itemId || o.id || o.url;
+    if (labels[id] !== undefined){
+      return; // bereits gelabelt – ausblenden
+    }
     const div=document.createElement('div');
     div.className='offer';
     const img = o.image_url ? `<img src="${o.image_url}" alt="">` : '';
