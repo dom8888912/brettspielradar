@@ -198,8 +198,13 @@ function render(){
     const div=document.createElement('div');
     div.className='offer';
     const img = o.image_url ? `<img src="${o.image_url}" alt="">` : '';
-    const desc = o.description ? `<p>${o.description}</p>` : '';
-    div.innerHTML = `${img}<p><a href="${o.url}" target="_blank">${o.title||id}</a> – ${o.total_eur||o.price_eur||''} €</p>${desc}`;
+    div.innerHTML = `${img}<p><a href="${o.url}" target="_blank">${o.title||id}</a> – ${o.total_eur||o.price_eur||''} €</p>`;
+    const descText = o.description || o.subtitle;
+    if (descText){
+      const p=document.createElement('p');
+      p.textContent=descText;
+      div.appendChild(p);
+    }
     const rel=document.createElement('button');
     rel.textContent='relevant';
     rel.onclick=()=>{labels[id]=true; sendLabel(id,true); render();};

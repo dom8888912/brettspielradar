@@ -164,6 +164,44 @@ def test_label_page_shows_description(tmp_path, monkeypatch):
     assert "foo bar" in resp.data.decode()
 
 
+def test_label_page_escapes_description(tmp_path, monkeypatch):
+    offers_dir = tmp_path / "data" / "offers"
+    labels_dir = tmp_path / "data" / "labels"
+    logs_dir = tmp_path / "data" / "logs"
+    for d in (offers_dir, labels_dir, logs_dir):
+        d.mkdir(parents=True)
+
+    slug = "game"
+    offers_file = offers_dir / f"{slug}.json"
+    offers_file.write_text(
+        json.dumps([
+            {
+                "itemId": "1",
+                "url": "u",
+                "title": "t",
+                "description": "<b>bold</b>"
+            }
+        ]),
+        "utf-8",
+    )
+
+    monkeypatch.setattr(label_server, "OFFERS_DIR", offers_dir)
+    monkeypatch.setattr(label_server, "LABEL_DIR", labels_dir)
+    monkeypatch.setattr(label_server, "LOG_DIR", logs_dir)
+    monkeypatch.setattr(label_server, "LOG_FILE", logs_dir / "log.txt")
+    label_server.app.logger.handlers.clear()
+    label_server.app.logger.addHandler(logging.NullHandler())
+    monkeypatch.setattr(label_server, "USER", "u")
+    monkeypatch.setattr(label_server, "PASSWORD", "p")
+
+    client = label_server.app.test_client()
+    resp = client.get(f"/spiel/{slug}/training", headers=_auth_header())
+    assert resp.status_code == 200
+    body = resp.data.decode()
+    assert "<b>bold</b>" not in body
+    assert "\\u003cb\\u003ebold\\u003c/b\\u003e" in body
+
+
 def test_label_page_hides_negative_labels(tmp_path, monkeypatch):
     offers_dir = tmp_path / "data" / "offers"
     labels_dir = tmp_path / "data" / "labels"
