@@ -1,4 +1,4 @@
-import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re, joblib
+import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re, joblib, logging
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -12,6 +12,14 @@ PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 HUBS_CFG = ROOT / "content" / "hubs.yaml"
 MODEL_PATH = ROOT / "data" / "relevance_model.pkl"
+
+LOG_DIR = ROOT / "data" / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+logging.basicConfig(
+    filename=LOG_DIR / "build.log",
+    level=logging.WARNING,
+    format="%(asctime)s %(levelname)s: %(message)s",
+)
 
 EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
@@ -207,6 +215,12 @@ def render_game(yaml_path, site_url):
 
     required_fields = ["players", "playtime", "playtime_minutes", "complexity", "weight", "year"]
     missing_fields = [f for f in required_fields if not game.get(f)]
+    if missing_fields:
+        logging.warning(
+            "Missing YAML fields for %s: %s",
+            game.get("slug"),
+            ", ".join(missing_fields),
+        )
 
     offers_raw, fetched_at = load_offers(game["slug"])
     labels = load_labels(game["slug"])
@@ -306,7 +320,6 @@ def render_game(yaml_path, site_url):
         amazon_search_url=amazon_search_url,
         history=hist30,
         history_json=json.dumps(hist30),
-        missing_fields=missing_fields,
         hub=hub,
         breadcrumb_json=json.dumps(breadcrumb, ensure_ascii=False)
     )
