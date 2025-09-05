@@ -93,6 +93,25 @@ def test_fetch_for_game_uses_default_category_id():
         _, kwargs = mock_search.call_args
         assert kwargs["category_id"] == "180349"
 
+
+def test_fetch_for_game_filters_wrong_category():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"], "ebay_category_id": "180349"}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan",
+                "categoryId": "123",
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers == []
+
 def test_fetch_for_game_passes_aspect_filters():
     mod = load_module()
     game = {

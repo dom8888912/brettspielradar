@@ -8,6 +8,7 @@
 - Supports per-game YAML `search_terms` (DE+EN), tries multiple queries
 - Excludes accessory items and private sellers, keeps only new-condition listings
 - Robust price detection (price / priceRange.min / currentBidPrice), EUR only
+- Filters results to the requested eBay category (default: board games)
 """
 
 import os, json, time, datetime as dt
@@ -267,6 +268,9 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
         for it in items:
             iid = it.get("itemId")
             if not iid or iid in seen:
+                continue
+            cat_id_item = str(it.get("categoryId") or "")
+            if category_id and cat_id_item and cat_id_item != category_id:
                 continue
             price = pick_price_eur(it)
             if price is None or price <= 0:
