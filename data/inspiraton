@@ -1,77 +1,49 @@
 <!--
-  Drop-in Preisindikator (responsive, barrierearm, SEO-ready)
-  — Kopiere diesen Block an die Stelle, wo aktuell dein Preisindikator steht.
-  — Übergib Live-Daten via data-Attributen (siehe data-*) oder ersetze die Platzhalter im <script>.
-  — Keine externen Dependencies. Läuft mit Vanilla JS + Inline SVG.
+  Minimaler Preisindikator (nur: Niedrigster, Höchster, Aktuell + Einschätzung)
+  — Drop‑in: Kopiere diesen Block an die Stelle des alten Widgets.
+  — Daten als data‑Attribute übergeben (siehe data‑* unten).
+  — Keine Tabelle, keine zusätzlichen Kennzahlen.
 -->
 <section id="preisindikator" class="bpr-price-indicator" aria-labelledby="preisindikator__title"
   data-currency="EUR"
   data-product-name="7 Wonders"
   data-product-url="https://brettspielpreisradar.de/spiel/7-wonders/"
-  data-product-image="https://brettspielpreisradar.de/wp-content/uploads/2025/01/7-wonders.jpg"
+  data-product-image=""
   data-current="19.99"
-  data-seven-day-average="20.02"
-  data-history="[23.49,22.90,22.20,21.99,21.49,21.10,20.90,20.60,20.30,20.02,20.15,20.10,19.99]"
-  data-offer-url="https://www.ebay.de/itm/"
-  data-availability="InStock"
-  >
+  data-low="18.49"
+  data-high="28.99"
+  data-offer-url="https://example.com/angebot"
+  data-availability="InStock">
+
   <div class="bpr-card">
     <header class="bpr-header">
       <h2 id="preisindikator__title" class="bpr-title">Preisindikator</h2>
-      <div class="bpr-pill" role="status" aria-live="polite" aria-atomic="true">
-        <span class="bpr-pill__dot" aria-hidden="true"></span>
-        <span class="bpr-pill__label">–</span>
+      <div class="bpr-badge" role="status" aria-live="polite" aria-atomic="true">
+        <span class="bpr-badge__dot" aria-hidden="true"></span>
+        <span class="bpr-badge__label">–</span>
       </div>
     </header>
 
-    <div class="bpr-grid">
-      <div class="bpr-main">
-        <div class="bpr-price">
-          <div class="bpr-price__label">Aktuell</div>
-          <div class="bpr-price__value" data-field="current">– €</div>
-          <div class="bpr-price__delta" data-field="delta">–%</div>
-        </div>
-
-        <div class="bpr-metrics" role="group" aria-label="Preis-Kennzahlen">
-          <div class="bpr-metric">
-            <div class="bpr-metric__label">Ø 7 Tage</div>
-            <div class="bpr-metric__value" data-field="avg7">– €</div>
-          </div>
-          <div class="bpr-metric">
-            <div class="bpr-metric__label">30-Tage-Tief</div>
-            <div class="bpr-metric__value" data-field="low30">– €</div>
-          </div>
-          <div class="bpr-metric">
-            <div class="bpr-metric__label">30-Tage-Hoch</div>
-            <div class="bpr-metric__value" data-field="high30">– €</div>
-          </div>
-        </div>
-
-        <div class="bpr-gauge" role="img" aria-label="aktueller Preis relativ zum 30‑Tage‑Spektrum">
-          <div class="bpr-gauge__track" aria-hidden="true"></div>
-          <div class="bpr-gauge__fill" aria-hidden="true"></div>
-          <div class="bpr-gauge__marker" aria-hidden="true"><span>Jetzt</span></div>
-          <div class="bpr-gauge__legend">
-            <span class="bpr-gauge__min" data-field="low30">– €</span>
-            <span class="bpr-gauge__mid">Ø</span>
-            <span class="bpr-gauge__max" data-field="high30">– €</span>
-          </div>
-        </div>
+    <div class="bpr-compact">
+      <div class="bpr-current" role="group" aria-label="Aktueller Preis">
+        <div class="bpr-current__label">Aktuell</div>
+        <div class="bpr-current__value" data-field="current">– €</div>
+        <a class="bpr-cta" href="#" rel="nofollow sponsored" data-field="offerUrl">Zum Angebot</a>
       </div>
 
-      <div class="bpr-side">
-        <figure class="bpr-spark">
-          <svg viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30‑Tage‑Preisverlauf">
-            <polyline class="bpr-spark__line" points="" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" />
-            <circle class="bpr-spark__dot" cx="0" cy="0" r="2.5" />
-          </svg>
-          <figcaption>Preisverlauf (30 Tage)</figcaption>
-        </figure>
-
-        <a class="bpr-cta" href="#" rel="nofollow sponsored" data-field="offerUrl">
-          <span class="bpr-cta__label">Zum Angebot</span>
-          <span class="bpr-cta__price" data-field="current">– €</span>
-        </a>
+      <div class="bpr-gauge" role="img" aria-label="Position des aktuellen Preises zwischen Niedrigstem und Höchstem">
+        <div class="bpr-gauge__track" aria-hidden="true"></div>
+        <div class="bpr-gauge__marker" aria-hidden="true"><span>Jetzt</span></div>
+        <div class="bpr-gauge__legend" aria-hidden="true">
+          <div class="bpr-gauge__legend-item">
+            <small>Niedrigster</small>
+            <strong data-field="low">– €</strong>
+          </div>
+          <div class="bpr-gauge__legend-item">
+            <small>Höchster</small>
+            <strong data-field="high">– €</strong>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +57,7 @@
     --bpr-muted: #a3adbd;
     --bpr-border: #222633;
     --bpr-good: #22c55e;
-    --bpr-ok: #eab308;
+    --bpr-mid: #eab308;
     --bpr-high: #ef4444;
     --bpr-link: #60a5fa;
   }
@@ -99,47 +71,32 @@
       --bpr-link: #2563eb;
     }
   }
-  .bpr-price-indicator { color: var(--bpr-text); background: transparent; }
-  .bpr-card { border: 1px solid var(--bpr-border); background: var(--bpr-card); border-radius: 16px; padding: clamp(16px, 2.5vw, 24px); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
-  .bpr-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-  .bpr-title { font-size: clamp(18px, 2.4vw, 22px); margin: 0; letter-spacing: .2px; }
-  .bpr-pill { display: inline-flex; gap: .5rem; align-items: center; border: 1px solid var(--bpr-border); border-radius: 999px; padding: 6px 10px; font-weight: 600; font-size: .9rem; background: rgba(255,255,255,.03); }
-  .bpr-pill__dot { width: 10px; height: 10px; border-radius: 999px; background: var(--bpr-ok); box-shadow: 0 0 0 4px rgba(0,0,0,.05) inset; }
-  .bpr-pill__label { color: var(--bpr-muted); }
+  .bpr-price-indicator { color: var(--bpr-text); }
+  .bpr-card { border: 1px solid var(--bpr-border); background: var(--bpr-card); border-radius: 16px; padding: clamp(16px, 2.5vw, 22px); box-shadow: 0 6px 22px rgba(0,0,0,.12); }
 
-  .bpr-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-  @media (min-width: 880px) { .bpr-grid { grid-template-columns: 1.2fr .8fr; gap: 24px; } }
+  .bpr-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+  .bpr-title { margin:0; font-size: clamp(18px, 2.2vw, 22px); letter-spacing:.2px; }
+  .bpr-badge { display:inline-flex; gap:.5rem; align-items:center; border:1px solid var(--bpr-border); border-radius:999px; padding:6px 10px; font-weight:700; font-size:.9rem; background: rgba(255,255,255,.03); }
+  .bpr-badge__dot { width:10px; height:10px; border-radius:999px; background: var(--bpr-mid); box-shadow: 0 0 0 4px rgba(0,0,0,.05) inset; }
+  .bpr-badge__label { color: var(--bpr-muted); }
 
-  .bpr-price { display: grid; grid-template-columns: auto 1fr; grid-template-areas: 'label value' 'delta delta'; align-items: end; column-gap: 12px; }
-  .bpr-price__label { grid-area: label; color: var(--bpr-muted); font-weight: 600; }
-  .bpr-price__value { grid-area: value; font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: .2px; }
-  .bpr-price__delta { grid-area: delta; color: var(--bpr-muted); font-weight: 600; margin-top: 4px; }
+  .bpr-compact { display:grid; grid-template-columns: 1fr; gap:18px; }
+  @media (min-width: 780px) { .bpr-compact { grid-template-columns: .85fr 1.15fr; gap:24px; } }
 
-  .bpr-metrics { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
-  .bpr-metric { border: 1px dashed var(--bpr-border); border-radius: 12px; padding: 10px 12px; }
-  .bpr-metric__label { color: var(--bpr-muted); font-size: .82rem; }
-  .bpr-metric__value { font-weight: 700; margin-top: 2px; }
+  .bpr-current { display:grid; align-content:start; gap:8px; }
+  .bpr-current__label { color: var(--bpr-muted); font-weight:600; }
+  .bpr-current__value { font-size: clamp(28px, 5vw, 40px); font-weight:800; letter-spacing:.2px; }
+  .bpr-cta { display:inline-flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; text-decoration:none; border:1px solid var(--bpr-border); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)); font-weight:700; color: var(--bpr-text); width:max-content; }
+  .bpr-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.12); }
+  @media (prefers-reduced-motion: reduce) { .bpr-cta:hover { transform:none; } }
 
-  .bpr-gauge { position: relative; margin-top: 14px; padding-top: 16px; }
-  .bpr-gauge__track { height: 10px; background: linear-gradient(90deg, var(--bpr-good) 0 33%, var(--bpr-ok) 33% 66%, var(--bpr-high) 66% 100%); border-radius: 999px; opacity: .85; }
-  .bpr-gauge__fill { position: absolute; left: 0; top: 16px; height: 10px; width: 0; background: rgba(255,255,255,.2); border-radius: 999px; pointer-events: none; }
-  .bpr-gauge__marker { position: absolute; top: 8px; transform: translate(-50%, -50%); background: var(--bpr-card); border: 1px solid var(--bpr-border); padding: 2px 6px; border-radius: 8px; font-size: .75rem; white-space: nowrap; }
-  .bpr-gauge__legend { display: flex; justify-content: space-between; margin-top: 8px; font-size: .8rem; color: var(--bpr-muted); }
-
-  .bpr-side { display: grid; gap: 14px; align-content: start; }
-  .bpr-spark { display: grid; gap: 8px; }
-  .bpr-spark svg { width: 100%; height: 120px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)); border: 1px solid var(--bpr-border); border-radius: 12px; padding: 8px; }
-  .bpr-spark__line { stroke: var(--bpr-link); }
-  .bpr-spark__dot { fill: var(--bpr-link); }
-  .bpr-spark figcaption { text-align: center; color: var(--bpr-muted); font-size: .8rem; }
-
-  .bpr-cta { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 12px; text-decoration: none; border: 1px solid var(--bpr-border); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)); font-weight: 700; color: var(--bpr-text); }
-  .bpr-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,.12); }
-  .bpr-cta__label { letter-spacing: .2px; }
-  .bpr-cta__price { color: var(--bpr-muted); }
-
-  /* Motion-respekt */
-  @media (prefers-reduced-motion: reduce) { .bpr-cta:hover { transform: none; } }
+  .bpr-gauge { position: relative; }
+  .bpr-gauge__track { height: 14px; border-radius: 999px; background: linear-gradient(90deg, var(--bpr-good), var(--bpr-mid) 50%, var(--bpr-high)); opacity:.9; }
+  .bpr-gauge__marker { position:absolute; top: -3px; left:0; transform: translate(-50%, 0); background: var(--bpr-card); border:1px solid var(--bpr-border); padding: 2px 6px; border-radius: 8px; font-size:.75rem; font-weight:700; white-space:nowrap; }
+  .bpr-gauge__legend { display:flex; justify-content:space-between; gap:12px; margin-top:8px; }
+  .bpr-gauge__legend-item { display:grid; }
+  .bpr-gauge__legend-item small { color: var(--bpr-muted); }
+  .bpr-gauge__legend-item strong { font-weight:800; }
 </style>
 
 <script>
@@ -147,7 +104,7 @@
   const el = document.querySelector('#preisindikator');
   if(!el) return;
 
-  // ---- Daten aus data-* lesen ----
+  // Daten
   const currency = el.dataset.currency || 'EUR';
   const name = el.dataset.productName || document.querySelector('h1')?.textContent?.trim() || 'Produkt';
   const url = el.dataset.productUrl || location.href;
@@ -156,81 +113,60 @@
   const availability = el.dataset.availability || 'InStock';
 
   const cur = Number(el.dataset.current || 0);
-  const avg7 = Number(el.dataset.sevenDayAverage || 0);
-  let history = [];
-  try { history = JSON.parse(el.dataset.history || '[]'); } catch(e) { history = []; }
+  let low = Number(el.dataset.low || NaN);
+  let high = Number(el.dataset.high || NaN);
+
+  // Fallback: falls low/high nicht gesetzt sind, optional aus history ableiten
+  if((isNaN(low) || isNaN(high)) && el.dataset.history){
+    try{
+      const hist = JSON.parse(el.dataset.history);
+      if(Array.isArray(hist) && hist.length){
+        low = Math.min(...hist); high = Math.max(...hist);
+      }
+    }catch(e){}
+  }
+
+  if(isNaN(low)) low = cur;
+  if(isNaN(high)) high = cur;
+  const range = Math.max(0.01, high - low);
+  const pos = Math.max(0, Math.min(1, (cur - low) / range)); // 0 = niedrigster, 1 = höchster
+
+  // Einschätzung je nach Position
+  let label = 'fair';
+  let tone = 'mid';
+  if(pos <= 0.2){ label = 'sehr günstig'; tone = 'good'; }
+  else if(pos <= 0.4){ label = 'günstig'; tone = 'good'; }
+  else if(pos <= 0.6){ label = 'fair'; tone = 'mid'; }
+  else if(pos <= 0.8){ label = 'hoch'; tone = 'high'; }
+  else { label = 'sehr hoch'; tone = 'high'; }
 
   const nf = new Intl.NumberFormat('de-DE', { style: 'currency', currency });
-  const pctf = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
 
-  // ---- Ableitungen ----
-  const low30 = history.length ? Math.min(...history) : Math.min(cur, avg7 || cur);
-  const high30 = history.length ? Math.max(...history) : Math.max(cur, avg7 || cur);
-  const delta = avg7 ? ((cur - avg7) / avg7) : 0; // negativ = günstiger
-
-  // ---- Status bestimmen ----
-  let statusLabel = 'OK';
-  let statusTone = 'ok';
-  if(delta <= -0.10) { statusLabel = 'Top‑Deal'; statusTone = 'good'; }
-  else if(delta <= -0.03) { statusLabel = 'Gut'; statusTone = 'good'; }
-  else if(Math.abs(delta) <= 0.03) { statusLabel = 'OK'; statusTone = 'ok'; }
-  else { statusLabel = 'Hoch'; statusTone = 'high'; }
-
-  // ---- DOM füllen ----
-  el.querySelectorAll('[data-field="current"]').forEach(n => n.textContent = nf.format(cur));
-  const avgEl = el.querySelector('[data-field="avg7"]'); if(avgEl) avgEl.textContent = nf.format(avg7 || cur);
-  el.querySelectorAll('[data-field="low30"]').forEach(n => n.textContent = nf.format(low30));
-  el.querySelectorAll('[data-field="high30"]').forEach(n => n.textContent = nf.format(high30));
-  const deltaEl = el.querySelector('[data-field="delta"]');
-  if(deltaEl) {
-    const sign = delta > 0 ? '+' : '';
-    deltaEl.textContent = `${sign}${pctf.format(delta * 100)} vs. 7‑Tage‑Ø`;
-  }
-  const pill = el.querySelector('.bpr-pill');
-  if(pill) {
-    const dot = pill.querySelector('.bpr-pill__dot');
-    const lab = pill.querySelector('.bpr-pill__label');
-    if(dot) dot.style.background = statusTone === 'good' ? 'var(--bpr-good)' : statusTone === 'ok' ? 'var(--bpr-ok)' : 'var(--bpr-high)';
-    if(lab) lab.textContent = statusLabel;
-  }
-
-  const cta = el.querySelector('.bpr-cta');
+  // DOM füllen (nur drei Zahlen sichtbar)
+  el.querySelector('[data-field="current"]').textContent = nf.format(cur);
+  el.querySelector('[data-field="low"]').textContent = nf.format(low);
+  el.querySelector('[data-field="high"]').textContent = nf.format(high);
+  const cta = el.querySelector('[data-field="offerUrl"]');
   if(cta) cta.href = offerUrl || '#';
 
-  // ---- Gauge positionieren ----
-  const gaugeFill = el.querySelector('.bpr-gauge__fill');
-  const gaugeMarker = el.querySelector('.bpr-gauge__marker');
-  const range = Math.max(0.01, high30 - low30);
-  const pct = Math.max(0, Math.min(1, (cur - low30) / range));
-  const pctMid = avg7 ? Math.max(0, Math.min(1, (avg7 - low30) / range)) : 0.5;
-  if(gaugeFill) gaugeFill.style.width = `${pct * 100}%`;
-  if(gaugeMarker) gaugeMarker.style.left = `${pct * 100}%`;
-  // place the mid label approximately where avg is
-  const mid = el.querySelector('.bpr-gauge__mid');
-  if(mid) mid.style.transform = `translateX(${(pctMid*100 - 50)*.2}%)`;
-
-  // ---- Sparkline zeichnen ----
-  const svg = el.querySelector('.bpr-spark svg');
-  if(svg && history.length) {
-    const w = 100, h = 40; // ViewBox
-    const min = low30, max = high30;
-    const xStep = w / (history.length - 1);
-    const points = history.map((v,i)=>{
-      const x = i * xStep;
-      const y = h - ((v - min) / Math.max(0.01, max - min)) * h;
-      return `${x.toFixed(2)},${y.toFixed(2)}`;
-    }).join(' ');
-    svg.querySelector('.bpr-spark__line').setAttribute('points', points);
-    const lastX = (history.length - 1) * xStep;
-    const lastY = h - ((history[history.length-1] - min) / Math.max(0.01, max - min)) * h;
-    svg.querySelector('.bpr-spark__dot').setAttribute('cx', lastX);
-    svg.querySelector('.bpr-spark__dot').setAttribute('cy', lastY);
-  } else if(svg) {
-    // Keine Daten: dezent verstecken
-    svg.parentElement.style.display = 'none';
+  // Badge
+  const badge = el.querySelector('.bpr-badge');
+  const dot = badge?.querySelector('.bpr-badge__dot');
+  const lab = badge?.querySelector('.bpr-badge__label');
+  if(lab) lab.textContent = label;
+  if(dot){
+    dot.style.background = tone === 'good' ? 'var(--bpr-good)' : tone === 'mid' ? 'var(--bpr-mid)' : 'var(--bpr-high)';
   }
 
-  // ---- JSON‑LD (SEO) injizieren ----
+  // Gauge Marker
+  const marker = el.querySelector('.bpr-gauge__marker');
+  if(marker){ marker.style.left = `${pos * 100}%`; }
+
+  // A11y: Zusammenfassung am Widget
+  const aria = `Aktueller Preis ${nf.format(cur)}, niedrigster ${nf.format(low)}, höchster ${nf.format(high)} – Einschätzung: ${label}.`;
+  el.setAttribute('aria-label', aria);
+
+  // SEO: JSON‑LD (Product + Offer)
   const jsonld = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -242,7 +178,7 @@
       url: offerUrl || url,
       priceCurrency: currency,
       price: cur.toFixed(2),
-      availability: `https://schema.org/${availability}`,
+      availability: `https://schema.org/${availability}`
     }
   };
   const s = document.createElement('script');
