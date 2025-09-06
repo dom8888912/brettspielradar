@@ -40,3 +40,6 @@ item_location_countries:
 # eBay marketplace and currency settings
 marketplace_id: EBAY_DE
 price_currency: EUR
+
+# Default eBay category for searches (board games)
+default_ebay_category_id: 180349

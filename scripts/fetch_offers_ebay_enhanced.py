@@ -108,6 +108,11 @@ ITEM_LOCATION_COUNTRIES = [
 MARKETPLACE_ID = FILTER_CFG.get("marketplace_id", "EBAY_DE")
 PRICE_CURRENCY = FILTER_CFG.get("price_currency", "EUR")
 
+# Default eBay category ID used when games do not specify one
+DEFAULT_CATEGORY_ID = str(
+    FILTER_CFG.get("default_ebay_category_id", "180349")
+).strip()
+
 HEADERS = build_headers()
 
 
@@ -244,7 +249,7 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
     category_id = game.get("ebay_category_id")
     category_id = str(category_id).strip() if category_id is not None else ""
     if not category_id:
-        category_id = "180349"
+        category_id = DEFAULT_CATEGORY_ID
     price_filter = game.get("price_filter") or {}
     aspect_filters = game.get("aspect_filters") or None
     exclude_terms = [t.lower() for t in game.get("exclude_keywords", []) if isinstance(t, str)]

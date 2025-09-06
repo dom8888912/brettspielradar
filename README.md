@@ -30,9 +30,11 @@ py scripts\build.py
 
 In `config/filters.yaml` kannst du den Marktplatz und die Währung anpassen
 (`marketplace_id`, `price_currency`). Standard ist `EBAY_DE` mit `EUR` und
-`item_location_countries: [DE]` für Angebote aus Deutschland. Pro Spiel lässt
- sich in `content/games/<slug>.yaml` über `search_terms` festlegen, welche
- Schlüsselwörter an die eBay‑API übergeben werden. Ein optionales
+`item_location_countries: [DE]` für Angebote aus Deutschland. Über
+`default_ebay_category_id` legst du fest, welche eBay-Kategorie für die Suche
+verwendet wird (z. B. `180349` für Brettspiele). Pro Spiel lässt
+sich in `content/games/<slug>.yaml` über `search_terms` festlegen, welche
+Schlüsselwörter an die eBay‑API übergeben werden. Ein optionales
 `price_filter: {min: 20}` setzt einen Mindestpreis.
 
 **Amazon Affiliate**
