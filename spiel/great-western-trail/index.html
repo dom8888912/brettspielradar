@@ -230,9 +230,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 15 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 16 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (15 Tage): 16.66&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (16 Tage): 16.11&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -328,7 +328,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 35.08}, {"date": "2025-08-23", "min": 33.94}, {"date": "2025-08-24", "min": 33.94}, {"date": "2025-08-25", "min": 33.94}, {"date": "2025-08-26", "min": 33.94}, {"date": "2025-08-27", "min": 7.9}, {"date": "2025-08-28", "min": 7.9}, {"date": "2025-08-29", "min": 7.9}, {"date": "2025-08-30", "min": 7.9}, {"date": "2025-08-31", "min": 7.9}, {"date": "2025-09-01", "min": 7.9}, {"date": "2025-09-02", "min": 7.9}, {"date": "2025-09-03", "min": 7.9}, {"date": "2025-09-04", "min": 7.9}, {"date": "2025-09-05", "min": 7.9}];
+    const hist = [{"date": "2025-08-22", "min": 35.08}, {"date": "2025-08-23", "min": 33.94}, {"date": "2025-08-24", "min": 33.94}, {"date": "2025-08-25", "min": 33.94}, {"date": "2025-08-26", "min": 33.94}, {"date": "2025-08-27", "min": 7.9}, {"date": "2025-08-28", "min": 7.9}, {"date": "2025-08-29", "min": 7.9}, {"date": "2025-08-30", "min": 7.9}, {"date": "2025-08-31", "min": 7.9}, {"date": "2025-09-01", "min": 7.9}, {"date": "2025-09-02", "min": 7.9}, {"date": "2025-09-03", "min": 7.9}, {"date": "2025-09-04", "min": 7.9}, {"date": "2025-09-05", "min": 7.9}, {"date": "2025-09-06", "min": 7.9}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
