@@ -16,13 +16,15 @@
   --shadow:0 8px 24px rgba(0,0,0,.08);
   --badge:#334155;
   --badge-text:#e2e8f0;
-  --pi-green:#0a8f55;
-  --pi-orange:#b26a00;
-  --pi-red:#b00020;
-  --pi-bg:#f6f7f9;
-  --pi-fg:#0d1117;
-  --pi-muted:#6b7280;
   --pi-ring:rgba(0,0,0,.08);
+  --bpr-card:var(--panel);
+  --bpr-text:var(--text);
+  --bpr-muted:var(--muted);
+  --bpr-border:var(--border);
+  --bpr-good:var(--good);
+  --bpr-ok:var(--ok);
+  --bpr-high:var(--high);
+  --bpr-link:var(--color-primary);
 }
 
 *{box-sizing:border-box}
@@ -88,27 +90,44 @@ a:hover{text-decoration:underline}
   .bp-img{max-width:260px;margin-left:auto;margin-right:auto}
 }
 
-/* Price Indicator */
-.price-indicator{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--pi-fg)}
-.pi-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.pi-title{font-weight:600}
-.pi-badge{font-weight:700;padding:4px 8px;border-radius:999px;background:var(--pi-bg)}
-.pi-badge.green{background:#dcefe7;background:color-mix(in srgb,var(--pi-green) 14%,white);color:var(--pi-green)}
-.pi-badge.orange{background:#f4eadb;background:color-mix(in srgb,var(--pi-orange) 14%,white);color:var(--pi-orange)}
-.pi-badge.red{background:#f4dbe0;background:color-mix(in srgb,var(--pi-red) 14%,white);color:var(--pi-red)}
+/* Layout for Bestpreis + Preisindikator */
+.hero-offers{display:flex;flex-direction:column;gap:14px;margin:14px 0}
+@media (min-width:880px){.hero-offers{flex-direction:row}.hero-offers>section{flex:1;margin:0}}
 
-.pi-bar{position:relative;height:10px;border-radius:999px;overflow:hidden;margin:8px 0 6px;box-shadow:inset 0 0 0 1px var(--pi-ring);background:linear-gradient(to right,#d2eae0 0%,#d2eae0 33.33%,#f1e4d1 33.33%,#f1e4d1 66.66%,#f0d1d7 66.66%,#f0d1d7 100%);background:linear-gradient(to right,color-mix(in srgb,var(--pi-green) 18%,white) 0%,color-mix(in srgb,var(--pi-green) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 33.33%,color-mix(in srgb,var(--pi-orange) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 66.66%,color-mix(in srgb,var(--pi-red) 18%,white) 100%)}
-.pi-marker{position:absolute;top:-4px;width:2px;height:18px;background:#111;left:50%;transform:translateX(-1px)}
-.pi-marker.green{background:var(--pi-green)}
-.pi-marker.orange{background:var(--pi-orange)}
-.pi-marker.red{background:var(--pi-red)}
-
-
-.pi-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;margin:6px 0}
-.pi-stats dt{font-weight:600;color:var(--pi-muted)}
-.pi-stats dd{margin:0}
-.pi-note{margin:6px 0 0;color:var(--pi-muted);font-size:12px}
-@media (max-width:420px){ .pi-stats{grid-template-columns:1fr} }
+/* Neuer Preisindikator */
+.bpr-price-indicator{color:var(--bpr-text);background:transparent}
+.bpr-card{border:1px solid var(--bpr-border);background:var(--bpr-card);border-radius:16px;padding:clamp(16px,2.5vw,24px);box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.bpr-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.bpr-title{font-size:clamp(18px,2.4vw,22px);margin:0;letter-spacing:.2px}
+.bpr-pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid var(--bpr-border);border-radius:999px;padding:6px 10px;font-weight:600;font-size:.9rem;background:rgba(255,255,255,.03)}
+.bpr-pill__dot{width:10px;height:10px;border-radius:999px;background:var(--bpr-ok);box-shadow:0 0 0 4px rgba(0,0,0,.05) inset}
+.bpr-pill__label{color:var(--bpr-muted)}
+.bpr-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:880px){.bpr-grid{grid-template-columns:1.2fr .8fr;gap:24px}}
+.bpr-price{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'label value' 'delta delta';align-items:end;column-gap:12px}
+.bpr-price__label{grid-area:label;color:var(--bpr-muted);font-weight:600}
+.bpr-price__value{grid-area:value;font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.2px}
+.bpr-price__delta{grid-area:delta;color:var(--bpr-muted);font-weight:600;margin-top:4px}
+.bpr-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.bpr-metric{border:1px dashed var(--bpr-border);border-radius:12px;padding:10px 12px}
+.bpr-metric__label{color:var(--bpr-muted);font-size:.82rem}
+.bpr-metric__value{font-weight:700;margin-top:2px}
+.bpr-gauge{position:relative;margin-top:14px;padding-top:16px}
+.bpr-gauge__track{height:10px;background:linear-gradient(90deg,var(--bpr-good) 0 33%,var(--bpr-ok) 33% 66%,var(--bpr-high) 66% 100%);border-radius:999px;opacity:.85}
+.bpr-gauge__fill{position:absolute;left:0;top:16px;height:10px;width:0;background:rgba(255,255,255,.2);border-radius:999px;pointer-events:none}
+.bpr-gauge__marker{position:absolute;top:8px;transform:translate(-50%,-50%);background:var(--bpr-card);border:1px solid var(--bpr-border);padding:2px 6px;border-radius:8px;font-size:.75rem;white-space:nowrap}
+.bpr-gauge__legend{display:flex;justify-content:space-between;margin-top:8px;font-size:.8rem;color:var(--bpr-muted)}
+.bpr-side{display:grid;gap:14px;align-content:start}
+.bpr-spark{display:grid;gap:8px}
+.bpr-spark svg{width:100%;height:120px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));border:1px solid var(--bpr-border);border-radius:12px;padding:8px}
+.bpr-spark__line{stroke:var(--bpr-link)}
+.bpr-spark__dot{fill:var(--bpr-link)}
+.bpr-spark figcaption{text-align:center;color:var(--bpr-muted);font-size:.8rem}
+.bpr-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;border:1px solid var(--bpr-border);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));font-weight:700;color:var(--bpr-text)}
+.bpr-cta:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.12)}
+.bpr-cta__label{letter-spacing:.2px}
+.bpr-cta__price{color:var(--bpr-muted)}
+@media (prefers-reduced-motion:reduce){.bpr-cta:hover{transform:none}}
 
 .price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0}
 .info-icon{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--info);color:var(--text);font-size:.7rem;line-height:14px;text-align:center;margin-left:4px;cursor:help;font-style:normal;font-weight:700}
