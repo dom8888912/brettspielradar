@@ -77,37 +77,33 @@
     </div>
     <p class="affiliate-note muted">Hinweis: Links mit „Zum Angebot“ sind Affiliate-Links.</p>
     {% if offers and offers|length > 0 %}
-    <div class="offer-grid">
-      {% for o in offers %}
-        {% set extra = loop.index > 4 %}
-        {% set sep = '?' if '?' not in o.url else '&' %}
-        <article class="offer-card{% if loop.first %} top{% endif %}{% if extra %} extra{% endif %}" {% if extra %}style="display:none"{% endif %} data-offer>
-          {% if loop.first %}<div class="badge">Bestpreis</div>{% endif %}
-          {% if o.image_url %}<img class="offer-img" src="{{ o.image_url }}" alt="" loading="lazy">{% endif %}
-          <h3 class="offer-title"><a href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a></h3>
-          <div class="offer-meta">
-            <span class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</span>
-            {% if o.condition %}<span class="condition">{{ o.condition }}</span>{% endif %}
-            {% if o.shop %}<span class="seller">{{ o.shop }}</span>{% endif %}
-          </div>
-          <a class="btn btn-secondary offer-link" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ o.shop }}','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
-        </article>
-      {% endfor %}
-    </div>
-    <table class="offers-table">
+    <table class="price-table">
       <thead>
-        <tr><th>Angebot</th><th>Preis</th><th>Zustand</th><th>Shop</th><th></th></tr>
+        <tr>
+          <th>Angebot</th>
+          <th>Preis</th>
+          <th>Zustand</th>
+          <th>Shop</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
         {% for o in offers %}
           {% set extra = loop.index > 4 %}
           {% set sep = '?' if '?' not in o.url else '&' %}
-          <tr class="offer-row{% if loop.first %} best{% endif %}{% if extra %} extra{% endif %}" {% if extra %}style="display:none"{% endif %} data-offer>
-            <td class="offer-title"><a href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a>{% if loop.first %}<span class="badge-cheap">Bestpreis</span>{% endif %}</td>
-            <td class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</td>
-            <td class="condition">{% if o.condition %}{{ o.condition }}{% endif %}</td>
-            <td class="seller">{% if o.shop %}{{ o.shop }}{% endif %}</td>
-            <td class="action"><a class="btn btn-secondary offer-link" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ o.shop }}','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a></td>
+          <tr class="offer-row{% if loop.first %} row--best{% endif %}{% if extra %} extra{% endif %}" {% if extra %}style="display:none"{% endif %} data-offer>
+            <td class="cell cell--title">
+              <a class="title" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" target="_blank" rel="nofollow sponsored noopener">{{ o.title }}</a>
+              {% if loop.first %}<span class="badge badge--best">Bestpreis</span>{% endif %}
+            </td>
+            <td class="cell cell--price">
+              <span class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</span>
+            </td>
+            <td class="cell cell--cond">{% if o.condition %}{{ o.condition }}{% endif %}</td>
+            <td class="cell cell--shop">{% if o.shop %}<span class="shop">{{ o.shop }}</span>{% endif %}</td>
+            <td class="cell cell--cta">
+              <a class="btn btn-cta" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ o.shop }}','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -229,12 +225,8 @@
     var moreBtn=document.getElementById('moreOffersBtn');
     if(moreBtn){
       moreBtn.addEventListener('click',function(){
-        document.querySelectorAll('.offer-card.extra, .offer-row.extra').forEach(function(el){
-          if(el.tagName === 'TR'){
-            el.style.display='table-row';
-          } else {
-            el.style.display='flex';
-          }
+        document.querySelectorAll('.offer-row.extra').forEach(function(el){
+          el.style.removeProperty('display');
         });
         moreBtn.remove();
       });
