@@ -99,14 +99,14 @@
   <section class="best-price" aria-label="Bestpreis">
     <div class="bp-main">
       <span class="bp-price">{{ '%.2f'|format(best.total_eur or best.price_eur) }}&nbsp;€</span>
-      {% if best.shop %}<span class="bp-shop">{{ best.shop }}</span>{% endif %}
+      <span class="bp-shop">eBay</span>
       {% if last_checked %}<span class="bp-time">Zuletzt geprüft: {{ last_checked.strftime('%d.%m.%Y %H:%M') }} Uhr</span>{% endif %}
     </div>
     {% if best.image_url %}<img class="bp-img" src="{{ best.image_url }}" alt="" loading="lazy">{% endif %}
     {% if best.url %}
     {% set sep = '?' if '?' not in best.url else '&' %}
     {% set bp = '%.2f'|format(best.total_eur or best.price_eur) %}
-    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ best.shop }}','{{ game.slug }}','{{ bp }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt für {{ bp }}€{% if best.shop %} bei {{ best.shop }}{% endif %} kaufen</a>
+    <a class="btn btn-primary" id="dealBtn" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('eBay','{{ game.slug }}','{{ bp }}')" target="_blank" rel="nofollow sponsored noopener">Jetzt für {{ bp }}€ bei eBay kaufen</a>
     {% endif %}
     {% if diff is not none %}
     <div class="bp-badges">
@@ -155,9 +155,9 @@
               <span class="price">{% if o.total_eur is number %}{{ '%.2f'|format(o.total_eur) }}&nbsp;€{% else %}–{% endif %}</span>
             </td>
             <td class="cell cell--cond">{% if o.condition %}{{ o.condition }}{% endif %}</td>
-            <td class="cell cell--shop">{% if o.shop %}<span class="shop">{{ o.shop }}</span>{% endif %}</td>
+            <td class="cell cell--shop"><span class="shop">eBay</span></td>
             <td class="cell cell--cta">
-              <a class="btn btn-cta" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('{{ o.shop }}','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Zum Angebot</a>
+              <a class="btn btn-cta" href="{{ o.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" onclick="click_offer('eBay','{{ game.slug }}','{{ o.total_eur or o.price_eur }}')" target="_blank" rel="nofollow sponsored noopener">Bei eBay kaufen</a>
             </td>
           </tr>
         {% endfor %}
