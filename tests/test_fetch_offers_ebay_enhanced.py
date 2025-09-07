@@ -143,3 +143,22 @@ def test_fetch_for_game_filters_game_specific_keywords():
         ]
         offers = mod.fetch_for_game(game)
         assert offers == []
+
+
+def test_fetch_for_game_includes_category_in_search_url():
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"]}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan",
+                "categoryId": mod.DEFAULT_CATEGORY_ID,
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers and f"_sacat={mod.DEFAULT_CATEGORY_ID}" in offers[0]["search_url"]

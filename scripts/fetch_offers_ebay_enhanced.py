@@ -270,6 +270,8 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
             aspect_filters=aspect_filters,
         )
         search_url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
+        if category_id:
+            search_url += f"&_sacat={category_id}"
         for it in items:
             iid = it.get("itemId")
             if not iid or iid in seen:

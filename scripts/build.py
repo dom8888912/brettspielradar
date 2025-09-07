@@ -25,6 +25,22 @@ EPN_CAMPAIGN_ID = os.getenv("EPN_CAMPAIGN_ID", "").strip()
 EPN_REFERENCE_ID = os.getenv("EPN_REFERENCE_ID", "preisradar").strip()
 AMAZON_PARTNER_ID = os.getenv("AMAZON_PARTNER_ID", "28310edf-21").strip()
 
+# Load default filters (e.g. eBay category) from config
+FILTER_PATH = ROOT / "config" / "filters.yaml"
+
+
+def load_filter_config(path):
+    if path.exists():
+        with path.open("r", encoding="utf-8") as fh:
+            return yaml.safe_load(fh) or {}
+    return {}
+
+
+FILTER_CFG = load_filter_config(FILTER_PATH)
+DEFAULT_EBAY_CATEGORY_ID = str(
+    FILTER_CFG.get("default_ebay_category_id", "180349")
+).strip()
+
 # Fenstergröße für Preisindikator (Tage)
 AVG_WINDOW_DAYS = 7
 
@@ -192,7 +208,12 @@ def build_epn_search_url(game):
         q = queries[0]
     else:
         q = game.get("slug") or ""
+    cat = str(game.get("ebay_category_id") or "").strip()
+    if not cat:
+        cat = DEFAULT_EBAY_CATEGORY_ID
     url = f"https://www.ebay.de/sch/i.html?_nkw={quote_plus(q)}"
+    if cat:
+        url += f"&_sacat={cat}"
     if EPN_CAMPAIGN_ID:
         url += f"&campid={EPN_CAMPAIGN_ID}&customid={EPN_REFERENCE_ID}-{game.get('slug','')}"
     return url
