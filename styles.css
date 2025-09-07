@@ -62,7 +62,7 @@ a:hover{text-decoration:underline}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--color-primary)}
 .brand-text{font-size:1.05rem}
-.nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;border-radius:10px;background:#fff;color:var(--color-primary);transition:background .3s,transform .2s}
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:none;border-radius:10px;background:var(--panel);color:var(--color-primary);transition:background .3s,transform .2s}
 .nav-toggle:active{transform:scale(.9)}
 .nav-toggle .hamburger{display:block;width:20px;height:2px;position:relative;background:var(--color-primary);border-radius:2px;transition:transform .3s}
 .nav-toggle .hamburger::before,.nav-toggle .hamburger::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--color-primary);border-radius:2px;transition:transform .3s,opacity .3s}
@@ -73,10 +73,14 @@ a:hover{text-decoration:underline}
 .nav-toggle.open .hamburger::after{opacity:0}
 .main-nav{max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease,opacity .3s ease;display:block;pointer-events:none;position:absolute;left:0;right:0;top:56px}
 .main-nav.open{max-height:300px;opacity:1;background:var(--color-primary);box-shadow:var(--shadow);z-index:50;pointer-events:auto}
-.main-nav a{display:block;padding:12px 16px;color:#0f172a;transition:background .3s,transform .2s}
+.main-nav a{display:block;padding:12px 16px;color:var(--text);transition:background .3s,transform .2s}
 .main-nav a:active{transform:scale(.97)}
 .main-nav.open a{color:#fff;border-top:1px solid rgba(255,255,255,.15)}
 .main-nav.open a:first-child{border-top:none}
+@media (prefers-color-scheme:dark){
+  .main-nav.open{background:var(--panel)}
+  .main-nav.open a{color:var(--text);border-top:1px solid var(--border)}
+}
 @media (min-width:720px){
   .nav-toggle{display:none}
   .main-nav{max-height:none;opacity:1;position:static;box-shadow:none;background:transparent;overflow:visible;pointer-events:auto}
@@ -95,12 +99,12 @@ a:hover{text-decoration:underline}
 .content-section{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;margin:14px 0;box-shadow:var(--shadow)}
 
 /* Best Price Box */
-.best-price{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+.best-price{border:1px solid var(--border);border-radius:14px;padding:14px;background:var(--card);margin:14px 0;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
 .bp-main{display:flex;flex-direction:column;gap:4px}
 .bp-price{font-size:1.6rem;font-weight:700}
 .bp-shop{font-size:1rem;font-weight:600}
 .bp-time{font-size:.85rem;color:var(--muted)}
-.bp-img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:10px;border:1px solid var(--border);margin:8px 0;background:#fff;display:block}
+.bp-img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:10px;border:1px solid var(--border);margin:8px 0;background:var(--card);display:block}
 .bp-indicator{margin:0;font-size:.95rem}
 .bp-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 
@@ -144,7 +148,7 @@ a:hover{text-decoration:underline}
 .bpr-cta__price{color:#fff}
 @media (prefers-reduced-motion:reduce){.bpr-cta:hover{transform:none}}
 
-.price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0}
+.price-history{border:1px solid var(--border);border-radius:14px;padding:14px;background:var(--panel);margin:14px 0}
 .info-icon{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--info);color:var(--text);font-size:.7rem;line-height:14px;text-align:center;margin-left:4px;cursor:help;font-style:normal;font-weight:700}
 
 .cta-row{margin-top:8px}
@@ -237,7 +241,7 @@ a:hover{text-decoration:underline}
 }
 .price-chart{margin-top:20px}
 .price-history .avg-price{font-weight:700;font-size:1.1rem;margin:0}
-.price-history canvas{max-width:100%}
+.price-history canvas{max-width:100%;background:var(--card)}
 
 @media (min-width:720px){
   .price-history .price-chart{max-width:600px;margin-left:auto;margin-right:auto}
