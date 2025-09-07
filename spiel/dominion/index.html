@@ -164,13 +164,6 @@
         </div>
       </div>
       <div class="bpr-side">
-        <figure class="bpr-spark">
-          <svg viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30‑Tage‑Preisverlauf">
-            <polyline class="bpr-spark__line" points="" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" />
-            <circle class="bpr-spark__dot" cx="0" cy="0" r="2.5" />
-          </svg>
-          <figcaption>Preisverlauf (30 Tage)</figcaption>
-        </figure>
         
         
         <a class="bpr-cta" href="https://www.ebay.de/itm/196325493046?_skw=Dominion&hash=item2db5e94936%3Ag%3AdO0AAOSwrIVjmFUI&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" rel="nofollow sponsored" data-field="offerUrl">
@@ -208,8 +201,13 @@
           
           <tr class="offer-row row--best"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/196325493046?_skw=Dominion&hash=item2db5e94936%3Ag%3AdO0AAOSwrIVjmFUI&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">DOMINION Kartenpack - 11 BLANKO KARTEN -  NEU -</a>
-              <span class="badge badge--best">Bestpreis</span>
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/dO0AAOSwrIVjmFUI/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/196325493046?_skw=Dominion&hash=item2db5e94936%3Ag%3AdO0AAOSwrIVjmFUI&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">DOMINION Kartenpack - 11 BLANKO KARTEN -  NEU -</a>
+                  <span class="badge badge--best">Bestpreis</span>
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">11.05&nbsp;€</span>
@@ -225,8 +223,13 @@
           
           <tr class="offer-row"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/266361083431?_skw=Dominion&hash=item3e045b9627%3Ag%3AyRkAAOSwVoNkzuy-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">DOMINION</a>
-              
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/yRkAAOSwVoNkzuy-/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/266361083431?_skw=Dominion&hash=item3e045b9627%3Ag%3AyRkAAOSwVoNkzuy-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">DOMINION</a>
+                  
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">11.38&nbsp;€</span>
@@ -242,8 +245,13 @@
           
           <tr class="offer-row"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/154650803796?_skw=Dominion&hash=item2401e7fe54%3Ag%3ANIoAAOSwT5tWPxAx&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">Dominion - 13 Trennkarten "Die Gilden" für Dominion-Koffer!</a>
-              
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/NIoAAOSwT5tWPxAx/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/154650803796?_skw=Dominion&hash=item2401e7fe54%3Ag%3ANIoAAOSwT5tWPxAx&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=dominion" target="_blank" rel="nofollow sponsored noopener">Dominion - 13 Trennkarten "Die Gilden" für Dominion-Koffer!</a>
+                  
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">11.90&nbsp;€</span>
@@ -453,15 +461,6 @@
     if(gaugeMarker) gaugeMarker.style.left=`${pct*100}%`;
     const mid=el.querySelector('.bpr-gauge__mid');
     if(mid) mid.style.transform=`translateX(${(pctMid*100-50)*.2}%)`;
-    const svg=el.querySelector('.bpr-spark svg');
-    if(svg&&history.length){
-      const w=100,h=40;const min=low30,max=high30;const xStep=w/(history.length-1);
-      const points=history.map((v,i)=>{const x=i*xStep;const y=h-((v-min)/Math.max(0.01,max-min))*h;return `${x.toFixed(2)},${y.toFixed(2)}`;}).join(' ');
-      svg.querySelector('.bpr-spark__line').setAttribute('points',points);
-      const lastX=(history.length-1)*xStep;const lastY=h-((history[history.length-1]-min)/Math.max(0.01,max-min))*h;
-      svg.querySelector('.bpr-spark__dot').setAttribute('cx',lastX);
-      svg.querySelector('.bpr-spark__dot').setAttribute('cy',lastY);
-    }else if(svg){svg.parentElement.style.display='none';}
     const jsonld={
       '@context':'https://schema.org',
       '@type':'Product',

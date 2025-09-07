@@ -164,13 +164,6 @@
         </div>
       </div>
       <div class="bpr-side">
-        <figure class="bpr-spark">
-          <svg viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30‑Tage‑Preisverlauf">
-            <polyline class="bpr-spark__line" points="" fill="none" stroke-width="2" vector-effect="non-scaling-stroke" />
-            <circle class="bpr-spark__dot" cx="0" cy="0" r="2.5" />
-          </svg>
-          <figcaption>Preisverlauf (30 Tage)</figcaption>
-        </figure>
         
         
         <a class="bpr-cta" href="https://www.ebay.de/itm/356708114586?_skw=The+Mind&hash=item530d75e09a%3Ag%3AX1wAAeSwHY5ooijb&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" rel="nofollow sponsored" data-field="offerUrl">
@@ -208,8 +201,13 @@
           
           <tr class="offer-row row--best"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/356708114586?_skw=The+Mind&hash=item530d75e09a%3Ag%3AX1wAAeSwHY5ooijb&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Pretty Intense: The 90-Day Mind, Body and Food Plan that will absolutely Change</a>
-              <span class="badge badge--best">Bestpreis</span>
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/X1wAAeSwHY5ooijb/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/356708114586?_skw=The+Mind&hash=item530d75e09a%3Ag%3AX1wAAeSwHY5ooijb&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Pretty Intense: The 90-Day Mind, Body and Food Plan that will absolutely Change</a>
+                  <span class="badge badge--best">Bestpreis</span>
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">5.01&nbsp;€</span>
@@ -225,8 +223,13 @@
           
           <tr class="offer-row"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/406074859831?_skw=The+Mind&hash=item5e8bf2a137%3Ag%3AAt0AAeSwaVlogkw4&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Dr Alex George The Mind Manual (Taschenbuch) Dr Alex George (US IMPORT)</a>
-              
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/At0AAeSwaVlogkw4/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/406074859831?_skw=The+Mind&hash=item5e8bf2a137%3Ag%3AAt0AAeSwaVlogkw4&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Dr Alex George The Mind Manual (Taschenbuch) Dr Alex George (US IMPORT)</a>
+                  
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">5.05&nbsp;€</span>
@@ -242,8 +245,13 @@
           
           <tr class="offer-row"  data-offer>
             <td class="cell cell--title">
-              <a class="title" href="https://www.ebay.de/itm/197547664593?_skw=The+Mind&hash=item2dfec224d1%3Ag%3Aa64AAeSwuVNofTyf&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Wilko Johnson - Blow Your Mind - Wilko Johnson CD 8FLN The Cheap Fast Free Post</a>
-              
+              <div class="offer-main">
+                <img class="offer-img" src="https://i.ebayimg.com/images/g/a64AAeSwuVNofTyf/s-l1600.jpg" alt="" loading="lazy">
+                <div>
+                  <a class="title" href="https://www.ebay.de/itm/197547664593?_skw=The+Mind&hash=item2dfec224d1%3Ag%3Aa64AAeSwuVNofTyf&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=the-mind" target="_blank" rel="nofollow sponsored noopener">Wilko Johnson - Blow Your Mind - Wilko Johnson CD 8FLN The Cheap Fast Free Post</a>
+                  
+                </div>
+              </div>
             </td>
             <td class="cell cell--price">
               <span class="price">5.08&nbsp;€</span>
@@ -453,15 +461,6 @@
     if(gaugeMarker) gaugeMarker.style.left=`${pct*100}%`;
     const mid=el.querySelector('.bpr-gauge__mid');
     if(mid) mid.style.transform=`translateX(${(pctMid*100-50)*.2}%)`;
-    const svg=el.querySelector('.bpr-spark svg');
-    if(svg&&history.length){
-      const w=100,h=40;const min=low30,max=high30;const xStep=w/(history.length-1);
-      const points=history.map((v,i)=>{const x=i*xStep;const y=h-((v-min)/Math.max(0.01,max-min))*h;return `${x.toFixed(2)},${y.toFixed(2)}`;}).join(' ');
-      svg.querySelector('.bpr-spark__line').setAttribute('points',points);
-      const lastX=(history.length-1)*xStep;const lastY=h-((history[history.length-1]-min)/Math.max(0.01,max-min))*h;
-      svg.querySelector('.bpr-spark__dot').setAttribute('cx',lastX);
-      svg.querySelector('.bpr-spark__dot').setAttribute('cy',lastY);
-    }else if(svg){svg.parentElement.style.display='none';}
     const jsonld={
       '@context':'https://schema.org',
       '@type':'Product',
