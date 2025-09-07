@@ -201,10 +201,9 @@ a:hover{text-decoration:underline}
   font-weight:700;
   letter-spacing:.2px;
   background:var(--panel);
-  border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:1;
 }
-.price-table tbody tr + tr td{border-top:1px solid var(--border)}
+.price-table tbody tr td{border-top:1px solid var(--border)}
 .cell{padding:1rem 1.25rem;vertical-align:middle}
 .cell--title{width:46%}
 .cell--price{width:14%;white-space:nowrap}
@@ -231,7 +230,7 @@ a:hover{text-decoration:underline}
 @media (max-width:840px){
   .price-table thead{display:none}
   .price-table,.price-table tbody,.price-table tr,.price-table td{display:block;width:100%}
-  .price-table tbody tr{border-top:1px solid var(--border);padding:.9rem}
+  .price-table tbody tr{padding:.9rem}
   .cell{padding:.35rem 0}
   .cell--title{padding-top:.2rem}
   .cell--cta{padding-top:.6rem;text-align:left}
