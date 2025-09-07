@@ -31,9 +31,23 @@ def load_dataset():
         offers_file = OFFERS_DIR / f"{slug}.json"
         if not offers_file.exists():
             continue
-        offers = json.loads(offers_file.read_text("utf-8"))
+        data = json.loads(offers_file.read_text("utf-8"))
         label_map = json.loads(label_file.read_text("utf-8"))
+
+        # normalise structure similar to label_server._load_offers
+        if isinstance(data, dict):
+            offers = data.get("offers") or data.get("searchResult", {}).get("item") or data
+            if isinstance(offers, dict):
+                offers = list(offers.values())
+        else:
+            offers = data
+
+        if not isinstance(offers, list):
+            offers = []
+
         for offer in offers:
+            if not isinstance(offer, dict):
+                continue
             item_id = str(offer.get("itemId") or offer.get("id") or offer.get("url") or "")
             if not item_id or item_id not in label_map:
                 continue
