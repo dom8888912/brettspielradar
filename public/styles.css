@@ -138,10 +138,10 @@ a:hover{text-decoration:underline}
 .bpr-gauge__marker{position:absolute;top:8px;transform:translate(-50%,-50%);background:var(--bpr-card);border:1px solid var(--bpr-border);padding:2px 6px;border-radius:8px;font-size:.75rem;white-space:nowrap}
 .bpr-gauge__legend{display:flex;justify-content:space-between;margin-top:8px;font-size:.8rem;color:var(--bpr-muted)}
 .bpr-side{display:grid;gap:14px;align-content:start}
-.bpr-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;border:1px solid var(--bpr-border);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0));font-weight:700;color:var(--bpr-text)}
+.bpr-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;border:1px solid var(--color-primary);background:var(--color-primary);font-weight:700;color:#fff}
 .bpr-cta:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.12)}
 .bpr-cta__label{letter-spacing:.2px}
-.bpr-cta__price{color:var(--bpr-muted)}
+.bpr-cta__price{color:#fff}
 @media (prefers-reduced-motion:reduce){.bpr-cta:hover{transform:none}}
 
 .price-history{border:1px solid var(--pi-ring);border-radius:14px;padding:14px;background:#fff;margin:14px 0}
