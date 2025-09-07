@@ -323,9 +323,11 @@
     const low30=history.length?Math.min(...history):Math.min(cur,avg7||cur);
     const high30=history.length?Math.max(...history):Math.max(cur,avg7||cur);
     const delta=avg7?((cur-avg7)/avg7):0;
+    const isLow30=history.length>0 && cur<=low30+0.001;
     let statusLabel='OK';
     let statusTone='ok';
     if(delta<=-0.10){statusLabel='Top‑Deal';statusTone='good';}
+    else if(isLow30){statusLabel='Gut';statusTone='good';}
     else if(delta<=-0.03){statusLabel='Gut';statusTone='good';}
     else if(Math.abs(delta)<=0.03){statusLabel='OK';statusTone='ok';}
     else{statusLabel='Hoch';statusTone='high';}
