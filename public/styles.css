@@ -223,9 +223,12 @@ a:hover{text-decoration:underline}
 .disclaimer{color:var(--muted);font-size:.9rem;margin:.75rem .25rem 0}
 
 @media (max-width:840px){
+  .price-table{border:none;box-shadow:none}
   .price-table thead{display:none}
   .price-table,.price-table tbody,.price-table tr,.price-table td{display:block;width:100%}
-  .price-table tbody tr{padding:.9rem}
+  .price-table tbody tr{padding:.9rem;margin-bottom:14px;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+  .price-table tbody tr:last-child{margin-bottom:0}
+  .price-table tbody tr td{border-top:none}
   .cell{padding:.35rem 0}
   .cell--title{padding-top:.2rem}
   .cell--cta{padding-top:.6rem;text-align:left}
