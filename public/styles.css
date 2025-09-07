@@ -1,4 +1,4 @@
-/* ui-version:2025-08-23-v14 – Kompaktere Bestpreis-Box & hübschere Tabelle */
+/* ui-version:2025-08-23-v15 – Automatische helle/dunkle Themes */
 :root{
   --color-primary:#ff7f11;
   --color-secondary:#ff9f1c;
@@ -17,26 +17,15 @@
   --badge:#334155;
   --badge-text:#e2e8f0;
   --pi-ring:rgba(0,0,0,.08);
-  --bpr-bg:#0b0c0f;
-  --bpr-card:#11131a;
-  --bpr-text:#e9ecf1;
-  --bpr-muted:#a3adbd;
-  --bpr-border:#222633;
+  --bpr-bg:#ffffff;
+  --bpr-card:#f8fafc;
+  --bpr-text:#0f172a;
+  --bpr-muted:#475569;
+  --bpr-border:#e2e8f0;
   --bpr-good:#22c55e;
   --bpr-ok:#eab308;
   --bpr-high:#ef4444;
-  --bpr-link:#60a5fa;
-}
-
-@media (prefers-color-scheme:light){
-  :root{
-    --bpr-bg:#ffffff;
-    --bpr-card:#f8fafc;
-    --bpr-text:#0f172a;
-    --bpr-muted:#475569;
-    --bpr-border:#e2e8f0;
-    --bpr-link:#2563eb;
-  }
+  --bpr-link:#2563eb;
 }
 
 @media (prefers-color-scheme:dark){
@@ -47,6 +36,12 @@
     --text:#e9ecf1;
     --muted:#a3adbd;
     --border:#222633;
+    --bpr-bg:#0b0c0f;
+    --bpr-card:#11131a;
+    --bpr-text:#e9ecf1;
+    --bpr-muted:#a3adbd;
+    --bpr-border:#222633;
+    --bpr-link:#60a5fa;
   }
 }
 
