@@ -120,7 +120,7 @@
   data-product-image="https://i.ebayimg.com/images/g/2o4AAOSwV89kX7BQ/s-l1600.jpg"
   data-current="5.50"
   data-seven-day-average="5.50"
-  data-history='[{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}, {"date": "2025-08-30", "min": 5.5}, {"date": "2025-08-31", "min": 5.5}, {"date": "2025-09-01", "min": 5.5}, {"date": "2025-09-02", "min": 5.5}, {"date": "2025-09-03", "min": 5.5}, {"date": "2025-09-04", "min": 5.5}, {"date": "2025-09-05", "min": 5.5}, {"date": "2025-09-06", "min": 5.5}]'
+  data-history='[{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}, {"date": "2025-08-30", "min": 5.5}, {"date": "2025-08-31", "min": 5.5}, {"date": "2025-09-01", "min": 5.5}, {"date": "2025-09-02", "min": 5.5}, {"date": "2025-09-03", "min": 5.5}, {"date": "2025-09-04", "min": 5.5}, {"date": "2025-09-05", "min": 5.5}, {"date": "2025-09-06", "min": 5.5}, {"date": "2025-09-07", "min": 5.5}]'
   data-offer-url="https://www.ebay.de/itm/325654239544?_skw=Orl%C3%A9ans&hash=item4bd2815938%3Ag%3A2o4AAOSwV89kX7BQ&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049"
   data-availability="InStock">
   <div class="bpr-card">
@@ -267,9 +267,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 11 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 12 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (11 Tage): 5.50&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (12 Tage): 5.50&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -365,7 +365,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}, {"date": "2025-08-30", "min": 5.5}, {"date": "2025-08-31", "min": 5.5}, {"date": "2025-09-01", "min": 5.5}, {"date": "2025-09-02", "min": 5.5}, {"date": "2025-09-03", "min": 5.5}, {"date": "2025-09-04", "min": 5.5}, {"date": "2025-09-05", "min": 5.5}, {"date": "2025-09-06", "min": 5.5}];
+    const hist = [{"date": "2025-08-27", "min": 5.5}, {"date": "2025-08-28", "min": 5.5}, {"date": "2025-08-29", "min": 5.5}, {"date": "2025-08-30", "min": 5.5}, {"date": "2025-08-31", "min": 5.5}, {"date": "2025-09-01", "min": 5.5}, {"date": "2025-09-02", "min": 5.5}, {"date": "2025-09-03", "min": 5.5}, {"date": "2025-09-04", "min": 5.5}, {"date": "2025-09-05", "min": 5.5}, {"date": "2025-09-06", "min": 5.5}, {"date": "2025-09-07", "min": 5.5}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);

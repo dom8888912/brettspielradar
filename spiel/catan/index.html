@@ -107,7 +107,7 @@
     
     
     <div class="bp-badges">
-      <span class="badge-grey">-0.0% vs. 7‑Tage‑Ø</span>
+      <span class="badge-grey">+0.0% vs. 7‑Tage‑Ø</span>
       
     </div>
     
@@ -119,8 +119,8 @@
   data-product-url="https://brettspielpreisradar.de/spiel/catan/"
   data-product-image="https://i.ebayimg.com/images/g/CrIAAOSw2~VlTV~L/s-l1600.jpg"
   data-current="22.16"
-  data-seven-day-average="22.21"
-  data-history='[{"date": "2025-08-22", "min": 5.49}, {"date": "2025-08-23", "min": 22.39}, {"date": "2025-08-24", "min": 20.18}, {"date": "2025-08-25", "min": 20.18}, {"date": "2025-08-26", "min": 19.9}, {"date": "2025-08-27", "min": 23.34}, {"date": "2025-08-28", "min": 23.34}, {"date": "2025-08-29", "min": 23.34}, {"date": "2025-08-30", "min": 23.34}, {"date": "2025-08-31", "min": 23.34}, {"date": "2025-09-01", "min": 23.34}, {"date": "2025-09-02", "min": 23.34}, {"date": "2025-09-03", "min": 19.99}, {"date": "2025-09-04", "min": 23.34}, {"date": "2025-09-05", "min": 19.99}, {"date": "2025-09-06", "min": 22.16}]'
+  data-seven-day-average="22.05"
+  data-history='[{"date": "2025-08-22", "min": 5.49}, {"date": "2025-08-23", "min": 22.39}, {"date": "2025-08-24", "min": 20.18}, {"date": "2025-08-25", "min": 20.18}, {"date": "2025-08-26", "min": 19.9}, {"date": "2025-08-27", "min": 23.34}, {"date": "2025-08-28", "min": 23.34}, {"date": "2025-08-29", "min": 23.34}, {"date": "2025-08-30", "min": 23.34}, {"date": "2025-08-31", "min": 23.34}, {"date": "2025-09-01", "min": 23.34}, {"date": "2025-09-02", "min": 23.34}, {"date": "2025-09-03", "min": 19.99}, {"date": "2025-09-04", "min": 23.34}, {"date": "2025-09-05", "min": 19.99}, {"date": "2025-09-06", "min": 22.16}, {"date": "2025-09-07", "min": 22.16}]'
   data-offer-url="https://www.ebay.de/itm/266637538297?_skw=Catan+Kosmos&hash=item3e14d5f3f9%3Ag%3ACrIAAOSw2%7EVlTV%7EL&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049"
   data-availability="InStock">
   <div class="bpr-card">
@@ -267,9 +267,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 16 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 17 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (16 Tage): 21.06&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (17 Tage): 21.13&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -365,7 +365,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-22", "min": 5.49}, {"date": "2025-08-23", "min": 22.39}, {"date": "2025-08-24", "min": 20.18}, {"date": "2025-08-25", "min": 20.18}, {"date": "2025-08-26", "min": 19.9}, {"date": "2025-08-27", "min": 23.34}, {"date": "2025-08-28", "min": 23.34}, {"date": "2025-08-29", "min": 23.34}, {"date": "2025-08-30", "min": 23.34}, {"date": "2025-08-31", "min": 23.34}, {"date": "2025-09-01", "min": 23.34}, {"date": "2025-09-02", "min": 23.34}, {"date": "2025-09-03", "min": 19.99}, {"date": "2025-09-04", "min": 23.34}, {"date": "2025-09-05", "min": 19.99}, {"date": "2025-09-06", "min": 22.16}];
+    const hist = [{"date": "2025-08-22", "min": 5.49}, {"date": "2025-08-23", "min": 22.39}, {"date": "2025-08-24", "min": 20.18}, {"date": "2025-08-25", "min": 20.18}, {"date": "2025-08-26", "min": 19.9}, {"date": "2025-08-27", "min": 23.34}, {"date": "2025-08-28", "min": 23.34}, {"date": "2025-08-29", "min": 23.34}, {"date": "2025-08-30", "min": 23.34}, {"date": "2025-08-31", "min": 23.34}, {"date": "2025-09-01", "min": 23.34}, {"date": "2025-09-02", "min": 23.34}, {"date": "2025-09-03", "min": 19.99}, {"date": "2025-09-04", "min": 23.34}, {"date": "2025-09-05", "min": 19.99}, {"date": "2025-09-06", "min": 22.16}, {"date": "2025-09-07", "min": 22.16}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
