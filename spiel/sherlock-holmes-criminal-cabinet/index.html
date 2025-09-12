@@ -121,8 +121,8 @@
   data-product-url="https://brettspielpreisradar.de/spiel/sherlock-holmes-criminal-cabinet/"
   data-product-image="https://i.ebayimg.com/images/g/ztAAAOSwbjVnOcQ7/s-l1600.jpg"
   data-current="21.73"
-  data-seven-day-average="21.72"
-  data-history='[{"date": "2025-08-27", "min": 21.77}, {"date": "2025-08-28", "min": 21.77}, {"date": "2025-08-29", "min": 21.89}, {"date": "2025-08-30", "min": 21.89}, {"date": "2025-08-31", "min": 21.76}, {"date": "2025-09-01", "min": 21.76}, {"date": "2025-09-02", "min": 21.76}, {"date": "2025-09-03", "min": 19.81}, {"date": "2025-09-04", "min": 19.81}, {"date": "2025-09-05", "min": 21.66}, {"date": "2025-09-06", "min": 21.72}, {"date": "2025-09-07", "min": 21.72}, {"date": "2025-09-08", "min": 21.72}, {"date": "2025-09-09", "min": 21.73}, {"date": "2025-09-10", "min": 21.73}, {"date": "2025-09-11", "min": 21.73}]'
+  data-seven-day-average="21.73"
+  data-history='[{"date": "2025-08-27", "min": 21.77}, {"date": "2025-08-28", "min": 21.77}, {"date": "2025-08-29", "min": 21.89}, {"date": "2025-08-30", "min": 21.89}, {"date": "2025-08-31", "min": 21.76}, {"date": "2025-09-01", "min": 21.76}, {"date": "2025-09-02", "min": 21.76}, {"date": "2025-09-03", "min": 19.81}, {"date": "2025-09-04", "min": 19.81}, {"date": "2025-09-05", "min": 21.66}, {"date": "2025-09-06", "min": 21.72}, {"date": "2025-09-07", "min": 21.72}, {"date": "2025-09-08", "min": 21.72}, {"date": "2025-09-09", "min": 21.73}, {"date": "2025-09-10", "min": 21.73}, {"date": "2025-09-11", "min": 21.73}, {"date": "2025-09-12", "min": 21.73}]'
   data-offer-url="https://www.ebay.de/itm/167099737457?_skw=Sherlock+Holmes+Criminal-Cabinet&hash=item26e7eba571%3Ag%3AztAAAOSwbjVnOcQ7&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049"
   data-availability="InStock">
   <div class="bpr-card">
@@ -277,9 +277,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 16 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 17 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (16 Tage): 21.51&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (17 Tage): 21.53&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -375,7 +375,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-27", "min": 21.77}, {"date": "2025-08-28", "min": 21.77}, {"date": "2025-08-29", "min": 21.89}, {"date": "2025-08-30", "min": 21.89}, {"date": "2025-08-31", "min": 21.76}, {"date": "2025-09-01", "min": 21.76}, {"date": "2025-09-02", "min": 21.76}, {"date": "2025-09-03", "min": 19.81}, {"date": "2025-09-04", "min": 19.81}, {"date": "2025-09-05", "min": 21.66}, {"date": "2025-09-06", "min": 21.72}, {"date": "2025-09-07", "min": 21.72}, {"date": "2025-09-08", "min": 21.72}, {"date": "2025-09-09", "min": 21.73}, {"date": "2025-09-10", "min": 21.73}, {"date": "2025-09-11", "min": 21.73}];
+    const hist = [{"date": "2025-08-27", "min": 21.77}, {"date": "2025-08-28", "min": 21.77}, {"date": "2025-08-29", "min": 21.89}, {"date": "2025-08-30", "min": 21.89}, {"date": "2025-08-31", "min": 21.76}, {"date": "2025-09-01", "min": 21.76}, {"date": "2025-09-02", "min": 21.76}, {"date": "2025-09-03", "min": 19.81}, {"date": "2025-09-04", "min": 19.81}, {"date": "2025-09-05", "min": 21.66}, {"date": "2025-09-06", "min": 21.72}, {"date": "2025-09-07", "min": 21.72}, {"date": "2025-09-08", "min": 21.72}, {"date": "2025-09-09", "min": 21.73}, {"date": "2025-09-10", "min": 21.73}, {"date": "2025-09-11", "min": 21.73}, {"date": "2025-09-12", "min": 21.73}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
