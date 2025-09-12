@@ -65,6 +65,7 @@ def test_fetch_for_game_returns_business_sellers():
             {
                 "itemId": "1",
                 "title": "Catan",
+                "categoryId": mod.DEFAULT_CATEGORY_ID,
                 "price": {"currency": "EUR", "value": "10"},
                 "conditionId": "1000",
                 "seller": {"username": "other", "accountType": "BUSINESS"},
@@ -105,6 +106,27 @@ def test_fetch_for_game_filters_wrong_category():
                 "itemId": "1",
                 "title": "Catan",
                 "categoryId": "123",
+                "price": {"currency": "EUR", "value": "10"},
+                "conditionId": "1000",
+                "seller": {"username": "other", "accountType": "BUSINESS"},
+                "itemWebUrl": "http://example.com",
+            }
+        ]
+        offers = mod.fetch_for_game(game)
+        assert offers == []
+
+
+def test_fetch_for_game_filters_without_category_id():
+    """Items lacking the expected category must be discarded."""
+    mod = load_module()
+    game = {"slug": "catan", "search_terms": ["Catan"], "ebay_category_id": "180349"}
+    with patch("scripts.fetch_offers_ebay_enhanced.search_once") as mock_search:
+        mock_search.return_value = [
+            {
+                "itemId": "1",
+                "title": "Catan",
+                # no direct categoryId, and categories list without the wanted ID
+                "categories": [{"categoryId": "123"}],
                 "price": {"currency": "EUR", "value": "10"},
                 "conditionId": "1000",
                 "seller": {"username": "other", "accountType": "BUSINESS"},
