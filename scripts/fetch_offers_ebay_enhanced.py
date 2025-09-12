@@ -149,8 +149,6 @@ def search_once(
         f"sellerAccountTypes:{{{SELLER_ACCOUNT_TYPE}}}",  # enforce business sellers
         "buyingOptions:{FIXED_PRICE}",  # exclude auctions
     ]
-    if category_id:
-        filters.append(f"categoryIds:{category_id}")
     if min_price is not None:
         filters.append(f"price:[{min_price}..]")
     if ITEM_LOCATION_COUNTRIES:
@@ -164,6 +162,8 @@ def search_once(
         "fieldgroups": "EXTENDED",
         "filter": ",".join(filters),
     }
+    if category_id:
+        params["category_ids"] = str(category_id)
     if aspect_filters:
         af = build_aspect_filter(aspect_filters)
         if af:

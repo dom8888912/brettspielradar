@@ -2,11 +2,33 @@
 # from the price statistics (case-insensitive).
 exclude_terms:
   - erweiterung
+  - erweiterungen
+  - erweiterungspack
+  - erweiterungsset
+  - erweiterungsbox
   - expansion
+  - expansions
+  - "expansion pack"
+  - "expansion set"
+  - addon
+  - add-on
+  - dlc
   - insert
   - organizer
   - sleeve
   - sleeves
+  - hülle
+  - hüllen
+  - huelle
+  - huellen
+  - schutzhülle
+  - schutzhüllen
+  - schutzhuelle
+  - schutzhuellen
+  - case
+  - cover
+  - "box protector"
+  - boxprotector
   - einsatz
   - ersatzteil
   - ersatzteile
@@ -21,6 +43,29 @@ exclude_terms:
   - storage
   - standee
   - minis
+  # Video game platforms and console-related terms
+  - ps4
+  - ps5
+  - ps3
+  - playstation
+  - xbox
+  - nintendo
+  - switch
+  - pc
+  - konsole
+  - controller
+  - digital
+  - download
+  # Additional accessory-related terms
+  - token
+  - tokens
+  - dice
+  - "dice tower"
+  - würfelbecher
+  - würfelturm
+  - "dice tray"
+  - kartenhalter
+  - "card holder"
 
 # eBay condition IDs that count as "new" and are stored in the statistics.
 # 1000 = New, 1500 = New other, 1750 = New with defects
