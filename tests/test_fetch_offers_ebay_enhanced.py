@@ -49,10 +49,11 @@ def test_search_once_adds_filters():
         _, kwargs = mock_get.call_args
         assert "filter" in kwargs["params"]
         flt = kwargs["params"]["filter"]
-        assert "categoryIds:180349" in flt
+        assert "categoryIds" not in flt
         assert "price:[20..]" in flt
         assert "buyingOptions:{FIXED_PRICE}" in flt
         assert "itemLocationCountry:{DE}" in flt
+        assert kwargs["params"].get("category_ids") == "180349"
         assert kwargs["params"].get("aspect_filter") == "Produktart:Eigenständiges Spiel"
 
 
