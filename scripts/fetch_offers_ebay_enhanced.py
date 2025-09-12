@@ -276,8 +276,20 @@ def fetch_for_game(game: Dict[str, Any], max_keep: int = 100) -> List[Dict[str, 
             iid = it.get("itemId")
             if not iid or iid in seen:
                 continue
-            cat_id_item = str(it.get("categoryId") or "")
-            if category_id and cat_id_item and cat_id_item != category_id:
+            # Collect all category IDs reported for the item. If none match the
+            # requested category, the result is ignored. This also discards
+            # items that do not expose any category information at all.
+            item_cats = set()
+            cat_id_item = it.get("categoryId")
+            if cat_id_item is not None:
+                cat_id_item = str(cat_id_item).strip()
+                if cat_id_item:
+                    item_cats.add(cat_id_item)
+            for cat in it.get("categories", []):
+                cid = str(cat.get("categoryId") or "").strip()
+                if cid:
+                    item_cats.add(cid)
+            if category_id and category_id not in item_cats:
                 continue
             price = pick_price_eur(it)
             if price is None or price <= 0:
