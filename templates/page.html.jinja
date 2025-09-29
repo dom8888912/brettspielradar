@@ -79,15 +79,6 @@
           </div>
         </div>
       </div>
-      <div class="bpr-side">
-        {% if best and best.url %}
-        {% set sep = '?' if '?' not in best.url else '&' %}
-        <a class="bpr-cta" href="{{ best.url ~ sep ~ 'utm_source=bpr&utm_medium=offer&utm_campaign=' ~ game.slug }}" rel="nofollow sponsored" data-field="offerUrl">
-          <span class="bpr-cta__label">Zum Angebot</span>
-          <span class="bpr-cta__price" data-field="current">– €</span>
-        </a>
-        {% endif %}
-      </div>
     </div>
   </div>
 </section>
@@ -344,8 +335,6 @@
       if(dot) dot.style.background=statusTone==='good'?'var(--bpr-good)':statusTone==='ok'?'var(--bpr-ok)':'var(--bpr-high)';
       if(lab) lab.textContent=statusLabel;
     }
-    const cta=el.querySelector('.bpr-cta');
-    if(cta) cta.href=offerUrl||'#';
     const gaugeFill=el.querySelector('.bpr-gauge__fill');
     const gaugeMarker=el.querySelector('.bpr-gauge__marker');
     const range=Math.max(0.01,high30-low30);

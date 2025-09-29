@@ -315,7 +315,7 @@ def render_game(yaml_path, site_url):
     if hub_info:
         hub = {"title": hub_info["title"], "url": f"/hubs.html#{hub_info['slug']}"}
     else:
-        hub = {"title": "Hubs", "url": "/hubs.html"}
+        hub = {"title": "Alle Spiele", "url": "/alle-spiele.html"}
 
     breadcrumb = {
         "@context": "https://schema.org",
