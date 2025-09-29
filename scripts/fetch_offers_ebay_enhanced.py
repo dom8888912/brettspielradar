@@ -113,6 +113,8 @@ DEFAULT_CATEGORY_ID = str(
     FILTER_CFG.get("default_ebay_category_id", "180349")
 ).strip()
 
+FIXED_PRICE = "FIXED_PRICE"
+
 HEADERS = build_headers()
 
 
