@@ -144,9 +144,6 @@
           </div>
         </div>
       </div>
-      <div class="bpr-side">
-        
-      </div>
     </div>
   </div>
 </section>
@@ -344,8 +341,6 @@
       if(dot) dot.style.background=statusTone==='good'?'var(--bpr-good)':statusTone==='ok'?'var(--bpr-ok)':'var(--bpr-high)';
       if(lab) lab.textContent=statusLabel;
     }
-    const cta=el.querySelector('.bpr-cta');
-    if(cta) cta.href=offerUrl||'#';
     const gaugeFill=el.querySelector('.bpr-gauge__fill');
     const gaugeMarker=el.querySelector('.bpr-gauge__marker');
     const range=Math.max(0.01,high30-low30);

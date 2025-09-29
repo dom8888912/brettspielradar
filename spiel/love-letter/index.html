@@ -75,7 +75,7 @@
 <article class="page">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="https://brettspielpreisradar.de/">Start</a> <span aria-hidden="true">›</span>
-    <a href="https://brettspielpreisradar.de/hubs.html">Hubs</a> <span aria-hidden="true">›</span>
+    <a href="https://brettspielpreisradar.de/alle-spiele.html">Alle Spiele</a> <span aria-hidden="true">›</span>
     <span aria-current="page">Love Letter – Preisradar & Angebote</span>
   </nav>
 
@@ -143,9 +143,6 @@
             <span class="bpr-gauge__max" data-field="high30">– €</span>
           </div>
         </div>
-      </div>
-      <div class="bpr-side">
-        
       </div>
     </div>
   </div>
@@ -344,8 +341,6 @@
       if(dot) dot.style.background=statusTone==='good'?'var(--bpr-good)':statusTone==='ok'?'var(--bpr-ok)':'var(--bpr-high)';
       if(lab) lab.textContent=statusLabel;
     }
-    const cta=el.querySelector('.bpr-cta');
-    if(cta) cta.href=offerUrl||'#';
     const gaugeFill=el.querySelector('.bpr-gauge__fill');
     const gaugeMarker=el.querySelector('.bpr-gauge__marker');
     const range=Math.max(0.01,high30-low30);
@@ -369,7 +364,7 @@
     document.head.appendChild(s);
   })();
   </script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://brettspielpreisradar.de//"}, {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://brettspielpreisradar.de//hubs.html"}, {"@type": "ListItem", "position": 3, "name": "Love Letter – Preisradar & Angebote", "item": "https://brettspielpreisradar.de//spiel/love-letter/"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Start", "item": "https://brettspielpreisradar.de//"}, {"@type": "ListItem", "position": 2, "name": "Alle Spiele", "item": "https://brettspielpreisradar.de//alle-spiele.html"}, {"@type": "ListItem", "position": 3, "name": "Love Letter – Preisradar & Angebote", "item": "https://brettspielpreisradar.de//spiel/love-letter/"}]}</script>
 
   
   

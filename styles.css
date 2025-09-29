@@ -116,18 +116,18 @@ a:hover{text-decoration:underline}
 
 /* Layout for Bestpreis + Preisindikator */
 .hero-offers{display:flex;flex-direction:column;gap:14px;margin:14px 0}
-@media (min-width:880px){.hero-offers{flex-direction:row}.hero-offers>section{flex:1;margin:0}}
+@media (min-width:880px){.hero-offers{flex-direction:row}.hero-offers>section{flex:1;margin:0;display:flex}}
 
 /* Neuer Preisindikator */
-.bpr-price-indicator{color:var(--bpr-text);background:transparent}
-.bpr-card{border:1px solid var(--bpr-border);background:var(--bpr-card);border-radius:16px;padding:clamp(16px,2.5vw,24px);box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.bpr-price-indicator{color:var(--bpr-text);background:transparent;display:flex}
+.bpr-card{border:1px solid var(--bpr-border);background:var(--bpr-card);border-radius:16px;padding:clamp(16px,2.5vw,24px);box-shadow:0 6px 24px rgba(0,0,0,.12);display:flex;flex-direction:column;flex:1}
 .bpr-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
 .bpr-title{font-size:clamp(18px,2.4vw,22px);margin:0;letter-spacing:.2px}
 .bpr-pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid var(--bpr-border);border-radius:999px;padding:6px 10px;font-weight:600;font-size:.9rem;background:rgba(255,255,255,.03)}
 .bpr-pill__dot{width:10px;height:10px;border-radius:999px;background:var(--bpr-ok);box-shadow:0 0 0 4px rgba(0,0,0,.05) inset}
 .bpr-pill__label{color:var(--bpr-muted)}
-.bpr-grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width:880px){.bpr-grid{grid-template-columns:1.2fr .8fr;gap:24px}}
+.bpr-grid{display:grid;gap:18px}
+@media (min-width:880px){.bpr-grid{grid-template-columns:1fr;gap:24px}}
 .bpr-price{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'label value' 'delta delta';align-items:end;column-gap:12px}
 .bpr-price__label{grid-area:label;color:var(--bpr-muted);font-weight:600}
 .bpr-price__value{grid-area:value;font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.2px}
@@ -141,12 +141,6 @@ a:hover{text-decoration:underline}
 .bpr-gauge__fill{position:absolute;left:0;top:16px;height:10px;width:0;background:rgba(255,255,255,.2);border-radius:999px;pointer-events:none}
 .bpr-gauge__marker{position:absolute;top:8px;transform:translate(-50%,-50%);background:var(--bpr-card);border:1px solid var(--bpr-border);padding:2px 6px;border-radius:8px;font-size:.75rem;white-space:nowrap}
 .bpr-gauge__legend{display:flex;justify-content:space-between;margin-top:8px;font-size:.8rem;color:var(--bpr-muted)}
-.bpr-side{display:grid;gap:14px;align-content:start}
-.bpr-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;text-decoration:none;border:1px solid var(--color-primary);background:var(--color-primary);font-weight:700;color:#fff}
-.bpr-cta:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.12)}
-.bpr-cta__label{letter-spacing:.2px}
-.bpr-cta__price{color:#fff}
-@media (prefers-reduced-motion:reduce){.bpr-cta:hover{transform:none}}
 
 .price-history{border:1px solid var(--border);border-radius:14px;padding:14px;background:var(--panel);margin:14px 0}
 .info-icon{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--info);color:var(--text);font-size:.7rem;line-height:14px;text-align:center;margin-left:4px;cursor:help;font-style:normal;font-weight:700}

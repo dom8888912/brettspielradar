@@ -165,15 +165,6 @@
           </div>
         </div>
       </div>
-      <div class="bpr-side">
-        
-        
-        <a class="bpr-cta" href="https://www.ebay.de/itm/167718574701?_skw=Brass%3A+Birmingham&hash=item270cce5a6d%3Ag%3Ai6IAAOSwrsZjNr9-&mkevt=1&mkcid=1&mkrid=707-53477-19255-0&campid=5339119114&customid=preisradar&toolid=10049&utm_source=bpr&utm_medium=offer&utm_campaign=brass-birmingham" rel="nofollow sponsored" data-field="offerUrl">
-          <span class="bpr-cta__label">Zum Angebot</span>
-          <span class="bpr-cta__price" data-field="current">– €</span>
-        </a>
-        
-      </div>
     </div>
   </div>
 </section>
@@ -454,8 +445,6 @@
       if(dot) dot.style.background=statusTone==='good'?'var(--bpr-good)':statusTone==='ok'?'var(--bpr-ok)':'var(--bpr-high)';
       if(lab) lab.textContent=statusLabel;
     }
-    const cta=el.querySelector('.bpr-cta');
-    if(cta) cta.href=offerUrl||'#';
     const gaugeFill=el.querySelector('.bpr-gauge__fill');
     const gaugeMarker=el.querySelector('.bpr-gauge__marker');
     const range=Math.max(0.01,high30-low30);
