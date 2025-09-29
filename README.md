@@ -44,10 +44,10 @@ Setze optional die Umgebungsvariable `AMAZON_PARTNER_ID` (Standard `28310edf-21`
 **YAML Felder (neu & optional)**
 - `how_to_play_60s` (Text), `used_checklist` (Liste), `editions` (note/recommended/avoid), `expansions` (Liste mit name/verdict), `pros`/`cons` (Listen).
 
-## Relevanz-Training für eBay-Angebote
+## Manuelles Prüfen der eBay-Angebote
 
-Um irrelevante Treffer aus den eBay-Suchergebnissen zu filtern, gibt es einen
-kleinen Trainingsworkflow:
+Um irrelevante Treffer aus den eBay-Suchergebnissen zu filtern, werden nur
+Angebote berücksichtigt, die du manuell als „relevant“ markierst. Das klappt so:
 
 1. **Angebote labeln**
 
@@ -61,19 +61,16 @@ kleinen Trainingsworkflow:
      Auf der jeweiligen Spielseite kannst du die angezeigten Angebote als
      „relevant“ oder „nicht relevant“ markieren. Die Seite zeigt bis zu 100
      unlabeled Treffer inklusive Bild und Kurzbeschreibung; bereits
-     bewertete Angebote werden ausgeblendet. Die Labels
+     bewertete Angebote werden ausgeblendet.
 
-   werden in `data/labels/<slug>.json` gespeichert. Fehler beim Einlesen
-   der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
-   - Unter `http://localhost:8000/__version__` gibt der Server den aktuell
-     ausgeführten Git-Commit zurück – hilfreich zum Überprüfen eines
-     Neustarts oder Deployments.
+   Die Bewertungen werden in `data/labels/<slug>.json` gespeichert. Fehler beim
+   Einlesen der Angebote landen samt Stacktrace in `data/logs/label_server.log`.
+   Unter `http://localhost:8000/__version__` gibt der Server den aktuell
+   ausgeführten Git-Commit zurück – hilfreich zum Überprüfen eines
+   Neustarts oder Deployments.
 
-2. **Modell trainieren**
+2. **Build aktualisieren**
 
-   ```bash
-   python scripts/train_relevance_model.py
-   ```
-
-   Es entsteht `data/relevance_model.pkl`, das beim nächsten `build.py`
-   automatisch geladen wird. Nicht relevante Angebote werden dann verworfen.
+   Beim nächsten Durchlauf von `python scripts/build.py` fließen ausschließlich
+   jene Angebote in Preisindikator und Anzeige ein, die du manuell als
+   relevant markiert hast. Unbewertete oder abgelehnte Treffer werden ignoriert.

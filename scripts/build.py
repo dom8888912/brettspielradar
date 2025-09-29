@@ -1,4 +1,4 @@
-import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re, joblib, logging
+import os, json, pathlib, yaml, datetime as dt, xml.etree.ElementTree as ET, re, logging
 from urllib.parse import quote_plus
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -11,7 +11,6 @@ TEMPLATES = ROOT / "templates"
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 HUBS_CFG = ROOT / "content" / "hubs.yaml"
-MODEL_PATH = ROOT / "data" / "relevance_model.pkl"
 
 LOG_DIR = ROOT / "data" / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -48,13 +47,6 @@ env = Environment(
     loader=FileSystemLoader(str(TEMPLATES)),
     autoescape=select_autoescape(["html"])
 )
-
-MODEL = None
-if MODEL_PATH.exists():
-    try:
-        MODEL = joblib.load(MODEL_PATH)
-    except Exception:
-        MODEL = None
 
 def simple_md(text):
     """Convert a tiny subset of Markdown to HTML."""
@@ -115,20 +107,11 @@ def load_labels(slug):
 
 def is_relevant(offer, labels):
     item_id = str(offer.get("itemId") or offer.get("id") or offer.get("url") or "")
-    if item_id in labels:
-        return bool(labels[item_id])
-    if MODEL:
-        text = " ".join(
-            str(offer.get(k, ""))
-            for k in ["title", "subtitle", "condition", "shop", "description"]
-        )
-        try:
-            vec = MODEL["vectorizer"].transform([text])
-            pred = MODEL["model"].predict(vec)[0]
-            return bool(pred)
-        except Exception:
-            return True
-    return True
+    if not item_id:
+        return False
+    if item_id not in labels:
+        return False
+    return bool(labels[item_id])
 
 def append_history(slug, offers):
     """Append today's minimal price to the history file."""
