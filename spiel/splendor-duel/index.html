@@ -100,8 +100,8 @@
   data-product-url="https://brettspielpreisradar.de/spiel/splendor-duel/"
   
   
-  data-seven-day-average="32.78"
-  data-history='[{"date": "2025-08-31", "min": 18.9}, {"date": "2025-09-01", "min": 18.9}, {"date": "2025-09-02", "min": 18.9}, {"date": "2025-09-03", "min": 18.9}, {"date": "2025-09-04", "min": 18.9}, {"date": "2025-09-05", "min": 18.9}, {"date": "2025-09-06", "min": 18.9}, {"date": "2025-09-07", "min": 18.9}, {"date": "2025-09-08", "min": 18.9}, {"date": "2025-09-09", "min": 18.9}, {"date": "2025-09-10", "min": 18.9}, {"date": "2025-09-11", "min": 18.9}, {"date": "2025-09-12", "min": 35.12}, {"date": "2025-09-13", "min": 35.07}, {"date": "2025-09-14", "min": 35.07}, {"date": "2025-09-15", "min": 35.07}, {"date": "2025-09-16", "min": 35.1}, {"date": "2025-09-17", "min": 34.91}, {"date": "2025-09-18", "min": 35.01}, {"date": "2025-09-19", "min": 34.9}, {"date": "2025-09-20", "min": 34.82}, {"date": "2025-09-21", "min": 34.82}, {"date": "2025-09-22", "min": 34.82}, {"date": "2025-09-23", "min": 33.22}, {"date": "2025-09-24", "min": 33.22}, {"date": "2025-09-25", "min": 33.24}, {"date": "2025-09-26", "min": 33.2}, {"date": "2025-09-27", "min": 33.23}, {"date": "2025-09-28", "min": 33.23}, {"date": "2025-09-29", "min": 30.57}]'
+  data-seven-day-average="32.69"
+  data-history='[{"date": "2025-09-01", "min": 18.9}, {"date": "2025-09-02", "min": 18.9}, {"date": "2025-09-03", "min": 18.9}, {"date": "2025-09-04", "min": 18.9}, {"date": "2025-09-05", "min": 18.9}, {"date": "2025-09-06", "min": 18.9}, {"date": "2025-09-07", "min": 18.9}, {"date": "2025-09-08", "min": 18.9}, {"date": "2025-09-09", "min": 18.9}, {"date": "2025-09-10", "min": 18.9}, {"date": "2025-09-11", "min": 18.9}, {"date": "2025-09-12", "min": 35.12}, {"date": "2025-09-13", "min": 35.07}, {"date": "2025-09-14", "min": 35.07}, {"date": "2025-09-15", "min": 35.07}, {"date": "2025-09-16", "min": 35.1}, {"date": "2025-09-17", "min": 34.91}, {"date": "2025-09-18", "min": 35.01}, {"date": "2025-09-19", "min": 34.9}, {"date": "2025-09-20", "min": 34.82}, {"date": "2025-09-21", "min": 34.82}, {"date": "2025-09-22", "min": 34.82}, {"date": "2025-09-23", "min": 33.22}, {"date": "2025-09-24", "min": 33.22}, {"date": "2025-09-25", "min": 33.24}, {"date": "2025-09-26", "min": 33.2}, {"date": "2025-09-27", "min": 33.23}, {"date": "2025-09-28", "min": 33.23}, {"date": "2025-09-29", "min": 30.57}]'
   
   data-availability="OutOfStock">
   <div class="bpr-card">
@@ -166,9 +166,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 30 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 29 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (30 Tage): 28.36&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (29 Tage): 28.70&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -262,7 +262,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-08-31", "min": 18.9}, {"date": "2025-09-01", "min": 18.9}, {"date": "2025-09-02", "min": 18.9}, {"date": "2025-09-03", "min": 18.9}, {"date": "2025-09-04", "min": 18.9}, {"date": "2025-09-05", "min": 18.9}, {"date": "2025-09-06", "min": 18.9}, {"date": "2025-09-07", "min": 18.9}, {"date": "2025-09-08", "min": 18.9}, {"date": "2025-09-09", "min": 18.9}, {"date": "2025-09-10", "min": 18.9}, {"date": "2025-09-11", "min": 18.9}, {"date": "2025-09-12", "min": 35.12}, {"date": "2025-09-13", "min": 35.07}, {"date": "2025-09-14", "min": 35.07}, {"date": "2025-09-15", "min": 35.07}, {"date": "2025-09-16", "min": 35.1}, {"date": "2025-09-17", "min": 34.91}, {"date": "2025-09-18", "min": 35.01}, {"date": "2025-09-19", "min": 34.9}, {"date": "2025-09-20", "min": 34.82}, {"date": "2025-09-21", "min": 34.82}, {"date": "2025-09-22", "min": 34.82}, {"date": "2025-09-23", "min": 33.22}, {"date": "2025-09-24", "min": 33.22}, {"date": "2025-09-25", "min": 33.24}, {"date": "2025-09-26", "min": 33.2}, {"date": "2025-09-27", "min": 33.23}, {"date": "2025-09-28", "min": 33.23}, {"date": "2025-09-29", "min": 30.57}];
+    const hist = [{"date": "2025-09-01", "min": 18.9}, {"date": "2025-09-02", "min": 18.9}, {"date": "2025-09-03", "min": 18.9}, {"date": "2025-09-04", "min": 18.9}, {"date": "2025-09-05", "min": 18.9}, {"date": "2025-09-06", "min": 18.9}, {"date": "2025-09-07", "min": 18.9}, {"date": "2025-09-08", "min": 18.9}, {"date": "2025-09-09", "min": 18.9}, {"date": "2025-09-10", "min": 18.9}, {"date": "2025-09-11", "min": 18.9}, {"date": "2025-09-12", "min": 35.12}, {"date": "2025-09-13", "min": 35.07}, {"date": "2025-09-14", "min": 35.07}, {"date": "2025-09-15", "min": 35.07}, {"date": "2025-09-16", "min": 35.1}, {"date": "2025-09-17", "min": 34.91}, {"date": "2025-09-18", "min": 35.01}, {"date": "2025-09-19", "min": 34.9}, {"date": "2025-09-20", "min": 34.82}, {"date": "2025-09-21", "min": 34.82}, {"date": "2025-09-22", "min": 34.82}, {"date": "2025-09-23", "min": 33.22}, {"date": "2025-09-24", "min": 33.22}, {"date": "2025-09-25", "min": 33.24}, {"date": "2025-09-26", "min": 33.2}, {"date": "2025-09-27", "min": 33.23}, {"date": "2025-09-28", "min": 33.23}, {"date": "2025-09-29", "min": 30.57}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
