@@ -101,7 +101,7 @@
   
   
   
-  data-history='[{"date": "2025-09-03", "min": 11.04}, {"date": "2025-09-04", "min": 11.04}, {"date": "2025-09-05", "min": 9.41}, {"date": "2025-09-06", "min": 11.04}, {"date": "2025-09-07", "min": 11.04}, {"date": "2025-09-08", "min": 11.04}, {"date": "2025-09-09", "min": 11.04}, {"date": "2025-09-10", "min": 11.04}, {"date": "2025-09-11", "min": 11.04}, {"date": "2025-09-12", "min": 11.04}]'
+  data-history='[{"date": "2025-09-04", "min": 11.04}, {"date": "2025-09-05", "min": 9.41}, {"date": "2025-09-06", "min": 11.04}, {"date": "2025-09-07", "min": 11.04}, {"date": "2025-09-08", "min": 11.04}, {"date": "2025-09-09", "min": 11.04}, {"date": "2025-09-10", "min": 11.04}, {"date": "2025-09-11", "min": 11.04}, {"date": "2025-09-12", "min": 11.04}]'
   
   data-availability="OutOfStock">
   <div class="bpr-card">
@@ -166,9 +166,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 10 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 9 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (10 Tage): 10.86&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (9 Tage): 10.84&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -262,7 +262,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-09-03", "min": 11.04}, {"date": "2025-09-04", "min": 11.04}, {"date": "2025-09-05", "min": 9.41}, {"date": "2025-09-06", "min": 11.04}, {"date": "2025-09-07", "min": 11.04}, {"date": "2025-09-08", "min": 11.04}, {"date": "2025-09-09", "min": 11.04}, {"date": "2025-09-10", "min": 11.04}, {"date": "2025-09-11", "min": 11.04}, {"date": "2025-09-12", "min": 11.04}];
+    const hist = [{"date": "2025-09-04", "min": 11.04}, {"date": "2025-09-05", "min": 9.41}, {"date": "2025-09-06", "min": 11.04}, {"date": "2025-09-07", "min": 11.04}, {"date": "2025-09-08", "min": 11.04}, {"date": "2025-09-09", "min": 11.04}, {"date": "2025-09-10", "min": 11.04}, {"date": "2025-09-11", "min": 11.04}, {"date": "2025-09-12", "min": 11.04}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
