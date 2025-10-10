@@ -36,6 +36,7 @@
   {% if best and best.image_url %}data-product-image="{{ best.image_url }}"{% endif %}
   {% if min_price is not none %}data-current="{{ '%.2f'|format(min_price) }}"{% endif %}
   {% if avg7 %}data-seven-day-average="{{ '%.2f'|format(avg7) }}"{% endif %}
+  {% if price_trend %}data-trend="{{ price_trend }}"{% endif %}
   data-history='{{ history_json | safe }}'
   {% if best and best.url %}data-offer-url="{{ best.url }}"{% endif %}
   data-availability="{% if offers %}InStock{% else %}OutOfStock{% endif %}">
