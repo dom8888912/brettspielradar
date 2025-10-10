@@ -3,20 +3,15 @@
 This tool is meant for manual training.  It exposes a single page per game
 where the top offers of the last fetch are shown.  Each offer can be labelled
 "relevant" or "nicht relevant" and the result is stored in
-``data/labels/<slug>.json``.  The page is protected via HTTP basic
-authentication; credentials are read from the environment variables
-``TRAINING_USER`` and ``TRAINING_PASS`` which should be stored as GitHub
-secrets for deployments.
+``data/labels/<slug>.json``.
 """
 
 from __future__ import annotations
 
 import json
 import logging
-import os
 import pathlib
 import subprocess
-from functools import wraps
 
 from flask import (
     Flask,
@@ -63,33 +58,6 @@ def _git_rev() -> str:
 REVISION = _git_rev()
 app.logger.info("running commit %s", REVISION)
 
-USER = os.getenv("TRAINING_USER", "")
-PASSWORD = os.getenv("TRAINING_PASS", "")
-
-
-def check_auth(username: str, password: str) -> bool:
-    return username == USER and password == PASSWORD
-
-
-def authenticate():
-    return (
-        "Authentication required",
-        401,
-        {"WWW-Authenticate": 'Basic realm="Login Required"'},
-    )
-
-
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            return authenticate()
-        return f(*args, **kwargs)
-
-    return decorated
-
-
 @app.route("/__version__")
 def version():
     """Expose the currently running git commit hash."""
@@ -124,7 +92,6 @@ def _offer_id(o: dict) -> str:
 
 
 @app.route("/training", methods=["GET"])
-@requires_auth
 def training_index():
     games = []
     for path in sorted(OFFERS_DIR.glob("*.json")):
@@ -158,7 +125,6 @@ li{margin:5px 0;}
 
 
 @app.route("/spiel/<slug>/training", methods=["GET"])
-@requires_auth
 def label_page(slug: str):
     offers = _load_offers(slug)
     if not offers:
@@ -226,7 +192,6 @@ render();
 
 
 @app.route("/spiel/<slug>/training", methods=["POST"])
-@requires_auth
 def save_label(slug: str):
     try:
         data = request.get_json(force=True) or {}
