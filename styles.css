@@ -126,12 +126,21 @@ a:hover{text-decoration:underline}
 .bpr-pill{display:inline-flex;gap:.5rem;align-items:center;border:1px solid var(--bpr-border);border-radius:999px;padding:6px 10px;font-weight:600;font-size:.9rem;background:rgba(255,255,255,.03)}
 .bpr-pill__dot{width:10px;height:10px;border-radius:999px;background:var(--bpr-ok);box-shadow:0 0 0 4px rgba(0,0,0,.05) inset}
 .bpr-pill__label{color:var(--bpr-muted)}
+.bpr-price-indicator[data-trend=good] .bpr-pill__dot{background:var(--bpr-good)}
+.bpr-price-indicator[data-trend=ok] .bpr-pill__dot{background:var(--bpr-ok)}
+.bpr-price-indicator[data-trend=high] .bpr-pill__dot{background:var(--bpr-high)}
+.bpr-price-indicator[data-trend=good] .bpr-pill__label{color:var(--bpr-good)}
+.bpr-price-indicator[data-trend=ok] .bpr-pill__label{color:var(--bpr-ok)}
+.bpr-price-indicator[data-trend=high] .bpr-pill__label{color:var(--bpr-high)}
 .bpr-grid{display:grid;gap:18px}
 @media (min-width:880px){.bpr-grid{grid-template-columns:1fr;gap:24px}}
 .bpr-price{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'label value' 'delta delta';align-items:end;column-gap:12px}
 .bpr-price__label{grid-area:label;color:var(--bpr-muted);font-weight:600}
 .bpr-price__value{grid-area:value;font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:.2px}
 .bpr-price__delta{grid-area:delta;color:var(--bpr-muted);font-weight:600;margin-top:4px}
+.bpr-price-indicator[data-trend=good] .bpr-price__delta{color:var(--bpr-good)}
+.bpr-price-indicator[data-trend=ok] .bpr-price__delta{color:var(--bpr-ok)}
+.bpr-price-indicator[data-trend=high] .bpr-price__delta{color:var(--bpr-high)}
 .bpr-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
 .bpr-metric{border:1px dashed var(--bpr-border);border-radius:12px;padding:10px 12px}
 .bpr-metric__label{color:var(--bpr-muted);font-size:.82rem}
