@@ -101,7 +101,7 @@
   
   
   
-  data-history='[{"date": "2025-09-09", "min": 5.02}, {"date": "2025-09-10", "min": 4.99}, {"date": "2025-09-11", "min": 5.0}, {"date": "2025-09-12", "min": 5.51}, {"date": "2025-09-13", "min": 5.5}, {"date": "2025-09-14", "min": 5.5}, {"date": "2025-09-15", "min": 5.48}, {"date": "2025-09-16", "min": 5.49}, {"date": "2025-09-17", "min": 5.46}, {"date": "2025-09-18", "min": 5.47}, {"date": "2025-09-19", "min": 5.47}, {"date": "2025-09-20", "min": 5.46}, {"date": "2025-09-21", "min": 5.46}, {"date": "2025-09-22", "min": 5.46}, {"date": "2025-09-23", "min": 5.45}, {"date": "2025-09-24", "min": 5.45}, {"date": "2025-09-25", "min": 5.45}, {"date": "2025-09-26", "min": 5.44}, {"date": "2025-09-27", "min": 5.45}, {"date": "2025-09-28", "min": 5.45}, {"date": "2025-09-29", "min": 5.45}]'
+  data-history='[{"date": "2025-09-10", "min": 4.99}, {"date": "2025-09-11", "min": 5.0}, {"date": "2025-09-12", "min": 5.51}, {"date": "2025-09-13", "min": 5.5}, {"date": "2025-09-14", "min": 5.5}, {"date": "2025-09-15", "min": 5.48}, {"date": "2025-09-16", "min": 5.49}, {"date": "2025-09-17", "min": 5.46}, {"date": "2025-09-18", "min": 5.47}, {"date": "2025-09-19", "min": 5.47}, {"date": "2025-09-20", "min": 5.46}, {"date": "2025-09-21", "min": 5.46}, {"date": "2025-09-22", "min": 5.46}, {"date": "2025-09-23", "min": 5.45}, {"date": "2025-09-24", "min": 5.45}, {"date": "2025-09-25", "min": 5.45}, {"date": "2025-09-26", "min": 5.44}, {"date": "2025-09-27", "min": 5.45}, {"date": "2025-09-28", "min": 5.45}, {"date": "2025-09-29", "min": 5.45}]'
   
   data-availability="OutOfStock">
   <div class="bpr-card">
@@ -166,9 +166,9 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 21 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 20 Tage">ℹ</span></h2>
     
-      <p class="avg-price">Durchschnitt (21 Tage): 5.42&nbsp;€</p>
+      <p class="avg-price">Durchschnitt (20 Tage): 5.44&nbsp;€</p>
     
     <div class="price-chart"><canvas id="priceHistoryChart"></canvas></div>
   </section>
@@ -262,7 +262,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-09-09", "min": 5.02}, {"date": "2025-09-10", "min": 4.99}, {"date": "2025-09-11", "min": 5.0}, {"date": "2025-09-12", "min": 5.51}, {"date": "2025-09-13", "min": 5.5}, {"date": "2025-09-14", "min": 5.5}, {"date": "2025-09-15", "min": 5.48}, {"date": "2025-09-16", "min": 5.49}, {"date": "2025-09-17", "min": 5.46}, {"date": "2025-09-18", "min": 5.47}, {"date": "2025-09-19", "min": 5.47}, {"date": "2025-09-20", "min": 5.46}, {"date": "2025-09-21", "min": 5.46}, {"date": "2025-09-22", "min": 5.46}, {"date": "2025-09-23", "min": 5.45}, {"date": "2025-09-24", "min": 5.45}, {"date": "2025-09-25", "min": 5.45}, {"date": "2025-09-26", "min": 5.44}, {"date": "2025-09-27", "min": 5.45}, {"date": "2025-09-28", "min": 5.45}, {"date": "2025-09-29", "min": 5.45}];
+    const hist = [{"date": "2025-09-10", "min": 4.99}, {"date": "2025-09-11", "min": 5.0}, {"date": "2025-09-12", "min": 5.51}, {"date": "2025-09-13", "min": 5.5}, {"date": "2025-09-14", "min": 5.5}, {"date": "2025-09-15", "min": 5.48}, {"date": "2025-09-16", "min": 5.49}, {"date": "2025-09-17", "min": 5.46}, {"date": "2025-09-18", "min": 5.47}, {"date": "2025-09-19", "min": 5.47}, {"date": "2025-09-20", "min": 5.46}, {"date": "2025-09-21", "min": 5.46}, {"date": "2025-09-22", "min": 5.46}, {"date": "2025-09-23", "min": 5.45}, {"date": "2025-09-24", "min": 5.45}, {"date": "2025-09-25", "min": 5.45}, {"date": "2025-09-26", "min": 5.44}, {"date": "2025-09-27", "min": 5.45}, {"date": "2025-09-28", "min": 5.45}, {"date": "2025-09-29", "min": 5.45}];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
