@@ -250,9 +250,20 @@ a:hover{text-decoration:underline}
   .price-history .price-chart{max-width:600px;margin-left:auto;margin-right:auto}
 }
 
-.faq details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:#f8fafc;box-shadow:var(--shadow)}
-.faq summary{cursor:pointer;padding:12px 14px;font-weight:700;min-height:44px;display:flex;align-items:center}
-.faq .answer{padding:0 14px 12px}
+.faq{display:grid;gap:10px}
+.faq details{border:1px solid var(--border);border-radius:12px;margin:0;background:var(--panel);box-shadow:var(--shadow);color:var(--text);transition:background .25s ease,border-color .25s ease,box-shadow .25s ease;overflow:hidden}
+.faq details[open]{background:var(--card)}
+.faq summary{cursor:pointer;padding:14px 16px;font-weight:700;min-height:48px;display:flex;align-items:center;gap:12px;list-style:none;transition:color .2s ease,background .2s ease}
+.faq summary:hover{color:var(--color-primary)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";margin-left:auto;width:12px;height:12px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq details>*:not(summary){padding:0 16px 16px;color:var(--text)}
+.faq details>:not(summary):last-child{margin-bottom:0}
+@media (prefers-color-scheme:dark){
+  .faq details{box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .faq summary::after{border-color:var(--muted)}
+}
 
 .site-footer{border-top:1px solid var(--border);margin-top:18px;background:var(--panel)}
 .footer-nav{margin-bottom:8px}
