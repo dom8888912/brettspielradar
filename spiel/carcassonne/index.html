@@ -101,7 +101,7 @@
   
   
   
-  data-history='[{"date": "2025-09-12", "min": 5.43}]'
+  data-history='[]'
   
   data-availability="OutOfStock">
   <div class="bpr-card">
@@ -166,7 +166,7 @@
   </section>
 
   <section class="price-history">
-    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 1 Tage">ℹ</span></h2>
+    <h2 class="h2">Preisverlauf (30 Tage)<span class="info-icon" title="Tägliche Bestpreise der letzten 0 Tage">ℹ</span></h2>
     
       <p class="muted">Noch keine Preisdaten.</p>
     
@@ -262,7 +262,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   window.addEventListener('DOMContentLoaded', function(){
-    const hist = [{"date": "2025-09-12", "min": 5.43}];
+    const hist = [];
     if(hist.length){
       const ctx = document.getElementById('priceHistoryChart');
       const labels = hist.map(r=>r.date);
